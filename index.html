@@ -11,20 +11,20 @@
 <!-- INTRO -->
 <section id="intro" class="intro">
 
-  <video id="introVideo" class="intro-video" playsinline preload="auto">
-    <source src="intro.mp4" type="video/mp4">
-  </video>
+  <!-- صفحه مشکی اول -->
+  <div id="startScreen">
+    <button id="letsGo">LET'S GO</button>
+  </div>
 
-  <div class="intro-shade"></div>
+  <!-- ویدیو اینترو -->
+  <div id="introVideoBox" style="display:none;">
+    <video id="introVideo" class="intro-video" playsinline preload="auto">
+      <source src="intro.mp4" type="video/mp4">
+    </video>
 
-  <!-- Skip فقط هنگام پخش ویدیو نمایش داده می‌شود -->
-  <button id="letsGo" class="lets-go">
-    LET'S GO
-  
-  <button id="skipBtn" class="skip-btn">
-    SKIP
-  </button
->
+    <button id="skipBtn">SKIP</button>
+  </div>
+
 </section>
 
   <!-- MAIN APP -->
