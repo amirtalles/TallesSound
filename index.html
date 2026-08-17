@@ -7,123 +7,442 @@
   <title>TallesSound</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<!-- INTRO -->
+
+<!-- =========================
+     INTRO
+========================= -->
+
 <section id="intro" class="intro">
 
-  <!-- صفحه مشکی اول -->
+  <!-- صفحه اول LET'S GO -->
   <div id="startScreen">
-    <button id="letsGo">LET'S GO</button>
+    <button id="letsGo" class="lets-go">
+      LET'S GO
+    </button>
   </div>
 
-  <!-- ویدیو اینترو -->
-  <div id="introVideoBox" style="display:none;">
-    <video id="introVideo" class="intro-video" playsinline preload="auto">
+  <!-- ویدیوی Intro -->
+  <div id="introVideoBox">
+
+    <video
+      id="introVideo"
+      class="intro-video"
+      playsinline
+      preload="auto"
+    >
       <source src="intro.mp4" type="video/mp4">
     </video>
 
-    <button id="skipBtn">SKIP</button>
   </div>
 
 </section>
 
-  <!-- MAIN APP -->
-  <div id="app" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand"><span>TALLES</span><b>SOUND</b></div>
-      <nav>
 
-  <a class="active" href="index.html">
-    ⌂ <span>Home</span>
-  </a>
+<!-- =========================
+     MAIN APP
+========================= -->
 
-  <a href="profile.html">
-    👤 <span>Profile</span>
-  </a>
+<div id="app" class="app hidden">
 
-  <a>
-    ⌕ <span>Browse</span>
-  </a>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-  <a>
-    ▱ <span>Collections</span>
-  </a>
+    <div class="brand">
+      <span>TALLES</span><b>SOUND</b>
+    </div>
 
-  <a>
-    ♙ <span>Artists</span>
-  </a>
+    <nav>
 
-  <a>
-    ▣ <span>My Library</span>
-  </a>
+      <a class="active" href="index.html">
+        ⌂ <span>Home</span>
+      </a>
 
-  <a>
-    ♡ <span>Favorites</span>
-  </a>
+      <a href="profile.html">
+        👤 <span>Profile</span>
+      </a>
 
-  <a>
-    ⇩ <span>Downloads</span>
-  </a>
+      <a>
+        ⌕ <span>Browse</span>
+      </a>
 
-      </nav>
+      <a>
+        ▱ <span>Collections</span>
+      </a>
 
-    <main class="content">
-      <header class="topbar">
-        <button id="menuBtn" class="menu-btn">☰</button>
-        <div class="mobile-brand"><span>TALLES</span><b>SOUND</b></div>
-        <div class="top-search">⌕ <input placeholder="Search samples, loops, one shots..."></div>
-        <div class="top-icons">♧　🛒　◉</div>
-      </header>
+      <a>
+        ♙ <span>Artists</span>
+      </a>
 
-      <section class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow">SOUND IS YOUR ART</div>
-          <h1>TALLES<br><span>SOUND</span></h1>
-          <p>Premium samples for creators.<br>Royalty free. Instant download.</p>
-          <div class="search-large">Search for drums, melodies, vocals... <button>⌕</button></div>
+      <a>
+        ▣ <span>My Library</span>
+      </a>
+
+      <a>
+        ♡ <span>Favorites</span>
+      </a>
+
+      <a>
+        ⇩ <span>Downloads</span>
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <button id="menuBtn" class="menu-btn">
+        ☰
+      </button>
+
+      <div class="mobile-brand">
+        <span>TALLES</span><b>SOUND</b>
+      </div>
+
+      <div class="top-search">
+        ⌕
+        <input
+          placeholder="Search samples, loops, one shots..."
+        >
+      </div>
+
+      <div class="top-icons">
+        ♧　🛒　◉
+      </div>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-copy">
+
+        <div class="eyebrow">
+          SOUND IS YOUR ART
         </div>
-        <div class="record-wrap">
-          <img id="record" src="disk.jpg" alt="TallesSound record">
+
+        <h1>
+          TALLES<br>
+          <span>SOUND</span>
+        </h1>
+
+        <p>
+          Premium samples for creators.<br>
+          Royalty free. Instant download.
+        </p>
+
+        <div class="search-large">
+          Search for drums, melodies, vocals...
+          <button>⌕</button>
         </div>
-      </section>
 
-      <section>
-        <div class="section-title"><h2>BROWSE CATEGORIES</h2></div>
-        <div class="categories">
-          <article><span>🥁</span><strong>Drums</strong><small>2,340 sounds</small></article>
-          <article><span>🎹</span><strong>Melodies</strong><small>1,892 sounds</small></article>
-          <article><span>🎙</span><strong>Vocals</strong><small>1,103 sounds</small></article>
-          <article><span>〽</span><strong>FX</strong><small>987 sounds</small></article>
-          <article><span>◉</span><strong>One Shots</strong><small>2,155 sounds</small></article>
-          <article><span>◌</span><strong>Presets</strong><small>652 sounds</small></article>
-        </div>
-      </section>
+      </div>
 
-      <section>
-        <div class="section-title"><h2>RECENT RELEASES</h2><a>View all</a></div>
-        <div class="cards">
-          <article class="card"><div class="art art1">DARK TRAP<small>DRUM KIT</small></div><strong>Dark Trap Drum Kit</strong><small>Drums</small><button class="play" data-name="Dark Trap - 808 Loop">▶</button></article>
-          <article class="card"><div class="art art2">EUPHORIA<small>MELODY LOOPS</small></div><strong>Euphoria Melody Loops</strong><small>Melodies</small><button class="play" data-name="Euphoria Melody Loop">▶</button></article>
-          <article class="card"><div class="art art3">VOX CHANTS<small>VOCAL PACK</small></div><strong>Vox Chants Vocal Pack</strong><small>Vocals</small><button class="play" data-name="Vox Chants">▶</button></article>
-          <article class="card"><div class="art art4">IMPACT<small>FX COLLECTION</small></div><strong>Impact FX Collection</strong><small>FX</small><button class="play" data-name="Impact FX">▶</button></article>
-          <article class="card"><div class="art art5">CINEMATIC<small>ATMOSPHERES</small></div><strong>Cinematic Atmospheres</strong><small>FX</small><button class="play" data-name="Cinematic Atmospheres">▶</button></article>
-          <article class="card"><div class="art art6">SERUM<small>DARK PRESETS</small></div><strong>Serum Dark Presets</strong><small>Presets</small><button class="play" data-name="Serum Dark Preset">▶</button></article>
-        </div>
-      </section>
-    </main>
 
-    <footer class="player">
-      <div class="track-art"></div>
-      <div class="track-info"><strong id="trackName">Dark Trap - 808 Loop</strong><small>TallesSound • AmirTalles</small></div>
-      <button id="prev">|◀</button>
-      <button id="mainPlay" class="main-play">▶</button>
-      <button id="next">▶|</button>
-      <div class="wave"></div>
-      <span id="time">00:00</span>
-      <div class="volume">🔊 ━━━━━</div>
-    </footer>
-  </div>
+      <!-- RECORD -->
+      <div class="record-wrap">
 
-  <script src="script.js"></script>
+        <img
+          id="record"
+          src="disk.jpg"
+          alt="TallesSound record"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CATEGORIES
+    ========================= -->
+
+    <section>
+
+      <div class="section-title">
+        <h2>BROWSE CATEGORIES</h2>
+      </div>
+
+      <div class="categories">
+
+        <article>
+          <span>🥁</span>
+          <strong>Drums</strong>
+          <small>2,340 sounds</small>
+        </article>
+
+        <article>
+          <span>🎹</span>
+          <strong>Melodies</strong>
+          <small>1,892 sounds</small>
+        </article>
+
+        <article>
+          <span>🎙</span>
+          <strong>Vocals</strong>
+          <small>1,103 sounds</small>
+        </article>
+
+        <article>
+          <span>〽</span>
+          <strong>FX</strong>
+          <small>987 sounds</small>
+        </article>
+
+        <article>
+          <span>◉</span>
+          <strong>One Shots</strong>
+          <small>2,155 sounds</small>
+        </article>
+
+        <article>
+          <span>◌</span>
+          <strong>Presets</strong>
+          <small>652 sounds</small>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RECENT RELEASES
+    ========================= -->
+
+    <section>
+
+      <div class="section-title">
+
+        <h2>
+          RECENT RELEASES
+        </h2>
+
+        <a>
+          View all
+        </a>
+
+      </div>
+
+
+      <div class="cards">
+
+        <article class="card">
+
+          <div class="art art1">
+            DARK TRAP
+            <small>DRUM KIT</small>
+          </div>
+
+          <strong>
+            Dark Trap Drum Kit
+          </strong>
+
+          <small>
+            Drums
+          </small>
+
+          <button
+            class="play"
+            data-name="Dark Trap - 808 Loop"
+          >
+            ▶
+          </button>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="art art2">
+            EUPHORIA
+            <small>MELODY LOOPS</small>
+          </div>
+
+          <strong>
+            Euphoria Melody Loops
+          </strong>
+
+          <small>
+            Melodies
+          </small>
+
+          <button
+            class="play"
+            data-name="Euphoria Melody Loop"
+          >
+            ▶
+          </button>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="art art3">
+            VOX CHANTS
+            <small>VOCAL PACK</small>
+          </div>
+
+          <strong>
+            Vox Chants Vocal Pack
+          </strong>
+
+          <small>
+            Vocals
+          </small>
+
+          <button
+            class="play"
+            data-name="Vox Chants"
+          >
+            ▶
+          </button>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="art art4">
+            IMPACT
+            <small>FX COLLECTION</small>
+          </div>
+
+          <strong>
+            Impact FX Collection
+          </strong>
+
+          <small>
+            FX
+          </small>
+
+          <button
+            class="play"
+            data-name="Impact FX"
+          >
+            ▶
+          </button>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="art art5">
+            CINEMATIC
+            <small>ATMOSPHERES</small>
+          </div>
+
+          <strong>
+            Cinematic Atmospheres
+          </strong>
+
+          <small>
+            FX
+          </small>
+
+          <button
+            class="play"
+            data-name="Cinematic Atmospheres"
+          >
+            ▶
+          </button>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="art art6">
+            SERUM
+            <small>DARK PRESETS</small>
+          </div>
+
+          <strong>
+            Serum Dark Presets
+          </strong>
+
+          <small>
+            Presets
+          </small>
+
+          <button
+            class="play"
+            data-name="Serum Dark Preset"
+          >
+            ▶
+          </button>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       PLAYER
+  ========================= -->
+
+  <footer class="player">
+
+    <div class="track-art"></div>
+
+    <div class="track-info">
+
+      <strong id="trackName">
+        Dark Trap - 808 Loop
+      </strong>
+
+      <small>
+        TallesSound • AmirTalles
+      </small>
+
+    </div>
+
+    <button id="prev">
+      |◀
+    </button>
+
+    <button
+      id="mainPlay"
+      class="main-play"
+    >
+      ▶
+    </button>
+
+    <button id="next">
+      ▶|
+    </button>
+
+    <div class="wave"></div>
+
+    <span id="time">
+      00:00
+    </span>
+
+    <div class="volume">
+      🔊 ━━━━━
+    </div>
+
+  </footer>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
 </body>
 </html>
