@@ -8,37 +8,65 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- INTRO -->
-  <section id="intro" class="intro">
-    <video id="introVideo" class="intro-video" playsinline preload="auto">
-      <source src="intro.mp4" type="video/mp4">
-    </video>
-    <div class="intro-shade"></div>
-    <button id="letsGo" class="lets-go">LET'S GO</button>
-  </section>
+<!-- INTRO -->
+<section id="intro" class="intro">
+
+  <video id="introVideo" class="intro-video" playsinline preload="auto">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
+
+  <div class="intro-shade"></div>
+
+  <!-- Skip فقط هنگام پخش ویدیو نمایش داده می‌شود -->
+  <button id="skipBtn" class="skip-btn">
+    SKIP
+  </button>
+
+  <button id="letsGo" class="lets-go">
+    LET'S GO
+  </button>
+
+</section>
 
   <!-- MAIN APP -->
   <div id="app" class="app hidden">
     <aside class="sidebar">
       <div class="brand"><span>TALLES</span><b>SOUND</b></div>
       <nav>
-        <a href="profile.html">
-  👤 <span>Profile</span>
-</a>
-        <a class="active">⌂ <span>Home</span></a>
-        <a>⌕ <span>Browse</span></a>
-        <a>▱ <span>Collections</span></a>
-        <a>♙ <span>Artists</span></a>
-        <a>▣ <span>My Library</span></a>
-        <a>♡ <span>Favorites</span></a>
-        <a>⇩ <span>Downloads</span></a>
+
+  <a class="active" href="index.html">
+    ⌂ <span>Home</span>
+  </a>
+
+  <a href="profile.html">
+    👤 <span>Profile</span>
+  </a>
+
+  <a>
+    ⌕ <span>Browse</span>
+  </a>
+
+  <a>
+    ▱ <span>Collections</span>
+  </a>
+
+  <a>
+    ♙ <span>Artists</span>
+  </a>
+
+  <a>
+    ▣ <span>My Library</span>
+  </a>
+
+  <a>
+    ♡ <span>Favorites</span>
+  </a>
+
+  <a>
+    ⇩ <span>Downloads</span>
+  </a>
+
       </nav>
-      <button class="upload">＋ Upload</button>
-      <div class="profile">
-        <div class="avatar">AT</div>
-        <div><strong>AmirTalles</strong><small>View Profile</small></div>
-      </div>
-    </aside>
 
     <main class="content">
       <header class="topbar">
