@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+  <title>TallesSound</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- INTRO -->
+  <section id="intro" class="intro">
+    <video id="introVideo" class="intro-video" playsinline preload="auto">
+      <source src="intro.mp4" type="video/mp4">
+    </video>
+    <div class="intro-shade"></div>
+    <button id="letsGo" class="lets-go">LET'S GO</button>
+  </section>
+
+  <!-- MAIN APP -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><span>TALLES</span><b>SOUND</b></div>
+      <nav>
+        <a class="active">⌂ <span>Home</span></a>
+        <a>⌕ <span>Browse</span></a>
+        <a>▱ <span>Collections</span></a>
+        <a>♙ <span>Artists</span></a>
+        <a>▣ <span>My Library</span></a>
+        <a>♡ <span>Favorites</span></a>
+        <a>⇩ <span>Downloads</span></a>
+      </nav>
+      <button class="upload">＋ Upload</button>
+      <div class="profile">
+        <div class="avatar">AT</div>
+        <div><strong>AmirTalles</strong><small>View Profile</small></div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div class="mobile-brand"><span>TALLES</span><b>SOUND</b></div>
+        <div class="top-search">⌕ <input placeholder="Search samples, loops, one shots..."></div>
+        <div class="top-icons">♧　🛒　◉</div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">SOUND IS YOUR ART</div>
+          <h1>TALLES<br><span>SOUND</span></h1>
+          <p>Premium samples for creators.<br>Royalty free. Instant download.</p>
+          <div class="search-large">Search for drums, melodies, vocals... <button>⌕</button></div>
+        </div>
+        <div class="record-wrap">
+          <img id="record" src="disk.jpg" alt="TallesSound record">
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title"><h2>BROWSE CATEGORIES</h2></div>
+        <div class="categories">
+          <article><span>🥁</span><strong>Drums</strong><small>2,340 sounds</small></article>
+          <article><span>🎹</span><strong>Melodies</strong><small>1,892 sounds</small></article>
+          <article><span>🎙</span><strong>Vocals</strong><small>1,103 sounds</small></article>
+          <article><span>〽</span><strong>FX</strong><small>987 sounds</small></article>
+          <article><span>◉</span><strong>One Shots</strong><small>2,155 sounds</small></article>
+          <article><span>◌</span><strong>Presets</strong><small>652 sounds</small></article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title"><h2>RECENT RELEASES</h2><a>View all</a></div>
+        <div class="cards">
+          <article class="card"><div class="art art1">DARK TRAP<small>DRUM KIT</small></div><strong>Dark Trap Drum Kit</strong><small>Drums</small><button class="play" data-name="Dark Trap - 808 Loop">▶</button></article>
+          <article class="card"><div class="art art2">EUPHORIA<small>MELODY LOOPS</small></div><strong>Euphoria Melody Loops</strong><small>Melodies</small><button class="play" data-name="Euphoria Melody Loop">▶</button></article>
+          <article class="card"><div class="art art3">VOX CHANTS<small>VOCAL PACK</small></div><strong>Vox Chants Vocal Pack</strong><small>Vocals</small><button class="play" data-name="Vox Chants">▶</button></article>
+          <article class="card"><div class="art art4">IMPACT<small>FX COLLECTION</small></div><strong>Impact FX Collection</strong><small>FX</small><button class="play" data-name="Impact FX">▶</button></article>
+          <article class="card"><div class="art art5">CINEMATIC<small>ATMOSPHERES</small></div><strong>Cinematic Atmospheres</strong><small>FX</small><button class="play" data-name="Cinematic Atmospheres">▶</button></article>
+          <article class="card"><div class="art art6">SERUM<small>DARK PRESETS</small></div><strong>Serum Dark Presets</strong><small>Presets</small><button class="play" data-name="Serum Dark Preset">▶</button></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="player">
+      <div class="track-art"></div>
+      <div class="track-info"><strong id="trackName">Dark Trap - 808 Loop</strong><small>TallesSound • AmirTalles</small></div>
+      <button id="prev">|◀</button>
+      <button id="mainPlay" class="main-play">▶</button>
+      <button id="next">▶|</button>
+      <div class="wave"></div>
+      <span id="time">00:00</span>
+      <div class="volume">🔊 ━━━━━</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
