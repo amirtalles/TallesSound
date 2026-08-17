@@ -1,12 +1,3 @@
-/* =========================================
-   TALLESSOUND - MAIN SCRIPT
-========================================= */
-
-
-/* =========================================
-   INTRO
-========================================= */
-
 const intro = document.getElementById("intro");
 const startScreen = document.getElementById("startScreen");
 const videoBox = document.getElementById("introVideoBox");
@@ -18,7 +9,9 @@ let introStarted = false;
 let introFinished = false;
 
 
-/* ورود به سایت */
+/* =========================
+   ورود به سایت
+========================= */
 
 function enterApp() {
 
@@ -34,46 +27,30 @@ function enterApp() {
   setTimeout(() => {
 
     intro.remove();
-
     app.classList.remove("hidden");
 
   }, 500);
-
 }
 
 
-/* =========================================
+/* =========================
    LET'S GO
-========================================= */
+========================= */
 
-letsGo.addEventListener("click", async (event) => {
+letsGo.addEventListener("click", async (e) => {
 
-  event.stopPropagation();
+  e.stopPropagation();
 
   if (introStarted) return;
 
   introStarted = true;
 
-  /* نمایش ویدیو */
-
   intro.classList.add("playing");
 
+  startScreen.style.display = "none";
   videoBox.style.display = "block";
 
-  startScreen.style.opacity = "0";
-  startScreen.style.pointerEvents = "none";
-
-
-  /* از اول */
-
-  try {
-
-    video.currentTime = 0;
-
-  } catch (e) {}
-
-  
-  /* پخش ویدیو + صدا */
+  video.currentTime = 0;
 
   try {
 
@@ -81,49 +58,29 @@ letsGo.addEventListener("click", async (event) => {
 
   } catch (error) {
 
-    console.log("Video playback error:", error);
+    console.log("Video error:", error);
 
   }
 
 });
 
 
-/* =========================================
-   لمس هر جای Intro
-   بعد از شروع ویدیو = Skip
-========================================= */
+/* =========================
+   لمس ویدیو = SKIP
+========================= */
 
-intro.addEventListener("click", (event) => {
+video.addEventListener("click", () => {
 
   if (!introStarted) return;
-
-  if (event.target === letsGo) return;
 
   enterApp();
 
 });
 
 
-/* =========================================
-   لمس موبایل
-========================================= */
-
-intro.addEventListener(
-  "touchend",
-  (event) => {
-
-    if (!introStarted) return;
-
-    enterApp();
-
-  },
-  { passive:true }
-);
-
-
-/* =========================================
+/* =========================
    پایان ویدیو
-========================================= */
+========================= */
 
 video.addEventListener("ended", () => {
 
@@ -132,50 +89,42 @@ video.addEventListener("ended", () => {
 });
 
 
-/* =========================================
+/* =========================
    خطای ویدیو
-========================================= */
+========================= */
 
 video.addEventListener("error", () => {
 
-  console.log("Intro video could not be loaded.");
-
-  setTimeout(() => {
-
-    enterApp();
-
-  }, 1000);
+  console.log("intro.mp4 پیدا نشد یا قابل پخش نیست.");
 
 });
 
 
-/* =========================================
-   MOBILE SIDEBAR
-========================================= */
+/* =========================
+   منوی همبرگری
+========================= */
 
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.querySelector(".sidebar");
 
 if (menuBtn && sidebar) {
 
-  menuBtn.addEventListener("click", (event) => {
+  menuBtn.addEventListener("click", (e) => {
 
-    event.stopPropagation();
+    e.stopPropagation();
 
     sidebar.classList.toggle("open");
 
   });
 
 
-  /* کلیک بیرون منو */
-
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", (e) => {
 
     if (!sidebar.classList.contains("open")) return;
 
     if (
-      !sidebar.contains(event.target) &&
-      !menuBtn.contains(event.target)
+      !sidebar.contains(e.target) &&
+      !menuBtn.contains(e.target)
     ) {
 
       sidebar.classList.remove("open");
@@ -184,55 +133,18 @@ if (menuBtn && sidebar) {
 
   });
 
-
-  /* لمس بیرون منو */
-
-  document.addEventListener(
-    "touchstart",
-    (event) => {
-
-      if (!sidebar.classList.contains("open")) return;
-
-      if (
-        !sidebar.contains(event.target) &&
-        !menuBtn.contains(event.target)
-      ) {
-
-        sidebar.classList.remove("open");
-
-      }
-
-    },
-    { passive:true }
-  );
-
 }
 
 
-/* =========================================
-   BACK BUTTON
-========================================= */
-
-window.addEventListener("popstate", () => {
-
-  if (sidebar && sidebar.classList.contains("open")) {
-
-    sidebar.classList.remove("open");
-
-  }
-
-});
-
-
-/* =========================================
-   DEMO PLAYER
-========================================= */
+/* =========================
+   پلیر
+========================= */
 
 const record = document.getElementById("record");
 const mainPlay = document.getElementById("mainPlay");
 const trackName = document.getElementById("trackName");
 
-let playing = false;
+let playing = true;
 
 
 function setPlaying(state) {
@@ -250,16 +162,12 @@ function setPlaying(state) {
   if (record) {
 
     record.style.animationPlayState =
-      playing
-        ? "running"
-        : "paused";
+      playing ? "running" : "paused";
 
   }
 
 }
 
-
-/* شروع چرخش */
 
 setPlaying(true);
 
@@ -277,20 +185,18 @@ if (mainPlay) {
 }
 
 
-/* =========================================
-   PACK PLAY BUTTONS
-========================================= */
+/* =========================
+   PACK ها
+========================= */
 
 document.querySelectorAll(".play").forEach((button) => {
 
-  button.addEventListener("click", (event) => {
-
-    event.stopPropagation();
+  button.addEventListener("click", () => {
 
     if (trackName) {
 
       trackName.textContent =
-        button.dataset.name || "Unknown Track";
+        button.dataset.name;
 
     }
 
@@ -299,25 +205,3 @@ document.querySelectorAll(".play").forEach((button) => {
   });
 
 });
-
-
-/* =========================================
-   PROFILE
-========================================= */
-
-const profileLink =
-  document.querySelector('a[href="profile.html"]');
-
-if (profileLink) {
-
-  profileLink.addEventListener("click", () => {
-
-    if (sidebar) {
-
-      sidebar.classList.remove("open");
-
-    }
-
-  });
-
-}
