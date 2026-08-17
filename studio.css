@@ -1,0 +1,12 @@
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#050505;color:white;font-family:Arial;display:flex;justify-content:center;align-items:center}
+.studio{width:100%;max-width:600px;padding:25px}
+.logo{font-size:28px;font-weight:900;margin-bottom:25px}
+.logo span{color:#d71920}
+.panel{background:#101010;border:1px solid #222;border-radius:20px;padding:25px}
+h1{font-size:22px}
+label{display:block;color:#aaa;font-size:13px;margin:16px 0 7px}
+input,select,textarea{width:100%;background:#080808;border:1px solid #333;color:#fff;padding:13px;border-radius:10px}
+textarea{height:100px}
+.row{display:flex;gap:15px}.row div{flex:1}
+button{width:100%;margin-top:25px;padding:15px;border:0;border-radius:30px;background:#d71920;color:white;font-weight:bold;letter-spacing:2px}
