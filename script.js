@@ -1,19 +1,30 @@
-/* =========================================================
-   LOST SOUND - COMPLETE SCRIPT
-   Intro preserved
-========================================================= */
+/* =====================================================
+   LOST SOUND
+   MAIN SCRIPT
+===================================================== */
 
 
-/* =========================================================
+/* =====================================================
    INTRO
-========================================================= */
+===================================================== */
 
-const intro = document.getElementById("intro");
-const startScreen = document.getElementById("startScreen");
-const videoBox = document.getElementById("introVideoBox");
-const video = document.getElementById("introVideo");
-const letsGo = document.getElementById("letsGo");
-const app = document.getElementById("app");
+const intro =
+  document.getElementById("intro");
+
+const startScreen =
+  document.getElementById("startScreen");
+
+const videoBox =
+  document.getElementById("introVideoBox");
+
+const video =
+  document.getElementById("introVideo");
+
+const letsGo =
+  document.getElementById("letsGo");
+
+const app =
+  document.getElementById("app");
 
 let introStarted = false;
 let introFinished = false;
@@ -30,11 +41,15 @@ function enterApp(){
   }
 
   if(intro){
-    intro.style.transition = "opacity .5s ease";
+
+    intro.style.transition =
+      "opacity .5s ease";
+
     intro.style.opacity = "0";
+
   }
 
-  setTimeout(() => {
+  setTimeout(()=>{
 
     if(intro){
       intro.remove();
@@ -51,203 +66,566 @@ function enterApp(){
 
 if(letsGo){
 
-  letsGo.addEventListener("click",async(e)=>{
+  letsGo.addEventListener(
+    "click",
+    async(e)=>{
 
-    e.stopPropagation();
+      e.stopPropagation();
 
-    if(introStarted) return;
+      if(introStarted) return;
 
-    introStarted = true;
+      introStarted = true;
 
-    if(intro){
-      intro.classList.add("playing");
-    }
-
-    if(startScreen){
-      startScreen.style.display = "none";
-    }
-
-    if(videoBox){
-      videoBox.style.display = "block";
-    }
-
-    if(video){
-
-      video.currentTime = 0;
-
-      try{
-        await video.play();
+      if(intro){
+        intro.classList.add("playing");
       }
 
-      catch(error){
-        console.log("Video error:",error);
+      if(startScreen){
+        startScreen.style.display = "none";
+      }
+
+      if(videoBox){
+        videoBox.style.display = "block";
+      }
+
+      if(video){
+
+        video.currentTime = 0;
+
+        try{
+
+          await video.play();
+
+        }catch(error){
+
+          console.log(
+            "Video error:",
+            error
+          );
+
+        }
+
       }
 
     }
-
-  });
+  );
 
 }
 
 
 if(video){
 
-  video.addEventListener("click",()=>{
+  video.addEventListener(
+    "click",
+    ()=>{
 
-    if(!introStarted) return;
+      if(!introStarted) return;
 
-    enterApp();
+      enterApp();
 
-  });
+    }
+  );
 
-  video.addEventListener("ended",enterApp);
+
+  video.addEventListener(
+    "ended",
+    enterApp
+  );
 
 }
 
 
-/* =========================================================
-   SIDEBAR
-========================================================= */
+/* =====================================================
+   ACCOUNT TYPE
+===================================================== */
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.querySelector(".sidebar");
+let accountType =
+  localStorage.getItem(
+    "lostSoundAccountType"
+  ) || "listener";
+
+
+/*
+   Listener:
+   default = Artist
+
+   Artist:
+   default = Artist
+
+   Producer:
+   default = Producer
+*/
+
+
+/* =====================================================
+   RANKING DATA
+===================================================== */
+
+const artists = [
+
+  {
+    rank:1,
+    name:"AmirTalles",
+    username:"@amirtalles",
+    plays:"12.5M",
+    avatar:"AT",
+    verified:true
+  }
+
+];
+
+
+const producers = [
+
+  {
+    rank:1,
+    name:"AmirTalles",
+    username:"@amirtalles",
+    plays:"0",
+    avatar:"AT",
+    verified:true
+  }
+
+];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const artistsTab =
+  document.getElementById(
+    "artistsTab"
+  );
+
+const producersTab =
+  document.getElementById(
+    "producersTab"
+  );
+
+const rankingList =
+  document.getElementById(
+    "rankingList"
+  );
+
+const rankingTitle =
+  document.getElementById(
+    "rankingTitle"
+  );
+
+const rankingEyebrow =
+  document.getElementById(
+    "rankingEyebrow"
+  );
+
+const rankingDescription =
+  document.getElementById(
+    "rankingDescription"
+  );
+
+const rankingFilter =
+  document.getElementById(
+    "rankingFilter"
+  );
+
+
+let currentRanking =
+  "artists";
+
+
+/* =====================================================
+   RENDER RANKING
+===================================================== */
+
+function renderRanking(type){
+
+  currentRanking = type;
+
+  const data =
+    type === "artists"
+      ? artists
+      : producers;
+
+
+  if(artistsTab){
+
+    artistsTab.classList.toggle(
+      "active",
+      type === "artists"
+    );
+
+  }
+
+
+  if(producersTab){
+
+    producersTab.classList.toggle(
+      "active",
+      type === "producers"
+    );
+
+  }
+
+
+  if(rankingTitle){
+
+    rankingTitle.textContent =
+      type === "artists"
+        ? "ARTISTS RANKING"
+        : "PRODUCERS RANKING";
+
+  }
+
+
+  if(rankingEyebrow){
+
+    rankingEyebrow.textContent =
+      type === "artists"
+        ? "TOP ARTISTS"
+        : "TOP PRODUCERS";
+
+  }
+
+
+  if(rankingDescription){
+
+    rankingDescription.textContent =
+      type === "artists"
+        ? "Top artists based on total plays"
+        : "Top producers based on total plays";
+
+  }
+
+
+  if(!rankingList) return;
+
+  rankingList.innerHTML = "";
+
+
+  data.forEach(item=>{
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "rank-card";
+
+
+    card.innerHTML = `
+
+      <div class="rank-number">
+        ${item.rank}
+      </div>
+
+      <div class="rank-avatar">
+        ${item.avatar}
+      </div>
+
+      <div class="rank-name">
+
+        <strong>
+
+          ${item.name}
+
+          ${
+            item.verified
+              ? `<span class="verified">✓</span>`
+              : ""
+          }
+
+        </strong>
+
+        <small>
+          ${item.username}
+        </small>
+
+      </div>
+
+      <div class="rank-plays">
+
+        <strong>
+          ${item.plays}
+        </strong>
+
+        <small>
+          PLAYS
+        </small>
+
+      </div>
+
+      <button
+        class="rank-more"
+        type="button"
+      >
+        ⋮
+      </button>
+
+    `;
+
+
+    card
+      .querySelector(".rank-more")
+      .addEventListener(
+        "click",
+        ()=>{
+          openProfile(
+            item.name
+          );
+        }
+      );
+
+
+    rankingList.appendChild(card);
+
+  });
+
+}
+
+
+/* =====================================================
+   INITIAL PAGE
+===================================================== */
+
+if(accountType === "producer"){
+
+  renderRanking("producers");
+
+}else{
+
+  renderRanking("artists");
+
+}
+
+
+/* =====================================================
+   RANKING TABS
+===================================================== */
+
+if(artistsTab){
+
+  artistsTab.addEventListener(
+    "click",
+    ()=>{
+      renderRanking("artists");
+    }
+  );
+
+}
+
+
+if(producersTab){
+
+  producersTab.addEventListener(
+    "click",
+    ()=>{
+      renderRanking("producers");
+    }
+  );
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+const pages = {
+
+  home:
+    document.getElementById(
+      "homePage"
+    ),
+
+  explore:
+    document.getElementById(
+      "explorePage"
+    ),
+
+  library:
+    document.getElementById(
+      "libraryPage"
+    ),
+
+  profile:
+    document.getElementById(
+      "profilePage"
+    )
+
+};
+
+
+function showPage(page){
+
+  Object.keys(pages)
+    .forEach(key=>{
+
+      if(pages[key]){
+
+        pages[key].classList.toggle(
+          "hidden",
+          key !== page
+        );
+
+      }
+
+    });
+
+
+  document
+    .querySelectorAll(
+      ".bottom-item"
+    )
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page === page
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(
+      ".side-link"
+    )
+    .forEach(link=>{
+
+      link.classList.toggle(
+        "active",
+        link.dataset.page === page
+      );
+
+    });
+
+}
+
+
+document
+  .querySelectorAll(
+    "[data-page]"
+  )
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      (e)=>{
+
+        e.preventDefault();
+
+        showPage(
+          button.dataset.page
+        );
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   SIDEBAR MOBILE
+===================================================== */
+
+const menuBtn =
+  document.getElementById(
+    "menuBtn"
+  );
+
+const sidebar =
+  document.querySelector(
+    ".sidebar"
+  );
 
 
 if(menuBtn && sidebar){
 
-  menuBtn.addEventListener("click",(e)=>{
+  menuBtn.addEventListener(
+    "click",
+    (e)=>{
 
-    e.stopPropagation();
+      e.stopPropagation();
 
-    sidebar.classList.toggle("open");
-
-  });
-
-
-  document.addEventListener("click",(e)=>{
-
-    if(!sidebar.classList.contains("open")) return;
-
-    if(
-      !sidebar.contains(e.target) &&
-      !menuBtn.contains(e.target)
-    ){
-
-      sidebar.classList.remove("open");
+      sidebar.classList.toggle(
+        "open"
+      );
 
     }
+  );
 
-  });
+
+  document.addEventListener(
+    "click",
+    (e)=>{
+
+      if(
+        !sidebar.classList.contains(
+          "open"
+        )
+      ) return;
+
+
+      if(
+        !sidebar.contains(e.target) &&
+        !menuBtn.contains(e.target)
+      ){
+
+        sidebar.classList.remove(
+          "open"
+        );
+
+      }
+
+    }
+  );
 
 }
 
 
-/* =========================================================
-   ACCOUNT TYPE
-========================================================= */
-
-const roleButtons =
-  document.querySelectorAll(".role-item");
-
-const accountTypeLabel =
-  document.getElementById("accountTypeLabel");
-
-let accountType =
-  localStorage.getItem("lostSoundAccountType") || "listener";
-
-
-function updateAccountType(){
-
-  roleButtons.forEach(button=>{
-
-    button.classList.toggle(
-      "selected",
-      button.dataset.account === accountType
-    );
-
-  });
-
-
-  if(accountTypeLabel){
-
-    if(accountType === "artist"){
-      accountTypeLabel.textContent = "Artist";
-    }
-
-    else if(accountType === "producer"){
-      accountTypeLabel.textContent = "Producer";
-    }
-
-    else{
-      accountTypeLabel.textContent = "Listener";
-    }
-
-  }
-
-}
-
-
-roleButtons.forEach(button=>{
-
-  button.addEventListener("click",()=>{
-
-    accountType =
-      button.dataset.account;
-
-    localStorage.setItem(
-      "lostSoundAccountType",
-      accountType
-    );
-
-    updateAccountType();
-
-    setMainPage(
-      accountType === "producer"
-        ? "producers"
-        : "artists"
-    );
-
-  });
-
-});
-
-
-updateAccountType();
-
-
-/* =========================================================
-   UPLOAD SYSTEM
-========================================================= */
+/* =====================================================
+   UPLOAD
+===================================================== */
 
 const plusBtn =
-  document.getElementById("plusBtn");
+  document.getElementById(
+    "plusBtn"
+  );
+
+const bottomPlus =
+  document.getElementById(
+    "bottomPlus"
+  );
 
 const uploadOverlay =
-  document.getElementById("uploadOverlay");
+  document.getElementById(
+    "uploadOverlay"
+  );
 
 const uploadClose =
-  document.getElementById("uploadClose");
+  document.getElementById(
+    "uploadClose"
+  );
 
 const artistUploadOptions =
-  document.getElementById("artistUploadOptions");
+  document.getElementById(
+    "artistUploadOptions"
+  );
 
 const producerUploadOptions =
-  document.getElementById("producerUploadOptions");
+  document.getElementById(
+    "producerUploadOptions"
+  );
 
-const uploadButtons =
-  document.querySelectorAll("[data-upload]");
 
+function updateUploadMenu(){
 
-function updateUploadOptions(){
+  if(!artistUploadOptions) return;
 
-  if(artistUploadOptions){
+  artistUploadOptions.classList.toggle(
+    "hidden",
+    accountType !== "artist"
+  );
 
-    artistUploadOptions.classList.toggle(
-      "hidden",
-      accountType !== "artist"
-    );
-
-  }
 
   if(producerUploadOptions){
 
@@ -261,45 +639,57 @@ function updateUploadOptions(){
 }
 
 
-function openUploadMenu(){
+function openUpload(){
 
-  if(!uploadOverlay) return;
+  if(accountType === "listener"){
 
-  updateUploadOptions();
+    alert(
+      "Choose Artist or Producer first."
+    );
 
-  uploadOverlay.classList.remove("hidden");
+    return;
+
+  }
+
+
+  updateUploadMenu();
+
+  uploadOverlay.classList.remove(
+    "hidden"
+  );
 
 }
 
 
-function closeUploadMenu(){
+function closeUpload(){
 
-  if(!uploadOverlay) return;
+  if(uploadOverlay){
 
-  uploadOverlay.classList.add("hidden");
+    uploadOverlay.classList.add(
+      "hidden"
+    );
+
+  }
 
 }
 
 
 if(plusBtn){
 
-  plusBtn.addEventListener("click",(e)=>{
+  plusBtn.addEventListener(
+    "click",
+    openUpload
+  );
 
-    e.stopPropagation();
+}
 
-    if(accountType === "listener"){
 
-      alert(
-        "Please choose Artist or Producer first."
-      );
+if(bottomPlus){
 
-      return;
-
-    }
-
-    openUploadMenu();
-
-  });
+  bottomPlus.addEventListener(
+    "click",
+    openUpload
+  );
 
 }
 
@@ -308,7 +698,7 @@ if(uploadClose){
 
   uploadClose.addEventListener(
     "click",
-    closeUploadMenu
+    closeUpload
   );
 
 }
@@ -316,237 +706,129 @@ if(uploadClose){
 
 if(uploadOverlay){
 
-  uploadOverlay.addEventListener("click",(e)=>{
+  uploadOverlay.addEventListener(
+    "click",
+    (e)=>{
 
-    if(e.target === uploadOverlay){
+      if(
+        e.target ===
+        uploadOverlay
+      ){
 
-      closeUploadMenu();
+        closeUpload();
 
-    }
-
-  });
-
-}
-
-
-uploadButtons.forEach(button=>{
-
-  button.addEventListener("click",()=>{
-
-    const type =
-      button.dataset.upload;
-
-    closeUploadMenu();
-
-    console.log(
-      "Upload selected:",
-      type
-    );
-
-    if(type === "track"){
-
-      openUploadPage("track");
+      }
 
     }
-
-    else if(type === "album"){
-
-      openUploadPage("album");
-
-    }
-
-    else if(type === "pack"){
-
-      openUploadPage("pack");
-
-    }
-
-    else if(type === "beat"){
-
-      openUploadPage("beat");
-
-    }
-
-  });
-
-});
-
-
-function openUploadPage(type){
-
-  const titles = {
-
-    track:"Upload Track",
-
-    album:"Upload Album",
-
-    pack:"Upload Pack",
-
-    beat:"Upload Beat"
-
-  };
-
-  alert(
-    titles[type] +
-    "\n\nUpload system is ready."
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   UPLOAD OPTIONS
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".upload-option"
+  )
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        const type =
+          button.dataset.upload;
+
+
+        if(type === "track"){
+
+          alert(
+            "Upload Track selected."
+          );
+
+        }
+
+        else if(type === "album"){
+
+          alert(
+            "Upload Album selected."
+          );
+
+        }
+
+        else if(type === "pack"){
+
+          alert(
+            "Upload Pack selected."
+          );
+
+        }
+
+        else if(type === "beat"){
+
+          alert(
+            "Upload Beat selected."
+          );
+
+        }
+
+        closeUpload();
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
    SEARCH
-========================================================= */
+===================================================== */
 
 const artistSearch =
-  document.getElementById("artistSearch");
-
-const largeSearch =
-  document.getElementById("largeSearch");
-
-const largeSearchBtn =
-  document.getElementById("largeSearchBtn");
-
-const artistSearchResult =
-  document.getElementById("artistSearchResult");
+  document.getElementById(
+    "artistSearch"
+  );
 
 
-/*
-   فعلاً فقط خودت داخل پلتفرم هستی.
-   بعداً این آرایه از دیتابیس پر می‌شود.
-*/
-
-const artists = [
-
-  {
-    id:1,
-    name:"AmirTalles",
-    username:"@amirtalles",
-    type:"Artist",
-    plays:"12.5M",
-    avatar:"AT",
-    verified:true
-  }
-
-];
-
-
-const producers = [];
-
-
-function searchArtists(value){
-
-  if(!artistSearchResult) return;
+function searchArtist(value){
 
   const query =
-    value.trim().toLowerCase();
+    value
+      .trim()
+      .toLowerCase();
 
 
-  if(!query){
+  if(!query) return;
 
-    artistSearchResult.innerHTML = "";
 
-    artistSearchResult.classList.add(
-      "hidden"
+  const result =
+    artists.find(
+      artist=>
+        artist.username
+          .toLowerCase()
+          .includes(query) ||
+        artist.name
+          .toLowerCase()
+          .includes(query)
     );
 
-    return;
+
+  if(result){
+
+    openProfile(
+      result.name
+    );
+
+  }else{
+
+    alert(
+      "Artist not found."
+    );
 
   }
-
-
-  const artistResults =
-    artists.filter(artist=>
-
-      artist.name
-        .toLowerCase()
-        .includes(query)
-
-      ||
-
-      artist.username
-        .toLowerCase()
-        .includes(query)
-
-    );
-
-
-  const producerResults =
-    producers.filter(producer=>
-
-      producer.name
-        .toLowerCase()
-        .includes(query)
-
-      ||
-
-      producer.username
-        .toLowerCase()
-        .includes(query)
-
-    );
-
-
-  const results = [
-
-    ...artistResults,
-
-    ...producerResults
-
-  ];
-
-
-  artistSearchResult.innerHTML = "";
-
-
-  results.forEach(person=>{
-
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "search-result";
-
-
-    item.innerHTML = `
-
-      <div class="search-result-avatar">
-        ${person.avatar || "LS"}
-      </div>
-
-      <div class="search-result-info">
-
-        <strong>
-          ${person.name}
-        </strong>
-
-        <small>
-          ${person.username}
-          ·
-          ${person.type}
-        </small>
-
-      </div>
-
-    `;
-
-
-    item.addEventListener("click",()=>{
-
-      openProfile(person);
-
-    });
-
-
-    artistSearchResult.appendChild(item);
-
-  });
-
-
-  artistSearchResult.classList.toggle(
-    "hidden",
-    results.length === 0
-  );
 
 }
 
@@ -554,118 +836,13 @@ function searchArtists(value){
 if(artistSearch){
 
   artistSearch.addEventListener(
-    "input",
-    ()=>{
-      searchArtists(
-        artistSearch.value
-      );
-    }
-  );
+    "keydown",
+    (e)=>{
 
-}
+      if(e.key === "Enter"){
 
-
-if(largeSearch){
-
-  largeSearch.addEventListener(
-    "input",
-    ()=>{
-      searchArtists(
-        largeSearch.value
-      );
-    }
-  );
-
-}
-
-
-if(largeSearchBtn){
-
-  largeSearchBtn.addEventListener(
-    "click",
-    ()=>{
-      searchArtists(
-        largeSearch?.value || ""
-      );
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SEARCH BUTTON
-   روی آیکون سرچ = باز شدن input
-========================================================= */
-
-const searchBtn =
-  document.getElementById("searchBtn");
-
-const topSearch =
-  document.getElementById("topSearch");
-
-
-if(searchBtn && artistSearch){
-
-  searchBtn.addEventListener("click",(e)=>{
-
-    e.stopPropagation();
-
-    artistSearch.classList.toggle(
-      "search-open"
-    );
-
-    if(
-      artistSearch.classList.contains(
-        "search-open"
-      )
-    ){
-
-      artistSearch.focus();
-
-    }
-
-  });
-
-}
-
-
-/* =========================================================
-   MAIN PAGE SYSTEM
-========================================================= */
-
-const content =
-  document.querySelector(".content");
-
-const originalHero =
-  document.querySelector(".hero");
-
-const originalCategories =
-  document.querySelectorAll(
-    ".content > section"
-  );
-
-
-let currentPage = "artists";
-
-
-function hideOriginalSections(){
-
-  originalHero?.classList.add(
-    "lost-hidden"
-  );
-
-  originalCategories.forEach(
-    section=>{
-
-      if(
-        !section.classList.contains(
-          "lost-generated"
-        )
-      ){
-
-        section.classList.add(
-          "lost-hidden"
+        searchArtist(
+          artistSearch.value
         );
 
       }
@@ -676,581 +853,319 @@ function hideOriginalSections(){
 }
 
 
-function setMainPage(page){
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
 
-  currentPage = page;
+const searchBtn =
+  document.getElementById(
+    "searchBtn"
+  );
 
-  hideOriginalSections();
 
-  renderPage(page);
+if(searchBtn){
 
-  updateBottomNavigation();
+  searchBtn.addEventListener(
+    "click",
+    ()=>{
+
+      if(artistSearch){
+
+        artistSearch.focus();
+
+      }
+
+    }
+  );
 
 }
 
 
-function renderPage(page){
+/* =====================================================
+   PROFILE
+===================================================== */
 
-  let ranking =
-    document.getElementById(
-      "lostRankingPage"
+const profileTopBtn =
+  document.getElementById(
+    "profileTopBtn"
+  );
+
+
+function openProfile(){
+
+  showPage("profile");
+
+}
+
+
+if(profileTopBtn){
+
+  profileTopBtn.addEventListener(
+    "click",
+    openProfile
+  );
+
+}
+
+
+/* =====================================================
+   LIBRARY
+===================================================== */
+
+const likedList =
+  document.getElementById(
+    "likedList"
+  );
+
+
+document
+  .querySelectorAll(
+    ".library-card"
+  )
+  .forEach(card=>{
+
+    card.addEventListener(
+      "click",
+      ()=>{
+
+        const category =
+          card.dataset.category;
+
+
+        if(likedList){
+
+          likedList.textContent =
+            `${category} — Nothing saved yet.`;
+
+        }
+
+      }
     );
 
+  });
 
-  if(!ranking){
 
-    ranking =
-      document.createElement("section");
+/* =====================================================
+   EXPLORE SEARCH
+===================================================== */
 
-    ranking.id =
-      "lostRankingPage";
+const exploreSearch =
+  document.getElementById(
+    "exploreSearch"
+  );
 
-    ranking.className =
-      "lost-generated lost-ranking-page";
+const exploreSearchBtn =
+  document.getElementById(
+    "exploreSearchBtn"
+  );
 
-    content.appendChild(ranking);
+
+function runExploreSearch(){
+
+  const value =
+    exploreSearch
+      ? exploreSearch.value.trim()
+      : "";
+
+
+  if(!value) return;
+
+
+  searchArtist(value);
+
+}
+
+
+if(exploreSearchBtn){
+
+  exploreSearchBtn.addEventListener(
+    "click",
+    runExploreSearch
+  );
+
+}
+
+
+if(exploreSearch){
+
+  exploreSearch.addEventListener(
+    "keydown",
+    (e)=>{
+
+      if(e.key === "Enter"){
+
+        runExploreSearch();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+const player =
+  document.getElementById(
+    "player"
+  );
+
+const trackName =
+  document.getElementById(
+    "trackName"
+  );
+
+const mainPlay =
+  document.getElementById(
+    "mainPlay"
+  );
+
+const playerClose =
+  document.getElementById(
+    "playerClose"
+  );
+
+
+let playerPlaying = false;
+
+
+function openPlayer(name){
+
+  if(trackName){
+
+    trackName.textContent =
+      name;
 
   }
 
 
-  ranking.innerHTML = "";
+  if(player){
 
-
-  if(page === "artists"){
-
-    ranking.innerHTML =
-      createRankingPage(
-        "ARTISTS",
-        "ARTISTS RANKING",
-        "Top artists based on total plays",
-        artists
-      );
+    player.classList.remove(
+      "hidden"
+    );
 
   }
 
-  else if(page === "producers"){
 
-    ranking.innerHTML =
-      createRankingPage(
-        "PRODUCERS",
-        "PRODUCERS RANKING",
-        "Top producers based on total plays",
-        producers
-      );
+  playerPlaying = true;
 
-  }
+  if(mainPlay){
 
-  else if(page === "library"){
-
-    ranking.innerHTML =
-      createLibraryPage();
-
-  }
-
-  else if(page === "explore"){
-
-    ranking.innerHTML =
-      createExplorePage();
-
-  }
-
-  else if(page === "profile"){
-
-    ranking.innerHTML =
-      createProfilePage();
+    mainPlay.textContent =
+      "Ⅱ";
 
   }
 
 }
 
 
-/* =========================================================
-   RANKING PAGE
-========================================================= */
+function closePlayer(){
 
-function createRankingPage(
-  tabTitle,
-  heading,
-  description,
-  people
-){
+  if(player){
 
-  let rows = "";
+    player.classList.add(
+      "hidden"
+    );
+
+  }
+
+  playerPlaying = false;
+
+}
 
 
-  if(people.length === 0){
+if(mainPlay){
 
-    rows = `
+  mainPlay.addEventListener(
+    "click",
+    ()=>{
 
-      <div class="lost-empty">
+      playerPlaying =
+        !playerPlaying;
 
-        <strong>
-          No ${tabTitle.toLowerCase()} yet
-        </strong>
 
-        <small>
-          New ${tabTitle.toLowerCase()}
-          will appear here.
-        </small>
+      mainPlay.textContent =
+        playerPlaying
+          ? "Ⅱ"
+          : "▶";
 
-      </div>
+    }
+  );
 
-    `;
+}
+
+
+if(playerClose){
+
+  playerClose.addEventListener(
+    "click",
+    closePlayer
+  );
+
+}
+
+
+/* =====================================================
+   DEMO TRACK PLAY
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".play"
+  )
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        openPlayer(
+          button.dataset.name ||
+          "Lost Sound Track"
+        );
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   PROFILE ROLE
+===================================================== */
+
+const profileRole =
+  document.getElementById(
+    "profileRole"
+  );
+
+if(profileRole){
+
+  if(accountType === "producer"){
+
+    profileRole.textContent =
+      "Producer";
 
   }
 
   else{
 
-    people.forEach((person,index)=>{
-
-      const rank =
-        index + 1;
-
-
-      rows += `
-
-        <article
-          class="ranking-card"
-          data-person-id="${person.id}"
-        >
-
-          <div class="ranking-number">
-            ${rank}
-          </div>
-
-
-          <div class="ranking-avatar">
-            ${person.avatar || "LS"}
-          </div>
-
-
-          <div class="ranking-user">
-
-            <strong>
-
-              ${person.name}
-
-              ${
-                person.verified
-                ? `<span class="verified">✓</span>`
-                : ""
-              }
-
-            </strong>
-
-            <small>
-              ${person.username}
-            </small>
-
-          </div>
-
-
-          <div class="ranking-plays">
-
-            <strong>
-              ${person.plays || "0"}
-            </strong>
-
-            <small>
-              PLAYS
-            </small>
-
-          </div>
-
-
-          <button
-            class="ranking-more"
-            type="button"
-          >
-            ⋮
-          </button>
-
-        </article>
-
-      `;
-
-    });
+    profileRole.textContent =
+      "Artist";
 
   }
 
-
-  return `
-
-    <div class="ranking-tabs">
-
-      <button
-        class="ranking-tab ${
-          tabTitle === "ARTISTS"
-          ? "active"
-          : ""
-        }"
-        data-page="artists"
-      >
-        ARTISTS
-      </button>
-
-
-      <button
-        class="ranking-tab ${
-          tabTitle === "PRODUCERS"
-          ? "active"
-          : ""
-        }"
-        data-page="producers"
-      >
-        PRODUCERS
-      </button>
-
-    </div>
-
-
-    <div class="ranking-header">
-
-      <div>
-
-        <h1>
-          ${heading}
-        </h1>
-
-        <p>
-          ${description}
-        </p>
-
-      </div>
-
-
-      <select class="ranking-filter">
-
-        <option>
-          ALL TIME
-        </option>
-
-        <option>
-          THIS MONTH
-        </option>
-
-        <option>
-          THIS WEEK
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="ranking-list">
-
-      ${rows}
-
-    </div>
-
-  `;
-
 }
 
 
-/* =========================================================
-   LIBRARY
-========================================================= */
+/* =====================================================
+   FINAL STATE
+===================================================== */
 
-function createLibraryPage(){
+updateUploadMenu();
 
-  return `
-
-    <div class="library-page">
-
-      <div class="library-title">
-
-        <h1>
-          LIBRARY
-        </h1>
-
-        <p>
-          Your saved music and collections
-        </p>
-
-      </div>
-
-
-      <div class="library-categories">
-
-        <button
-          class="library-category"
-          data-library="tracks"
-        >
-          <strong>
-            TRACKS
-          </strong>
-
-          <small>
-            Saved & liked tracks
-          </small>
-
-        </button>
-
-
-        <button
-          class="library-category"
-          data-library="albums"
-        >
-          <strong>
-            ALBUMS
-          </strong>
-
-          <small>
-            Saved albums
-          </small>
-
-        </button>
-
-
-        <button
-          class="library-category"
-          data-library="packs"
-        >
-          <strong>
-            PACKS
-          </strong>
-
-          <small>
-            Saved producer packs
-          </small>
-
-        </button>
-
-
-        <button
-          class="library-category"
-          data-library="beats"
-        >
-          <strong>
-            BEATS
-          </strong>
-
-          <small>
-            Saved beats
-          </small>
-
-        </button>
-
-
-        <button
-          class="library-category"
-          data-library="favorites"
-        >
-          <strong>
-            LIKES
-          </strong>
-
-          <small>
-            Your favorites
-          </small>
-
-        </button>
-
-      </div>
-
-
-      <div class="library-empty">
-
-        <strong>
-          Your Library is empty
-        </strong>
-
-        <small>
-          Anything you save or like
-          will appear here.
-        </small>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   EXPLORE
-========================================================= */
-
-function createExplorePage(){
-
-  return `
-
-    <div class="explore-page">
-
-      <div class="explore-title">
-
-        <h1>
-          EXPLORE
-        </h1>
-
-        <p>
-          Discover artists, producers and sounds.
-        </p>
-
-      </div>
-
-
-      <div class="explore-grid">
-
-        <button
-          data-page="artists"
-        >
-          ARTISTS
-        </button>
-
-        <button
-          data-page="producers"
-        >
-          PRODUCERS
-        </button>
-
-        <button>
-          TRACKS
-        </button>
-
-        <button>
-          ALBUMS
-        </button>
-
-        <button>
-          PACKS
-        </button>
-
-        <button>
-          BEATS
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-function createProfilePage(){
-
-  const isProducer =
-    accountType === "producer";
-
-
-  return `
-
-    <div class="lost-profile-page">
-
-      <div class="lost-profile-avatar">
-        AT
-      </div>
-
-
-      <h1>
-        AmirTalles
-      </h1>
-
-
-      <p>
-        ${
-          isProducer
-          ? "Producer"
-          : "Artist"
-        }
-      </p>
-
-
-      <div class="profile-stats">
-
-        <div>
-          <strong>
-            1
-          </strong>
-
-          <small>
-            RELEASES
-          </small>
-        </div>
-
-
-        <div>
-          <strong>
-            0
-          </strong>
-
-          <small>
-            FOLLOWERS
-          </small>
-        </div>
-
-
-        <div>
-          <strong>
-            0
-          </strong>
-
-          <small>
-            FOLLOWING
-          </small>
-        </div>
-
-      </div>
-
-
-      <button
-        class="edit-profile-btn"
-        type="button"
-      >
-        EDIT PROFILE
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PROFILE OPEN
-========================================================= */
-
-function openProfile(person){
-
-  setMainPage("profile");
-
-}
-
-
-/* =========================================================
-   GENERATED PAGE CLICKS
-========================================================= */
-
-document.addEventListener("click",(e)=>{
-
-  const tab =
-    e.target.closest(
-      ".ranking-tab"
-    );
-
-
-  if(tab){
-
-    setMainPage(
-      tab.dataset.page
-    );
-
-    return;
-
-  }
-
-
-  const exploreButton =
-    e.target.closest(
-      ".
+showPage("home");
