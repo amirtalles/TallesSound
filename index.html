@@ -1,425 +1,581 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>پیش‌نمایش نهایی Lost Sound</title>
-    <style>
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #050505;
-            color: #f2f2f2;
-            font-family: Arial, Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 10px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>Lost Sound</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* =====================================================
+       کاهش سایز آیکون‌ها و المان‌های رنکینگ
+    ===================================================== */
 
-        /* شبیه‌سازی یک گوشی */
-        .phone-frame {
-            max-width: 390px;
-            width: 100%;
-            background: #0a0a0a;
-            border-radius: 40px;
-            padding: 24px 18px 100px;
-            border: 1px solid #222;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            position: relative;
-        }
+    /* منوی پایین */
+    .bottom-item span {
+      font-size: 20px !important;
+    }
+    .bottom-item small {
+      font-size: 9px !important;
+    }
+    .bottom-plus {
+      font-size: 30px !important;
+      width: 52px !important;
+      height: 52px !important;
+    }
+    .search-box button {
+      font-size: 18px !important;
+    }
+    .plus-btn {
+      font-size: 28px !important;
+    }
+    .rank-more {
+      font-size: 18px !important;
+    }
+    .main-play {
+      font-size: 18px !important;
+    }
+    #prev, #next {
+      font-size: 16px !important;
+    }
+    .player-close {
+      font-size: 18px !important;
+    }
+    .menu-btn {
+      font-size: 22px !important;
+    }
+    .profile-top {
+      font-size: 12px !important;
+    }
 
-        /* ==============================================
-           استایل‌های نهایی (با سایزهای کوچک‌شده)
-           ============================================== */
+    /* =====================================================
+       کارت رنکینگ – کوچک‌تر کردن المان‌ها
+    ===================================================== */
+    .rank-card {
+      min-height: 100px !important;
+      padding: 14px 18px !important;
+      gap: 12px !important;
+    }
+    .rank-number {
+      font-size: 28px !important;
+    }
+    .rank-avatar {
+      width: 52px !important;
+      height: 52px !important;
+      font-size: 14px !important;
+    }
+    .rank-name strong {
+      font-size: 16px !important;
+    }
+    .rank-name small {
+      font-size: 11px !important;
+    }
+    .rank-name small span {
+      font-size: 8px !important;
+      padding: 1px 6px !important;
+      margin-left: 4px !important;
+    }
+    .verified {
+      width: 16px !important;
+      height: 16px !important;
+      font-size: 9px !important;
+      margin-left: 4px !important;
+    }
+    .rank-plays strong {
+      font-size: 18px !important;
+    }
+    .rank-plays small {
+      font-size: 10px !important;
+    }
 
-        /* هدر */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        .logo {
-            font-size: 22px;
-            font-weight: 900;
-        }
-        .logo span {
-            color: #d71920;
-        }
-        .header-icons {
-            display: flex;
-            gap: 12px;
-            font-size: 18px;
-            color: #888;
-        }
-
-        /* تب‌های آرتیست و پرودوسر */
-        .tabs {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .tab {
-            background: none;
-            border: none;
-            color: #666;
-            padding: 10px 0 12px;
-            font-weight: bold;
-            font-size: 16px;
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
-        }
-        .tab.active {
-            color: #d71920;
-            border-bottom-color: #d71920;
-        }
-
-        /* عنوان رنکینگ */
-        .title-section {
-            margin-bottom: 25px;
-        }
-        .title-section .eyebrow {
-            color: #d71920;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .title-section h1 {
-            font-size: 26px;
-            font-weight: 900;
-            margin-bottom: 2px;
-        }
-        .title-section p {
-            color: #888;
-            font-size: 13px;
-        }
-
-        /* کارت رنکینگ (با سایزهای کوچک) */
-        .rank-card {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 16px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-            transition: 0.2s;
-        }
-        .rank-card:first-child {
-            border-color: #7b171b;
-            background: #161010;
-        }
-
-        .rank-number {
-            font-size: 22px;
-            font-weight: 900;
-            color: #d71920;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .rank-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 60% 35%, #5c1618, #101010 70%);
-            border: 1px solid #d71920;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #fff;
-        }
-
-        .rank-name {
-            flex: 1;
-        }
-        .rank-name strong {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 15px;
-        }
-        .rank-name small {
-            display: block;
-            color: #888;
-            font-size: 10px;
-            margin-top: 2px;
-        }
-
-        .verified {
-            display: inline-flex;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #d71920;
-            color: #fff;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-        }
-        .artist-tag {
-            color: #d71920;
-            border: 1px solid #601417;
-            padding: 1px 6px;
-            border-radius: 30px;
-            font-size: 8px;
-            margin-left: 4px;
-        }
-
-        .rank-plays {
-            text-align: right;
-        }
-        .rank-plays strong {
-            display: block;
-            color: #d71920;
-            font-size: 16px;
-        }
-        .rank-plays small {
-            display: block;
-            color: #888;
-            font-size: 9px;
-            margin-top: 2px;
-        }
-
-        /* دکمه More */
-        .rank-more {
-            background: none;
-            border: none;
-            color: #555;
-            font-size: 18px;
-            padding: 0 4px;
-        }
-
-        /* ==============================================
-           منوی پایین (Bottom Nav) – با سایزهای کوچک
-           ============================================== */
-        .bottom-nav {
-            position: absolute;
-            bottom: 14px;
-            left: 12px;
-            right: 12px;
-            height: 68px;
-            background: #141414;
-            border: 1px solid #242424;
-            border-radius: 22px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 8px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-        }
-
-        .bottom-item {
-            background: none;
-            border: none;
-            color: #666;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            font-size: 9px;
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-        .bottom-item span {
-            font-size: 20px;
-        }
-        .bottom-item.active {
-            color: #d71920;
-        }
-
-        .bottom-plus {
-            width: 52px;
-            height: 52px;
-            background: #d71920;
-            border: none;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 30px;
-            font-weight: 300;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: -20px;
-            box-shadow: 0 4px 15px rgba(215, 25, 32, 0.3);
-        }
-
-        /* باکس توضیحات تغییرات */
-        .info-box {
-            margin-top: 30px;
-            padding: 16px;
-            background: #0d0d0d;
-            border-radius: 14px;
-            border: 1px solid #1a1a1a;
-        }
-        .info-box h3 {
-            color: #fff;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        .info-box ul {
-            list-style: none;
-            padding: 0;
-            font-size: 12px;
-            color: #aaa;
-            line-height: 1.8;
-        }
-        .info-box ul li span {
-            color: #fff;
-        }
-
-        /* ریسپانسیو برای صفحه‌های خیلی کوچک */
-        @media (max-width: 400px) {
-            .phone-frame {
-                padding: 16px 12px 90px;
-            }
-            .rank-number {
-                font-size: 18px;
-                min-width: 24px;
-            }
-            .rank-avatar {
-                width: 38px;
-                height: 38px;
-                font-size: 11px;
-            }
-            .rank-name strong {
-                font-size: 13px;
-            }
-            .rank-plays strong {
-                font-size: 14px;
-            }
-            .bottom-item span {
-                font-size: 18px;
-            }
-            .bottom-plus {
-                width: 46px;
-                height: 46px;
-                font-size: 26px;
-            }
-        }
-    </style>
+    /* تنظیمات موبایل */
+    @media(max-width:850px) {
+      .bottom-item span { font-size: 18px !important; }
+      .bottom-plus { font-size: 26px !important; width: 48px !important; height: 48px !important; }
+      .search-box button { font-size: 16px !important; }
+      .plus-btn { font-size: 24px !important; }
+      .menu-btn { font-size: 20px !important; }
+      .rank-number { font-size: 22px !important; }
+      .rank-avatar { width: 44px !important; height: 44px !important; font-size: 12px !important; }
+      .rank-name strong { font-size: 14px !important; }
+      .rank-name small { font-size: 10px !important; }
+      .rank-plays strong { font-size: 15px !important; }
+    }
+    @media(max-width:430px) {
+      .bottom-item span { font-size: 16px !important; }
+      .bottom-plus { font-size: 22px !important; width: 42px !important; height: 42px !important; }
+      .rank-number { font-size: 18px !important; }
+      .rank-avatar { width: 38px !important; height: 38px !important; font-size: 10px !important; }
+      .rank-name strong { font-size: 12px !important; }
+      .rank-name small { font-size: 9px !important; }
+      .rank-plays strong { font-size: 13px !important; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="phone-frame">
+  <!-- =====================================================
+       INTRO
+  ===================================================== -->
+  <section id="intro" class="intro">
+    <div id="startScreen" class="start-screen">
+      <button id="letsGo" class="lets-go">LET'S GO</button>
+    </div>
+    <div id="introVideoBox" class="intro-video-box">
+      <video id="introVideo" class="intro-video" playsinline preload="auto">
+        <source src="intro.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
 
-        <!-- ==========================================
-             هدر (مشابه عکس دوم)
-             ========================================== -->
-        <div class="header">
-            <div class="logo">LOST<span>SOUND</span></div>
-            <div class="header-icons">
-                <span>🔍</span>
-                <span>+</span>
-                <span style="background:#222; padding:2px 8px; border-radius:30px; border:1px solid #d71920; font-size:11px;">AT</span>
+  <!-- =====================================================
+       APP
+  ===================================================== -->
+  <div id="app" class="app hidden">
+
+    <!-- ===================================================
+         SIDEBAR
+    =================================================== -->
+    <aside class="sidebar">
+      <div class="brand">LOST<span>SOUND</span></div>
+      <nav>
+        <a href="#" class="side-link active" data-page="home">Home</a>
+        <a href="#" class="side-link" data-page="explore">Explore</a>
+        <a href="#" class="side-link" data-page="library">Library</a>
+        <a href="#" class="side-link" data-page="profile">Profile</a>
+      </nav>
+    </aside>
+
+    <!-- ===================================================
+         MAIN
+    =================================================== -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div class="mobile-logo">LOST<span>SOUND</span></div>
+        <div class="top-actions">
+          <div class="search-box">
+            <button id="searchBtn">⌕</button>
+            <input id="artistSearch" type="search" placeholder="Search artist ID..." />
+          </div>
+          <button id="plusBtn" class="plus-btn">+</button>
+          <button id="profileTopBtn" class="profile-top">AT</button>
+        </div>
+      </header>
+
+      <!-- ===================================================
+           HOME (RANKING)
+      =================================================== -->
+      <section id="homePage" class="page-section">
+        <div class="ranking-tabs">
+          <button id="artistsTab" class="ranking-tab active">ARTISTS</button>
+          <button id="producersTab" class="ranking-tab">PRODUCERS</button>
+        </div>
+        <div class="ranking-header">
+          <div>
+            <div id="rankingEyebrow" class="ranking-eyebrow">TOP ARTISTS</div>
+            <h1 id="rankingTitle">ARTISTS RANKING</h1>
+            <p id="rankingDescription">Top artists based on total plays</p>
+          </div>
+          <select id="rankingFilter" class="ranking-filter">
+            <option value="all">ALL TIME</option>
+            <option value="month">THIS MONTH</option>
+            <option value="week">THIS WEEK</option>
+          </select>
+        </div>
+        <div id="rankingList" class="ranking-list"></div>
+      </section>
+
+      <!-- ===================================================
+           EXPLORE
+      =================================================== -->
+      <section id="explorePage" class="page-section hidden">
+        <div class="page-title">
+          <span>EXPLORE</span>
+          <h1>Discover Sound</h1>
+          <p>Find artists, producers, tracks and sounds.</p>
+        </div>
+        <div class="explore-search">
+          <input id="exploreSearch" type="search" placeholder="Search artist, producer or track..." />
+          <button id="exploreSearchBtn">⌕</button>
+        </div>
+        <div class="explore-grid">
+          <article class="explore-card"><strong>Artists</strong><small>Discover artists</small></article>
+          <article class="explore-card"><strong>Producers</strong><small>Find producers</small></article>
+          <article class="explore-card"><strong>Tracks</strong><small>Listen to music</small></article>
+          <article class="explore-card"><strong>Beats</strong><small>Explore beats</small></article>
+        </div>
+      </section>
+
+      <!-- ===================================================
+           LIBRARY
+      =================================================== -->
+      <section id="libraryPage" class="page-section hidden">
+        <div class="page-title">
+          <span>YOUR LIBRARY</span>
+          <h1>Library</h1>
+          <p>Everything you save will appear here.</p>
+        </div>
+        <div class="library-grid">
+          <article class="library-card" data-category="Drums">
+            <div class="library-icon">DR</div>
+            <strong>Drums</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Melodies">
+            <div class="library-icon">ML</div>
+            <strong>Melodies</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Vocals">
+            <div class="library-icon">VX</div>
+            <strong>Vocals</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="FX">
+            <div class="library-icon">FX</div>
+            <strong>FX</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="One Shots">
+            <div class="library-icon">OS</div>
+            <strong>One Shots</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Presets">
+            <div class="library-icon">PR</div>
+            <strong>Presets</strong><small>0 saved</small>
+          </article>
+        </div>
+        <div class="saved-section">
+          <h2>LIKED</h2>
+          <div id="likedList" class="empty-library">Nothing saved yet.</div>
+        </div>
+      </section>
+
+      <!-- ===================================================
+           PROFILE
+      =================================================== -->
+      <section id="profilePage" class="page-section hidden">
+        <div class="profile-page">
+          <div class="profile-avatar">AT</div>
+          <h1>AmirTalles</h1>
+          <p>@amirtalles</p>
+          <div class="profile-role">Producer / Sound Designer</div>
+          <p style="color:#888; margin-top:15px;">Creating dark sounds and cinematic atmospheres.</p>
+          <div class="profile-stats">
+            <div><strong>0</strong><small>Tracks</small></div>
+            <div><strong>0</strong><small>Followers</small></div>
+            <div><strong>0</strong><small>Likes</small></div>
+          </div>
+          <button class="edit-profile">Edit Profile</button>
+          <div style="margin-top:40px; text-align:right;">
+            <h2 style="font-size:16px; letter-spacing:2px; color:#d71920;">MY PACKS</h2>
+            <div class="library-grid" style="margin-top:15px;">
+              <div class="library-card">
+                <div class="library-icon">PK</div>
+                <strong>Dark Trap Collection</strong>
+                <small>Drums • 140 BPM</small>
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                  <button class="play" data-name="Dark Trap Collection" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
+                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+                </div>
+              </div>
+              <div class="library-card">
+                <div class="library-icon">PK</div>
+                <strong>Cinematic World</strong>
+                <small>FX • Atmosphere</small>
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                  <button class="play" data-name="Cinematic World" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
+                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </section>
 
-        <!-- ==========================================
-             تب‌ها
-             ========================================== -->
-        <div class="tabs">
-            <button class="tab active">ARTISTS</button>
-            <button class="tab">PRODUCERS</button>
-        </div>
+    </main>
 
-        <!-- ==========================================
-             عنوان رنکینگ
-             ========================================== -->
-        <div class="title-section">
-            <div class="eyebrow">TOP ARTISTS</div>
-            <h1>ARTISTS RANKING</h1>
-            <p>Top artists based on total plays</p>
-        </div>
+    <!-- ===================================================
+         BOTTOM NAV (منوی پایین)
+    =================================================== -->
+    <nav class="bottom-nav">
+      <button class="bottom-item active" data-page="home">
+        <span>⌂</span>
+        <small>HOME</small>
+      </button>
+      <button class="bottom-item" data-page="explore">
+        <span>⌕</span>
+        <small>EXPLORE</small>
+      </button>
+      <button class="bottom-plus" id="plusBtnMobile">+</button>
+      <button class="bottom-item" data-page="library">
+        <span>♡</span>
+        <small>LIBRARY</small>
+      </button>
+      <button class="bottom-item" data-page="profile">
+        <span>👤</span>
+        <small>PROFILE</small>
+      </button>
+    </nav>
 
-        <!-- ==========================================
-             کارت رنکینگ (نمونه اول – با تگ ARTIST)
-             ========================================== -->
-        <div class="rank-card">
+    <!-- ===================================================
+         PLAYER
+    =================================================== -->
+    <footer id="player" class="player hidden">
+      <div class="player-art">LS</div>
+      <div class="player-info">
+        <strong id="trackName">—</strong>
+        <small>Lost Sound • AmirTalles</small>
+      </div>
+      <button id="prev">|◀</button>
+      <button id="mainPlay" class="main-play">▶</button>
+      <button id="next">▶|</button>
+      <div class="player-wave"></div>
+      <span id="time">00:00</span>
+    </footer>
+
+  </div>
+
+  <!-- =====================================================
+       UPLOAD MODAL
+  ===================================================== -->
+  <div id="uploadOverlay" class="upload-overlay hidden">
+    <div class="upload-modal">
+      <div class="upload-head">
+        <div class="upload-title">LOST SOUND</div>
+        <button id="uploadClose">×</button>
+      </div>
+      <div id="artistUploadOptions" class="upload-options hidden">
+        <button class="upload-option" data-upload="track"><strong>Upload Track</strong><small>Upload your complete track</small></button>
+        <button class="upload-option" data-upload="album"><strong>Upload Album</strong><small>Create an album release</small></button>
+      </div>
+      <div id="producerUploadOptions" class="upload-options hidden">
+        <button class="upload-option" data-upload="pack"><strong>Upload Pack</strong><small>Upload sounds, loops and samples</small></button>
+        <button class="upload-option" data-upload="beat"><strong>Upload Beat</strong><small>Upload your complete beat</small></button>
+      </div>
+      <div id="listenerUploadOptions" class="upload-options"><p>Choose Artist or Producer from your profile first.</p></div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ===================================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // ===================================================
+      // INTRO
+      // ===================================================
+      const intro = document.getElementById("intro");
+      const startScreen = document.getElementById("startScreen");
+      const letsGo = document.getElementById("letsGo");
+      const videoBox = document.getElementById("introVideoBox");
+      const video = document.getElementById("introVideo");
+      const app = document.getElementById("app");
+      let entered = false;
+
+      function enterApp() {
+        if (entered) return;
+        entered = true;
+        if (video) { video.pause(); video.currentTime = 0; }
+        if (intro) { intro.style.transition = "opacity .5s ease"; intro.style.opacity = "0"; }
+        setTimeout(function() {
+          if (intro) intro.style.display = "none";
+          if (app) { app.classList.remove("hidden"); app.style.display = "block"; }
+        }, 500);
+      }
+
+      if (letsGo) {
+        letsGo.addEventListener("click", async function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (startScreen) startScreen.style.display = "none";
+          if (videoBox) videoBox.style.display = "block";
+          if (!video) { enterApp(); return; }
+          try {
+            video.currentTime = 0;
+            await video.play();
+          } catch (error) {
+            console.log("Video could not play:", error);
+            enterApp();
+          }
+        });
+      }
+
+      if (video) {
+        video.addEventListener("ended", enterApp);
+        video.addEventListener("click", enterApp);
+        video.addEventListener("error", enterApp);
+      }
+
+      // ===================================================
+      // NAVIGATION
+      // ===================================================
+      const links = document.querySelectorAll(".side-link, .bottom-item");
+      const pageMap = {
+        home: document.getElementById("homePage"),
+        explore: document.getElementById("explorePage"),
+        library: document.getElementById("libraryPage"),
+        profile: document.getElementById("profilePage")
+      };
+
+      function showPage(name) {
+        Object.values(pageMap).forEach(function(el) {
+          if (el) el.classList.add("hidden");
+        });
+        const target = pageMap[name];
+        if (target) {
+          target.classList.remove("hidden");
+        } else {
+          if (pageMap.home) pageMap.home.classList.remove("hidden");
+          name = "home";
+        }
+        document.querySelectorAll(".side-link, .bottom-item").forEach(function(link) {
+          link.classList.toggle("active", link.dataset.page === name);
+        });
+      }
+
+      links.forEach(function(link) {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          const page = link.dataset.page;
+          if (page) showPage(page);
+        });
+      });
+
+      document.getElementById("profileTopBtn").addEventListener("click", function() {
+        showPage("profile");
+      });
+
+      // ===================================================
+      // RANKING – با المان‌های کوچک‌تر
+      // ===================================================
+      const artistsTab = document.getElementById("artistsTab");
+      const producersTab = document.getElementById("producersTab");
+      const rankingList = document.getElementById("rankingList");
+
+      function renderArtists() {
+        rankingList.innerHTML = `
+          <div class="rank-card">
             <div class="rank-number">1</div>
             <div class="rank-avatar">AT</div>
             <div class="rank-name">
-                <strong>
-                    AmirTalles
-                    <span class="verified">✓</span>
-                </strong>
-                <small>@amirtalles <span class="artist-tag">ARTIST</span></small>
+              <strong>
+                AmirTalles
+                <span class="verified" style="display:inline-flex; width:16px; height:16px; border-radius:50%; background:#d71920; color:#fff; align-items:center; justify-content:center; font-size:9px; margin-left:4px;">✓</span>
+              </strong>
+              <small>@amirtalles <span style="color:#d71920; border:1px solid #601417; padding:1px 6px; border-radius:30px; font-size:8px; margin-left:4px;">ARTIST</span></small>
             </div>
             <div class="rank-plays">
-                <strong>12.5M</strong>
-                <small>PLAYS</small>
+              <strong>12.5M</strong>
+              <small>PLAYS</small>
             </div>
             <button class="rank-more">⋯</button>
-        </div>
+          </div>
+        `;
+      }
 
-        <!-- کارت دوم برای نمایش -->
-        <div class="rank-card" style="opacity:0.6;">
-            <div class="rank-number">2</div>
-            <div class="rank-avatar">JD</div>
-            <div class="rank-name">
-                <strong>John Doe</strong>
-                <small>@johndoe</small>
-            </div>
-            <div class="rank-plays">
-                <strong>8.2M</strong>
-                <small>PLAYS</small>
-            </div>
-            <button class="rank-more">⋯</button>
-        </div>
+      function renderProducers() {
+        rankingList.innerHTML = `<div class="ranking-empty"><strong>No producers yet</strong><small>Producers who register will appear here.</small></div>`;
+      }
 
-        <!-- ==========================================
-             باکس توضیح تغییرات اعمال‌شده
-             ========================================== -->
-        <div class="info-box">
-            <h3>✅ تغییرات اعمال‌شده (کوچک‌تر شدن المان‌ها):</h3>
-            <ul>
-                <li>• آیکون‌های منوی پایین: <span>20px</span> (قبلاً 25px)</li>
-                <li>• متن منوی پایین: <span>9px</span> (قبلاً 11px)</li>
-                <li>• دکمه + منو: <span>30px / 52px</span> (قبلاً 40px / 62px)</li>
-                <li>• تگ ARTIST: <span>8px</span> (قبلاً 10px)</li>
-                <li>• آواتار: <span>44px</span> (قبلاً 72px)</li>
-                <li>• شماره رتبه: <span>22px</span> (قبلاً 48px)</li>
-                <li>• نام آرتیست: <span>15px</span> (قبلاً 23px)</li>
-                <li>• تعداد پلی‌ها: <span>16px</span> (قبلاً 25px)</li>
-                <li>• ارتفاع کارت: <span>کاهش یافته</span></li>
-            </ul>
-        </div>
+      artistsTab.addEventListener("click", function() {
+        artistsTab.classList.add("active");
+        producersTab.classList.remove("active");
+        document.getElementById("rankingEyebrow").textContent = "TOP ARTISTS";
+        document.getElementById("rankingTitle").textContent = "ARTISTS RANKING";
+        document.getElementById("rankingDescription").textContent = "Top artists based on total plays";
+        renderArtists();
+      });
 
-        <!-- ==========================================
-             منوی پایین (با سایزهای کوچک)
-             ========================================== -->
-        <nav class="bottom-nav">
-            <button class="bottom-item active">
-                <span>⌂</span>
-                HOME
-            </button>
-            <button class="bottom-item">
-                <span>⌕</span>
-                EXPLORE
-            </button>
-            <button class="bottom-plus">+</button>
-            <button class="bottom-item">
-                <span>♡</span>
-                LIBRARY
-            </button>
-            <button class="bottom-item">
-                <span>👤</span>
-                PROFILE
-            </button>
-        </nav>
+      producersTab.addEventListener("click", function() {
+        producersTab.classList.add("active");
+        artistsTab.classList.remove("active");
+        document.getElementById("rankingEyebrow").textContent = "TOP PRODUCERS";
+        document.getElementById("rankingTitle").textContent = "PRODUCERS RANKING";
+        document.getElementById("rankingDescription").textContent = "Top producers based on popularity";
+        renderProducers();
+      });
 
-    </div>
+      renderArtists();
+
+      // ===================================================
+      // MENU MOBILE
+      // ===================================================
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.querySelector(".sidebar");
+      menuBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        sidebar.classList.toggle("open");
+      });
+      document.addEventListener("click", function(e) {
+        if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+          sidebar.classList.remove("open");
+        }
+      });
+
+      // ===================================================
+      // UPLOAD MODAL
+      // ===================================================
+      let accountType = localStorage.getItem("lostSoundAccountType") || "artist";
+      const artistUpload = document.getElementById("artistUploadOptions");
+      const producerUpload = document.getElementById("producerUploadOptions");
+      const listenerUpload = document.getElementById("listenerUploadOptions");
+
+      function updateUploadOptions() {
+        artistUpload.classList.toggle("hidden", accountType !== "artist");
+        producerUpload.classList.toggle("hidden", accountType !== "producer");
+        listenerUpload.classList.toggle("hidden", accountType !== "listener");
+      }
+      updateUploadOptions();
+
+      function openUpload() {
+        updateUploadOptions();
+        document.getElementById("uploadOverlay").classList.remove("hidden");
+      }
+
+      document.getElementById("plusBtn").addEventListener("click", openUpload);
+      document.getElementById("plusBtnMobile").addEventListener("click", openUpload);
+      document.getElementById("uploadClose").addEventListener("click", function() {
+        document.getElementById("uploadOverlay").classList.add("hidden");
+      });
+      document.getElementById("uploadOverlay").addEventListener("click", function(e) {
+        if (e.target === this) this.classList.add("hidden");
+      });
+
+      // ===================================================
+      // SEARCH
+      // ===================================================
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        document.getElementById("artistSearch").focus();
+      });
+
+      // ===================================================
+      // PLAYER
+      // ===================================================
+      const player = document.getElementById("player");
+      const mainPlay = document.getElementById("mainPlay");
+      const trackName = document.getElementById("trackName");
+      let playing = false;
+
+      function startPlayer(name) {
+        trackName.textContent = name || "Lost Sound Track";
+        player.classList.remove("hidden");
+        playing = true;
+        mainPlay.textContent = "Ⅱ";
+      }
+
+      mainPlay.addEventListener("click", function() {
+        playing = !playing;
+        mainPlay.textContent = playing ? "Ⅱ" : "▶";
+      });
+
+      document.addEventListener("click", function(e) {
+        const btn = e.target.closest(".play");
+        if (btn) startPlayer(btn.dataset.name);
+      });
+
+    });
+  </script>
 
 </body>
 </html>
