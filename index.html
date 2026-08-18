@@ -39,53 +39,568 @@
 </section>
 
 
-<!-- ==================================================
-     MAIN APP
-================================================== -->
+     <!-- ================= MAIN APP ================= -->
 
 <div id="app" class="app hidden">
 
+  <!-- HEADER -->
+  <header class="main-header">
 
-<!-- ================= SIDEBAR ================= -->
+    <button id="menuBtn" class="header-btn" type="button">
+      ☰
+    </button>
 
-<aside class="sidebar">
+    <div class="main-logo">
+      LOST<span>SOUND</span>
+    </div>
 
-  <div class="brand">
-    <span>LOST</span><b>SOUND</b>
+    <button id="headerSearchBtn" class="header-btn" type="button">
+      ⌕
+    </button>
+
+    <button id="plusBtn" class="header-btn plus-header" type="button">
+      +
+    </button>
+
+    <button id="profileTopBtn" class="profile-top" type="button">
+      AT
+    </button>
+
+  </header>
+
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      LOST<span>SOUND</span>
+    </div>
+
+    <nav>
+
+      <a href="#" class="side-link active" data-page="home">
+        Home
+      </a>
+
+      <a href="#" class="side-link" data-page="explore">
+        Explore
+      </a>
+
+      <a href="#" class="side-link" data-page="library">
+        Library
+      </a>
+
+      <a href="#" class="side-link" data-page="profile">
+        Profile
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- SEARCH -->
+  <div id="searchPanel" class="search-panel hidden">
+
+    <input
+      id="artistSearch"
+      type="search"
+      placeholder="Search artist ID..."
+      autocomplete="off"
+    >
+
+    <div id="artistSearchResult"></div>
+
   </div>
 
-  <nav>
 
-    <a href="#" class="nav-item active" data-page="home">
+  <!-- CONTENT -->
+  <main class="content">
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="homePage" class="page-section">
+
+      <!-- ARTIST / PRODUCER -->
+      <div class="role-tabs">
+
+        <button
+          id="artistTab"
+          class="role-tab active"
+          type="button"
+        >
+          ARTISTS
+        </button>
+
+        <button
+          id="producerTab"
+          class="role-tab"
+          type="button"
+        >
+          PRODUCERS
+        </button>
+
+      </div>
+
+
+      <!-- ARTIST RANKING -->
+
+      <section
+        id="artistRanking"
+        class="ranking-section"
+      >
+
+        <div class="ranking-header">
+
+          <div>
+            <h1>ARTISTS RANKING</h1>
+
+            <p>
+              Top artists based on total plays
+            </p>
+          </div>
+
+          <select id="artistRankFilter">
+            <option>ALL TIME</option>
+            <option>THIS MONTH</option>
+            <option>THIS WEEK</option>
+          </select>
+
+        </div>
+
+
+        <div id="artistRankingList" class="ranking-list">
+
+          <!-- AMIR TALLES -->
+
+          <article class="ranking-card first">
+
+            <div class="rank-number">
+              1
+            </div>
+
+            <div class="rank-avatar">
+              AT
+            </div>
+
+            <div class="rank-info">
+
+              <strong>
+                AmirTalles
+                <span class="verified">✓</span>
+              </strong>
+
+              <small>
+                @amirtalles
+              </small>
+
+            </div>
+
+            <div class="plays">
+
+              <strong>
+                0
+              </strong>
+
+              <small>
+                PLAYS
+              </small>
+
+            </div>
+
+            <button class="more-btn">
+              ⋮
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- PRODUCER RANKING -->
+
+      <section
+        id="producerRanking"
+        class="ranking-section hidden"
+      >
+
+        <div class="ranking-header">
+
+          <div>
+            <h1>PRODUCERS RANKING</h1>
+
+            <p>
+              Top producers based on total plays
+            </p>
+          </div>
+
+          <select id="producerRankFilter">
+            <option>ALL TIME</option>
+            <option>THIS MONTH</option>
+            <option>THIS WEEK</option>
+          </select>
+
+        </div>
+
+
+        <div
+          id="producerRankingList"
+          class="ranking-list"
+        >
+
+          <div class="empty-ranking">
+            No producers registered yet.
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+
+    <!-- ================= EXPLORE ================= -->
+
+    <section
+      id="explorePage"
+      class="page-section hidden"
+    >
+
+      <div class="page-title">
+
+        <h1>EXPLORE</h1>
+
+        <p>
+          Discover music, artists and producers.
+        </p>
+
+      </div>
+
+
+      <div class="explore-grid">
+
+        <button class="explore-card">
+          <strong>Tracks</strong>
+          <small>Discover new music</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Albums</strong>
+          <small>Explore releases</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Artists</strong>
+          <small>Find artists</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Producers</strong>
+          <small>Find producers</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Beats</strong>
+          <small>Discover beats</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Packs</strong>
+          <small>Browse sound packs</small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= LIBRARY ================= -->
+
+    <section
+      id="libraryPage"
+      class="page-section hidden"
+    >
+
+      <div class="page-title">
+
+        <h1>LIBRARY</h1>
+
+        <p>
+          Your saved music and sounds.
+        </p>
+
+      </div>
+
+
+      <div class="library-tabs">
+
+        <button class="library-tab active">
+          LIKES
+        </button>
+
+        <button class="library-tab">
+          SAVED
+        </button>
+
+        <button class="library-tab">
+          PLAYLISTS
+        </button>
+
+      </div>
+
+
+      <div class="library-categories">
+
+        <div class="library-folder">
+          <strong>Tracks</strong>
+          <small>0 saved</small>
+        </div>
+
+        <div class="library-folder">
+          <strong>Albums</strong>
+          <small>0 saved</small>
+        </div>
+
+        <div class="library-folder">
+          <strong>Beats</strong>
+          <small>0 saved</small>
+        </div>
+
+        <div class="library-folder">
+          <strong>Packs</strong>
+          <small>0 saved</small>
+        </div>
+
+      </div>
+
+
+      <div class="library-empty">
+        Nothing saved yet.
+      </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <section
+      id="profilePage"
+      class="page-section hidden"
+    >
+
+      <div class="profile-page">
+
+        <div class="big-avatar">
+          AT
+        </div>
+
+        <h1>AmirTalles</h1>
+
+        <p>
+          @amirtalles
+        </p>
+
+        <div class="profile-role">
+          Artist
+        </div>
+
+        <button class="edit-profile-btn">
+          Edit Profile
+        </button>
+
+      </div>
+
+
+      <div class="profile-stats">
+
+        <div>
+          <strong>0</strong>
+          <small>Tracks</small>
+        </div>
+
+        <div>
+          <strong>0</strong>
+          <small>Followers</small>
+        </div>
+
+        <div>
+          <strong>0</strong>
+          <small>Plays</small>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= UPLOAD ================= -->
+
+  <div
+    id="uploadOverlay"
+    class="upload-overlay hidden"
+  >
+
+    <div class="upload-modal">
+
+      <div class="upload-head">
+
+        <strong>
+          CREATE / UPLOAD
+        </strong>
+
+        <button
+          id="uploadClose"
+          class="upload-close"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- ARTIST -->
+
+      <div id="artistUploadOptions">
+
+        <button
+          class="upload-option"
+          data-upload="track"
+          type="button"
+        >
+          Upload Track
+        </button>
+
+        <button
+          class="upload-option"
+          data-upload="album"
+          type="button"
+        >
+          Upload Album
+        </button>
+
+      </div>
+
+
+      <!-- PRODUCER -->
+
+      <div
+        id="producerUploadOptions"
+        class="hidden"
+      >
+
+        <button
+          class="upload-option"
+          data-upload="pack"
+          type="button"
+        >
+          Upload Pack
+        </button>
+
+        <button
+          class="upload-option"
+          data-upload="beat"
+          type="button"
+        >
+          Upload Beat
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= BOTTOM NAV ================= -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="bottom-item active"
+      data-page="home"
+      type="button"
+    >
       <span>⌂</span>
-      <span>Home</span>
-    </a>
+      <small>HOME</small>
+    </button>
 
-    <a href="#" class="nav-item" data-page="explore">
+
+    <button
+      class="bottom-item"
+      data-page="explore"
+      type="button"
+    >
       <span>⌕</span>
-      <span>Explore</span>
-    </a>
+      <small>EXPLORE</small>
+    </button>
 
-    <a href="#" class="nav-item" data-page="artists">
-      <span>Artists</span>
-    </a>
 
-    <a href="#" class="nav-item" data-page="producers">
-      <span>Producers</span>
-    </a>
+    <button
+      id="bottomPlus"
+      class="bottom-plus"
+      type="button"
+    >
+      +
+    </button>
 
-    <a href="#" class="nav-item" data-page="library">
-      <span>♡</span>
-      <span>Library</span>
-    </a>
 
-    <a href="#" class="nav-item" data-page="profile">
-      <span>Profile</span>
-    </a>
+    <button
+      class="bottom-item"
+      data-page="library"
+      type="button"
+    >
+      <span>▣</span>
+      <small>LIBRARY</small>
+    </button>
+
+
+    <button
+      class="bottom-item"
+      data-page="profile"
+      type="button"
+    >
+      <span>♙</span>
+      <small>PROFILE</small>
+    </button>
 
   </nav>
 
-</aside>
+
+  <!-- ================= PLAYER ================= -->
+
+  <footer
+    id="player"
+    class="player hidden"
+  >
+
+    <div class="track-art"></div>
+
+    <div class="track-info">
+
+      <strong id="trackName">
+        —
+      </strong>
+
+      <small>
+        Lost Sound • AmirTalles
+      </small>
+
+    </div>
+
+    <button id="mainPlay" class="main-play">
+      ▶
+    </button>
+
+  </footer>
+
+</div>
+
 
 
 <!-- ================= CONTENT ================= -->
