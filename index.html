@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#050505">
-  <title>TallesSound</title>
+  <title>Lost Sound</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,14 +14,10 @@
 
 <section id="intro" class="intro">
 
-  <!-- صفحه اول -->
   <div id="startScreen" class="start-screen">
-    <button id="letsGo" class="lets-go">
-      LET'S GO
-    </button>
+    <button id="letsGo" class="lets-go">LET'S GO</button>
   </div>
 
-  <!-- ویدیوی Intro -->
   <div id="introVideoBox" class="intro-video-box">
 
     <video
@@ -43,10 +39,11 @@
 <div id="app" class="app hidden">
 
   <!-- SIDEBAR -->
+
   <aside class="sidebar">
 
     <div class="brand">
-      <span>TALLES</span><b>SOUND</b>
+      <span>LOST</span><b>SOUND</b>
     </div>
 
     <nav>
@@ -71,8 +68,10 @@
         ♙ <span>Artists</span>
       </a>
 
-      <a>
-        ▣ <span>My Library</span>
+      <!-- تغییر My Library به Your Sound -->
+
+      <a href="#" id="yourSoundBtn">
+        ♬ <span>Your Sound</span>
       </a>
 
       <a>
@@ -88,10 +87,12 @@
   </aside>
 
 
-  <!-- MAIN CONTENT -->
+  <!-- ================= CONTENT ================= -->
+
   <main class="content">
 
     <!-- TOP BAR -->
+
     <header class="topbar">
 
       <button id="menuBtn" class="menu-btn">
@@ -99,13 +100,37 @@
       </button>
 
       <div class="mobile-brand">
-        <span>TALLES</span><b>SOUND</b>
+        <span>LOST</span><b>SOUND</b>
       </div>
 
+
+      <!-- SEARCH -->
+
       <div class="top-search">
-        ⌕
-        <input placeholder="Search samples, loops, one shots...">
+
+        <span>⌕</span>
+
+        <input
+          id="artistSearch"
+          type="search"
+          placeholder="Search artist or track..."
+          autocomplete="off"
+        >
+
       </div>
+
+
+      <!-- PLUS -->
+
+      <button
+        id="plusBtn"
+        class="plus-btn"
+        type="button"
+        aria-label="Upload"
+      >
+        +
+      </button>
+
 
       <div class="top-icons">
         ♧　🛒　◉
@@ -114,7 +139,82 @@
     </header>
 
 
-    <!-- HERO -->
+    <!-- ================= SEARCH RESULTS ================= -->
+
+    <div
+      id="searchResults"
+      class="search-results hidden"
+    ></div>
+
+
+    <!-- ================= UPLOAD MENU ================= -->
+
+    <div
+      id="uploadMenu"
+      class="upload-menu hidden"
+    >
+
+      <div class="upload-menu-title">
+        CREATE / UPLOAD
+      </div>
+
+      <!-- Artist -->
+
+      <div
+        id="artistUploadOptions"
+        class="account-options"
+      >
+
+        <button
+          type="button"
+          data-upload="track"
+        >
+          🎵
+          <span>
+            <strong>Upload Track</strong>
+            <small>Release a complete track</small>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          data-upload="album"
+        >
+          💿
+          <span>
+            <strong>Upload Album</strong>
+            <small>Create an album release</small>
+          </span>
+        </button>
+
+      </div>
+
+
+      <!-- Producer -->
+
+      <div
+        id="producerUploadOptions"
+        class="account-options hidden"
+      >
+
+        <button
+          type="button"
+          data-upload="pack"
+        >
+          📦
+          <span>
+            <strong>Upload Pack</strong>
+            <small>Upload sounds, loops and samples</small>
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= HERO ================= -->
+
     <section class="hero">
 
       <div class="hero-copy">
@@ -124,34 +224,48 @@
         </div>
 
         <h1>
-          TALLES<br>
+          LOST<br>
           <span>SOUND</span>
         </h1>
 
         <p>
-          Premium samples for creators.<br>
-          Royalty free. Instant download.
+          A place for artists, producers and listeners.
+          <br>
+          Create. Release. Listen.
         </p>
 
         <div class="search-large">
-          Search for drums, melodies, vocals...
-          <button>⌕</button>
+
+          <input
+            id="largeSearch"
+            type="search"
+            placeholder="Search artist or track..."
+          >
+
+          <button id="largeSearchBtn" type="button">
+            ⌕
+          </button>
+
         </div>
 
       </div>
 
+
       <div class="record-wrap">
+
         <img
           id="record"
           src="disk.jpg"
-          alt="TallesSound record"
+          alt="Lost Sound record"
         >
+
       </div>
 
     </section>
 
 
-    <!-- CATEGORIES -->
+    <!-- ================= CATEGORIES ================= -->
+
     <section>
 
       <div class="section-title">
@@ -201,116 +315,214 @@
     </section>
 
 
-    <!-- RECENT RELEASES -->
+    <!-- ================= RECENT RELEASES ================= -->
+
     <section>
 
       <div class="section-title">
+
         <h2>RECENT RELEASES</h2>
-        <a>View all</a>
+
+        <a href="#">
+          View all
+        </a>
+
       </div>
+
 
       <div class="cards">
 
         <article class="card">
+
           <div class="art art1">
             DARK TRAP
             <small>DRUM KIT</small>
           </div>
 
-          <strong>Dark Trap Drum Kit</strong>
-          <small>Drums</small>
+          <strong>
+            Dark Trap Drum Kit
+          </strong>
+
+          <small>
+            Drums
+          </small>
 
           <button
             class="play"
-            data-name="Dark Trap - 808 Loop">
+            data-name="Dark Trap - 808 Loop"
+          >
             ▶
           </button>
+
         </article>
 
 
         <article class="card">
+
           <div class="art art2">
             EUPHORIA
             <small>MELODY LOOPS</small>
           </div>
 
-          <strong>Euphoria Melody Loops</strong>
-          <small>Melodies</small>
+          <strong>
+            Euphoria Melody Loops
+          </strong>
+
+          <small>
+            Melodies
+          </small>
 
           <button
             class="play"
-            data-name="Euphoria Melody Loop">
+            data-name="Euphoria Melody Loop"
+          >
             ▶
           </button>
+
         </article>
 
 
         <article class="card">
+
           <div class="art art3">
             VOX CHANTS
             <small>VOCAL PACK</small>
           </div>
 
-          <strong>Vox Chants Vocal Pack</strong>
-          <small>Vocals</small>
+          <strong>
+            Vox Chants Vocal Pack
+          </strong>
+
+          <small>
+            Vocals
+          </small>
 
           <button
             class="play"
-            data-name="Vox Chants">
+            data-name="Vox Chants"
+          >
             ▶
           </button>
+
         </article>
 
 
         <article class="card">
+
           <div class="art art4">
             IMPACT
             <small>FX COLLECTION</small>
           </div>
 
-          <strong>Impact FX Collection</strong>
-          <small>FX</small>
+          <strong>
+            Impact FX Collection
+          </strong>
+
+          <small>
+            FX
+          </small>
 
           <button
             class="play"
-            data-name="Impact FX">
+            data-name="Impact FX"
+          >
             ▶
           </button>
+
         </article>
 
 
         <article class="card">
+
           <div class="art art5">
             CINEMATIC
             <small>ATMOSPHERES</small>
           </div>
 
-          <strong>Cinematic Atmospheres</strong>
-          <small>FX</small>
+          <strong>
+            Cinematic Atmospheres
+          </strong>
+
+          <small>
+            FX
+          </small>
 
           <button
             class="play"
-            data-name="Cinematic Atmospheres">
+            data-name="Cinematic Atmospheres"
+          >
             ▶
           </button>
+
         </article>
 
 
         <article class="card">
+
           <div class="art art6">
             SERUM
             <small>DARK PRESETS</small>
           </div>
 
-          <strong>Serum Dark Presets</strong>
-          <small>Presets</small>
+          <strong>
+            Serum Dark Presets
+          </strong>
+
+          <small>
+            Presets
+          </small>
 
           <button
             class="play"
-            data-name="Serum Dark Preset">
+            data-name="Serum Dark Preset"
+          >
             ▶
           </button>
+
         </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= YOUR SOUND ================= -->
+
+    <section
+      id="yourSoundSection"
+      class="your-sound-section hidden"
+    >
+
+      <div class="section-title">
+
+        <h2>YOUR SOUND</h2>
+
+        <span id="accountTypeLabel">
+          Artist
+        </span>
+
+      </div>
+
+      <div class="your-sound-empty">
+
+        <div class="your-sound-icon">
+          ♬
+        </div>
+
+        <h3>
+          Your Sound
+        </h3>
+
+        <p>
+          Your uploaded tracks, albums and sounds will appear here.
+        </p>
+
+        <button
+          id="yourSoundUploadBtn"
+          type="button"
+        >
+          + Upload
+        </button>
 
       </div>
 
@@ -319,26 +531,32 @@
   </main>
 
 
-  <!-- PLAYER -->
+  <!-- ================= PLAYER ================= -->
+
   <footer class="player">
 
     <div class="track-art"></div>
 
     <div class="track-info">
+
       <strong id="trackName">
-        Dark Trap - 808 Loop
+        —
       </strong>
 
       <small>
-        TallesSound • AmirTalles
+        Lost Sound • AmirTalles
       </small>
+
     </div>
 
     <button id="prev">
       |◀
     </button>
 
-    <button id="mainPlay" class="main-play">
+    <button
+      id="mainPlay"
+      class="main-play"
+    >
       ▶
     </button>
 
@@ -357,6 +575,75 @@
     </div>
 
   </footer>
+
+</div>
+
+
+<!-- ================= UPLOAD MODAL ================= -->
+
+<div
+  id="uploadModal"
+  class="modal hidden"
+>
+
+  <div class="modal-box">
+
+    <button
+      id="closeUploadModal"
+      class="modal-close"
+    >
+      ×
+    </button>
+
+    <div class="modal-label">
+      LOST SOUND
+    </div>
+
+    <h2 id="uploadModalTitle">
+      Upload
+    </h2>
+
+    <p id="uploadModalText">
+      Choose what you want to upload.
+    </p>
+
+    <div
+      id="uploadForm"
+      class="upload-form"
+    >
+
+      <!-- Track / Album / Pack form will be connected in next step -->
+
+      <label>
+        Name
+      </label>
+
+      <input
+        id="uploadName"
+        type="text"
+        placeholder="Enter name"
+      >
+
+      <label>
+        Cover
+      </label>
+
+      <input
+        id="uploadCover"
+        type="file"
+        accept="image/*"
+      >
+
+      <button
+        id="confirmUpload"
+        type="button"
+      >
+        CONTINUE
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
