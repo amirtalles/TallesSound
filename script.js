@@ -1,144 +1,227 @@
-document.addEventListener("DOMContentLoaded", function () {
+const artists = [
 
-  const intro = document.getElementById("intro");
-  const startScreen = document.getElementById("startScreen");
-  const videoBox = document.getElementById("introVideoBox");
-  const video = document.getElementById("introVideo");
-  const letsGo = document.getElementById("letsGo");
-  const app = document.getElementById("app");
+  {
+    name: "AmirTalles",
+    role: "Producer / Artist",
+    image:
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Producer, composer and creative artist."
+  },
 
-  console.log("LOST SOUND JS LOADED");
+  {
+    name: "Lost Artist",
+    role: "Singer",
+    image:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Independent music artist on Lost Sound."
+  },
 
-  if (!letsGo) {
-    console.log("LET'S GO BUTTON NOT FOUND");
-    return;
+  {
+    name: "Nova",
+    role: "Music Producer",
+    image:
+      "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Electronic music producer."
+  },
+
+  {
+    name: "Echo",
+    role: "Artist",
+    image:
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Sound and visual artist."
+  },
+
+  {
+    name: "Luna",
+    role: "Vocalist",
+    image:
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Independent vocalist."
+  },
+
+  {
+    name: "Noir",
+    role: "Composer",
+    image:
+      "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=85",
+    bio:
+      "Composer and producer."
   }
 
-  letsGo.addEventListener("click", function () {
+];
 
-    console.log("LET'S GO CLICKED");
 
-    if (startScreen) {
-      startScreen.style.display = "none";
+const artistsContainer =
+  document.getElementById("artists");
+
+
+const profile =
+  document.getElementById("profile");
+
+
+const profileCover =
+  document.getElementById("profileCover");
+
+
+const profileName =
+  document.getElementById("profileName");
+
+
+const profileBio =
+  document.getElementById("profileBio");
+
+
+const closeButton =
+  document.getElementById("close");
+
+
+/* =========================
+   CREATE ARTISTS
+========================= */
+
+artists.forEach((artist) => {
+
+  const card =
+    document.createElement("article");
+
+  card.className =
+    "artist";
+
+
+  card.innerHTML = `
+
+    <div
+      class="artist-cover"
+      style="
+        background-image:
+        url('${artist.image}');
+      ">
+    </div>
+
+    <div class="artist-name">
+      ${artist.name}
+    </div>
+
+    <div class="artist-role">
+      ${artist.role}
+    </div>
+
+  `;
+
+
+  artistsContainer.appendChild(card);
+
+
+  /* =========================
+     CLICK
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    () => {
+
+      document
+        .querySelectorAll(".artist")
+        .forEach((item) => {
+
+          item.classList.remove(
+            "selected"
+          );
+
+        });
+
+
+      /*
+        First enlarge
+        the selected card
+      */
+
+      card.classList.add(
+        "selected"
+      );
+
+
+      /*
+        Small delay before
+        opening profile
+      */
+
+      setTimeout(() => {
+
+        profileCover.style.backgroundImage =
+          `url('${artist.image}')`;
+
+
+        profileName.textContent =
+          artist.name;
+
+
+        profileBio.textContent =
+          artist.bio;
+
+
+        profile.classList.add(
+          "open"
+        );
+
+      }, 220);
+
     }
-
-    if (videoBox) {
-      videoBox.style.display = "block";
-    }
-
-    if (intro) {
-      intro.classList.add("playing");
-    }
-
-    /*
-      اگر ویدیو وجود داشت، پخش کن
-    */
-
-    if (video) {
-
-      video.currentTime = 0;
-
-      const playPromise = video.play();
-
-      if (playPromise !== undefined) {
-
-        playPromise
-          .then(function () {
-
-            console.log("VIDEO PLAYING");
-
-          })
-          .catch(function (error) {
-
-            console.log("VIDEO ERROR:", error);
-
-            enterSite();
-
-          });
-
-      }
-
-    } else {
-
-      enterSite();
-
-    }
-
-  });
-
-
-  function enterSite() {
-
-    console.log("ENTERING SITE");
-
-    if (video) {
-      video.pause();
-    }
-
-    if (intro) {
-
-      intro.style.opacity = "0";
-      intro.style.transition = "opacity .5s ease";
-
-    }
-
-    setTimeout(function () {
-
-      if (intro) {
-        intro.style.display = "none";
-      }
-
-      if (app) {
-
-        app.classList.remove("hidden");
-
-        app.style.display = "block";
-
-      }
-
-      console.log("SITE OPENED");
-
-    }, 500);
-
-  }
-
-
-  /*
-    کلیک روی ویدیو = Skip
-  */
-
-  if (video) {
-
-    video.addEventListener("click", function () {
-
-      enterSite();
-
-    });
-
-
-    /*
-      وقتی ویدیو تمام شد
-    */
-
-    video.addEventListener("ended", function () {
-
-      enterSite();
-
-    });
-
-
-    /*
-      اگر ویدیو خطا داشت
-    */
-
-    video.addEventListener("error", function () {
-
-      console.log("INTRO VIDEO ERROR");
-
-      enterSite();
-
-    });
-
-  }
+  );
 
 });
+
+
+/* =========================
+   CLOSE PROFILE
+========================= */
+
+closeButton.addEventListener(
+  "click",
+  () => {
+
+    profile.classList.remove(
+      "open"
+    );
+
+
+    document
+      .querySelectorAll(".artist")
+      .forEach((item) => {
+
+        item.classList.remove(
+          "selected"
+        );
+
+      });
+
+  }
+);
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      profile.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
