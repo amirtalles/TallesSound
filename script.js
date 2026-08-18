@@ -98,8 +98,11 @@ if(video){
    SIDEBAR
 ========================= */
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.querySelector(".sidebar");
+const menuBtn =
+  document.getElementById("menuBtn");
+
+const sidebar =
+  document.querySelector(".sidebar");
 
 if(menuBtn && sidebar){
 
@@ -133,8 +136,8 @@ if(menuBtn && sidebar){
    ACCOUNT TYPE
 ========================= */
 
-const accountButtons =
-  document.querySelectorAll(".account-option");
+const roleItems =
+  document.querySelectorAll(".role-item");
 
 const artistUploadOptions =
   document.getElementById("artistUploadOptions");
@@ -146,16 +149,16 @@ const accountTypeLabel =
   document.getElementById("accountTypeLabel");
 
 let accountType =
-  localStorage.getItem("lostSoundAccountType") || "listener";
+  localStorage.getItem("lostSoundAccountType") || "artist";
 
 
 function updateAccountUI(){
 
-  accountButtons.forEach(button=>{
+  roleItems.forEach(item => {
 
-    button.classList.toggle(
-      "selected",
-      button.dataset.account === accountType
+    item.classList.toggle(
+      "active",
+      item.dataset.account === accountType
     );
 
   });
@@ -164,19 +167,23 @@ function updateAccountUI(){
   if(accountTypeLabel){
 
     if(accountType === "artist"){
+
       accountTypeLabel.textContent = "Artist";
+
     }
 
     else if(accountType === "producer"){
-      accountTypeLabel.textContent = "Producer";
-    }
 
-    else{
-      accountTypeLabel.textContent = "Listener";
+      accountTypeLabel.textContent = "Producer";
+
     }
 
   }
 
+
+  /*
+     Artist options
+  */
 
   if(artistUploadOptions){
 
@@ -187,6 +194,10 @@ function updateAccountUI(){
 
   }
 
+
+  /*
+     Producer options
+  */
 
   if(producerUploadOptions){
 
@@ -200,11 +211,12 @@ function updateAccountUI(){
 }
 
 
-accountButtons.forEach(button=>{
+roleItems.forEach(item => {
 
-  button.addEventListener("click",()=>{
+  item.addEventListener("click",()=>{
 
-    accountType = button.dataset.account;
+    accountType =
+      item.dataset.account;
 
     localStorage.setItem(
       "lostSoundAccountType",
@@ -212,11 +224,6 @@ accountButtons.forEach(button=>{
     );
 
     updateAccountUI();
-
-    console.log(
-      "Account:",
-      accountType
-    );
 
   });
 
@@ -227,44 +234,101 @@ updateAccountUI();
 
 
 /* =========================
-   PLUS / UPLOAD MENU
+   PLUS BUTTON
 ========================= */
 
 const plusBtn =
   document.getElementById("plusBtn");
 
-const uploadMenu =
-  document.getElementById("uploadMenu");
+const uploadOverlay =
+  document.getElementById("uploadOverlay");
 
-if(plusBtn && uploadMenu){
+const uploadClose =
+  document.getElementById("uploadClose");
+
+const uploadModal =
+  document.querySelector(".upload-modal");
+
+
+if(plusBtn){
 
   plusBtn.addEventListener("click",(e)=>{
 
+    e.preventDefault();
     e.stopPropagation();
 
-    if(accountType === "listener"){
 
-      alert(
-        "Please choose Artist or Producer first."
-      );
+    /*
+       اگر Listener باشد
+    */
+
+    if(
+      accountType !== "artist" &&
+      accountType !== "producer"
+    ){
 
       return;
 
     }
 
-    uploadMenu.classList.toggle("hidden");
 
-  });
+    /*
+       Artist
+    */
+
+    if(accountType === "artist"){
+
+      if(artistUploadOptions){
+
+        artistUploadOptions.classList.remove(
+          "hidden"
+        );
+
+      }
+
+      if(producerUploadOptions){
+
+        producerUploadOptions.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
 
 
-  document.addEventListener("click",(e)=>{
+    /*
+       Producer
+    */
 
-    if(
-      !uploadMenu.contains(e.target) &&
-      !plusBtn.contains(e.target)
-    ){
+    if(accountType === "producer"){
 
-      uploadMenu.classList.add("hidden");
+      if(artistUploadOptions){
+
+        artistUploadOptions.classList.add(
+          "hidden"
+        );
+
+      }
+
+      if(producerUploadOptions){
+
+        producerUploadOptions.classList.remove(
+          "hidden"
+        );
+
+      }
+
+    }
+
+
+    /*
+       نمایش پنجره
+    */
+
+    if(uploadOverlay){
+
+      uploadOverlay.classList.add("show");
 
     }
 
@@ -274,102 +338,148 @@ if(plusBtn && uploadMenu){
 
 
 /* =========================
-   UPLOAD MODAL
+   CLOSE UPLOAD
 ========================= */
 
-const uploadModal =
-  document.getElementById("uploadModal");
+if(uploadClose){
 
-const uploadModalTitle =
-  document.getElementById("uploadModalTitle");
+  uploadClose.addEventListener("click",(e)=>{
 
-const uploadModalText =
-  document.getElementById("uploadModalText");
+    e.preventDefault();
+    e.stopPropagation();
 
-const closeUploadModal =
-  document.getElementById("closeUploadModal");
+    if(uploadOverlay){
 
-const uploadButtons =
-  document.querySelectorAll(
-    "[data-upload]"
-  );
+      uploadOverlay.classList.remove("show");
 
-
-function openUploadModal(type){
-
-  if(!uploadModal) return;
-
-  if(uploadModalTitle){
-
-    if(type === "track"){
-      uploadModalTitle.textContent =
-        "Upload Track";
     }
 
-    else if(type === "album"){
-      uploadModalTitle.textContent =
-        "Upload Album";
-    }
-
-    else if(type === "pack"){
-      uploadModalTitle.textContent =
-        "Upload Pack";
-    }
-
-  }
-
-
-  if(uploadModalText){
-
-    if(type === "track"){
-      uploadModalText.textContent =
-        "Upload your complete track.";
-    }
-
-    else if(type === "album"){
-      uploadModalText.textContent =
-        "Create a new album release.";
-    }
-
-    else if(type === "pack"){
-      uploadModalText.textContent =
-        "Upload your producer sound pack.";
-    }
-
-  }
-
-
-  uploadModal.dataset.type = type;
-
-  uploadModal.classList.remove("hidden");
-
-  if(uploadMenu){
-    uploadMenu.classList.add("hidden");
-  }
+  });
 
 }
 
 
-uploadButtons.forEach(button=>{
+/*
+   بستن با لمس بیرون
+*/
+
+if(uploadOverlay){
+
+  uploadOverlay.addEventListener("click",(e)=>{
+
+    if(e.target === uploadOverlay){
+
+      uploadOverlay.classList.remove("show");
+
+    }
+
+  });
+
+}
+
+
+/*
+   جلوگیری از بسته شدن با کلیک
+   داخل پنجره
+*/
+
+if(uploadModal){
+
+  uploadModal.addEventListener("click",(e)=>{
+
+    e.stopPropagation();
+
+  });
+
+}
+
+
+/* =========================
+   UPLOAD OPTIONS
+========================= */
+
+const uploadButtons =
+  document.querySelectorAll("[data-upload]");
+
+
+uploadButtons.forEach(button => {
 
   button.addEventListener("click",()=>{
 
-    openUploadModal(
-      button.dataset.upload
-    );
+    const type =
+      button.dataset.upload;
+
+
+    /*
+       ARTIST
+    */
+
+    if(type === "track"){
+
+      console.log("Upload Track");
+
+      openUploadForm("track");
+
+    }
+
+
+    if(type === "album"){
+
+      console.log("Upload Album");
+
+      openUploadForm("album");
+
+    }
+
+
+    /*
+       PRODUCER
+    */
+
+    if(type === "pack"){
+
+      console.log("Upload Pack");
+
+      openUploadForm("pack");
+
+    }
+
+
+    if(type === "beat"){
+
+      console.log("Upload Beat");
+
+      openUploadForm("beat");
+
+    }
 
   });
 
 });
 
 
-if(closeUploadModal){
+/* =========================
+   UPLOAD FORM
+========================= */
 
-  closeUploadModal.addEventListener("click",()=>{
+function openUploadForm(type){
 
-    uploadModal.classList.add("hidden");
+  /*
+     فعلاً پنجره اصلی بسته می‌شود.
+     فرم واقعی را مرحله بعد اضافه می‌کنیم.
+  */
 
-  });
+  if(uploadOverlay){
+
+    uploadOverlay.classList.remove("show");
+
+  }
+
+
+  console.log(
+    "Selected upload type:",
+    type
+  );
 
 }
 
@@ -384,6 +494,7 @@ const yourSoundBtn =
 const yourSoundSection =
   document.getElementById("yourSoundSection");
 
+
 if(yourSoundBtn && yourSoundSection){
 
   yourSoundBtn.addEventListener("click",(e)=>{
@@ -395,7 +506,8 @@ if(yourSoundBtn && yourSoundSection){
     );
 
     yourSoundSection.scrollIntoView({
-      behavior:"smooth"
+      behavior:"smooth",
+      block:"start"
     });
 
   });
@@ -407,8 +519,14 @@ if(yourSoundBtn && yourSoundSection){
    SEARCH
 ========================= */
 
+const searchBtn =
+  document.getElementById("searchBtn");
+
 const artistSearch =
   document.getElementById("artistSearch");
+
+const artistSearchResult =
+  document.getElementById("artistSearchResult");
 
 const largeSearch =
   document.getElementById("largeSearch");
@@ -416,9 +534,10 @@ const largeSearch =
 const largeSearchBtn =
   document.getElementById("largeSearchBtn");
 
-const searchResults =
-  document.getElementById("searchResults");
 
+/*
+   آرتیست‌های نمونه
+*/
 
 const demoArtists = [
 
@@ -445,16 +564,19 @@ const demoArtists = [
 
 function performSearch(value){
 
-  if(!searchResults) return;
+  if(!artistSearchResult) return;
 
   const query =
     value.trim().toLowerCase();
 
+
   if(!query){
 
-    searchResults.classList.add("hidden");
+    artistSearchResult.classList.remove(
+      "show"
+    );
 
-    searchResults.innerHTML = "";
+    artistSearchResult.innerHTML = "";
 
     return;
 
@@ -462,31 +584,34 @@ function performSearch(value){
 
 
   const results =
-    demoArtists.filter(artist=>
+    demoArtists.filter(artist =>
+
       artist.name
         .toLowerCase()
         .includes(query)
+
     );
 
 
-  searchResults.innerHTML = "";
+  artistSearchResult.innerHTML = "";
 
 
-  results.forEach(artist=>{
+  results.forEach(artist => {
 
     const item =
       document.createElement("div");
 
     item.className =
-      "search-result";
+      "artist-result";
+
 
     item.innerHTML = `
 
-      <div class="search-result-avatar">
+      <div class="artist-result-avatar">
         ${artist.avatar}
       </div>
 
-      <div class="search-result-info">
+      <div class="artist-result-info">
 
         <strong>
           ${artist.name}
@@ -503,59 +628,106 @@ function performSearch(value){
 
     item.addEventListener("click",()=>{
 
-      alert(
-        "Artist channel: " +
+      console.log(
+        "Opening channel:",
         artist.name
       );
+
+      /*
+         بعداً اینجا channel.html
+         یا پروفایل آرتیست باز می‌شود.
+      */
 
     });
 
 
-    searchResults.appendChild(item);
+    artistSearchResult.appendChild(item);
 
   });
 
 
-  searchResults.classList.toggle(
-    "hidden",
-    results.length === 0
-  );
+  if(results.length){
+
+    artistSearchResult.classList.add(
+      "show"
+    );
+
+  }
+
+  else{
+
+    artistSearchResult.classList.remove(
+      "show"
+    );
+
+  }
 
 }
 
 
-if(artistSearch){
+/*
+   سرچ بالای صفحه
+*/
 
-  artistSearch.addEventListener(
-    "input",
-    ()=>performSearch(
+if(searchBtn && artistSearch){
+
+  searchBtn.addEventListener("click",()=>{
+
+    artistSearch.focus();
+
+  });
+
+
+  artistSearch.addEventListener("input",()=>{
+
+    performSearch(
       artistSearch.value
-    )
-  );
+    );
+
+  });
 
 }
 
+
+/*
+   سرچ بزرگ
+*/
 
 if(largeSearch){
 
-  largeSearch.addEventListener(
-    "input",
-    ()=>performSearch(
+  largeSearch.addEventListener("input",()=>{
+
+    /*
+       انتقال عبارت به سرچ اصلی
+    */
+
+    if(artistSearch){
+
+      artistSearch.value =
+        largeSearch.value;
+
+    }
+
+    performSearch(
       largeSearch.value
-    )
-  );
+    );
+
+  });
 
 }
 
 
 if(largeSearchBtn){
 
-  largeSearchBtn.addEventListener(
-    "click",
-    ()=>performSearch(
-      largeSearch?.value || ""
-    )
-  );
+  largeSearchBtn.addEventListener("click",()=>{
+
+    performSearch(
+      largeSearch
+        ? largeSearch.value
+        : ""
+    );
+
+  });
 
 }
 
@@ -563,6 +735,9 @@ if(largeSearchBtn){
 /* =========================
    PLAYER
 ========================= */
+
+const player =
+  document.getElementById("player");
 
 const record =
   document.getElementById("record");
@@ -576,9 +751,34 @@ const trackName =
 let playing = false;
 
 
+/*
+   پلیر در ابتدا مخفی
+*/
+
+if(player){
+
+  player.classList.add("hidden");
+
+}
+
+
+function showPlayer(){
+
+  if(player){
+
+    player.classList.remove(
+      "hidden"
+    );
+
+  }
+
+}
+
+
 function setPlaying(state){
 
   playing = state;
+
 
   if(mainPlay){
 
@@ -587,30 +787,25 @@ function setPlaying(state){
 
   }
 
+
   if(record){
 
     record.style.animationPlayState =
-      playing ? "running" : "paused";
+      playing
+      ? "running"
+      : "paused";
 
   }
 
 }
 
 
-if(mainPlay){
+/*
+   Play ترک
+*/
 
-  setPlaying(false);
-
-  mainPlay.addEventListener("click",()=>{
-
-    setPlaying(!playing);
-
-  });
-
-}
-
-
-document.querySelectorAll(".play").forEach(button=>{
+document.querySelectorAll(".play")
+.forEach(button => {
 
   button.addEventListener("click",()=>{
 
@@ -621,8 +816,60 @@ document.querySelectorAll(".play").forEach(button=>{
 
     }
 
+
+    /*
+       اولین Play:
+       پلیر ظاهر می‌شود
+    */
+
+    showPlayer();
+
     setPlaying(true);
 
   });
+
+});
+
+
+/*
+   Play / Pause
+*/
+
+if(mainPlay){
+
+  mainPlay.addEventListener("click",()=>{
+
+    setPlaying(!playing);
+
+  });
+
+}
+
+
+/* =========================
+   ESC
+========================= */
+
+document.addEventListener("keydown",(e)=>{
+
+  if(e.key === "Escape"){
+
+    if(uploadOverlay){
+
+      uploadOverlay.classList.remove(
+        "show"
+      );
+
+    }
+
+    if(artistSearchResult){
+
+      artistSearchResult.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
 
 });
