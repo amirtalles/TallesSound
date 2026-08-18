@@ -1,633 +1,292 @@
-/* =====================================================
-   LOST SOUND
-   MAIN SCRIPT
-===================================================== */
+/* ==================================================
+   LOST SOUND - MAIN SCRIPT
+================================================== */
 
 
-/* =====================================================
-   INTRO
-===================================================== */
+/* ==================================================
+   INTRO / LET'S GO
+================================================== */
 
-const intro =
-  document.getElementById("intro");
-
-const startScreen =
-  document.getElementById("startScreen");
-
-const videoBox =
-  document.getElementById("introVideoBox");
-
-const video =
-  document.getElementById("introVideo");
-
-const letsGo =
-  document.getElementById("letsGo");
-
-const app =
-  document.getElementById("app");
+const intro = document.getElementById("intro");
+const startScreen = document.getElementById("startScreen");
+const videoBox = document.getElementById("introVideoBox");
+const video = document.getElementById("introVideo");
+const letsGo = document.getElementById("letsGo");
+const app = document.getElementById("app");
 
 let introStarted = false;
 let introFinished = false;
 
 
-function enterApp(){
+/* ورود به سایت */
 
-  if(introFinished) return;
+function enterApp() {
+
+  if (introFinished) return;
 
   introFinished = true;
 
-  if(video){
+  /* توقف ویدیو */
+  if (video) {
     video.pause();
   }
 
-  if(intro){
+  /* محو شدن Intro */
+  if (intro) {
 
-    intro.style.transition =
-      "opacity .5s ease";
-
+    intro.style.transition = "opacity .5s ease";
     intro.style.opacity = "0";
 
   }
 
-  setTimeout(()=>{
+  /* نمایش سایت */
+  setTimeout(() => {
 
-    if(intro){
+    if (intro) {
       intro.remove();
     }
 
-    if(app){
+    if (app) {
       app.classList.remove("hidden");
     }
 
-  },500);
+    document.body.style.overflowX = "hidden";
+
+  }, 500);
 
 }
 
 
-if(letsGo){
+/* دکمه LET'S GO */
 
-  letsGo.addEventListener(
-    "click",
-    async(e)=>{
+if (letsGo) {
 
-      e.stopPropagation();
+  letsGo.addEventListener("click", async function (e) {
 
-      if(introStarted) return;
+    e.preventDefault();
+    e.stopPropagation();
 
-      introStarted = true;
+    if (introStarted) return;
 
-      if(intro){
-        intro.classList.add("playing");
-      }
+    introStarted = true;
 
-      if(startScreen){
-        startScreen.style.display = "none";
-      }
 
-      if(videoBox){
-        videoBox.style.display = "block";
-      }
+    /* فعال شدن حالت ویدیو */
 
-      if(video){
+    if (intro) {
+      intro.classList.add("playing");
+    }
+
+    if (startScreen) {
+      startScreen.style.display = "none";
+    }
+
+    if (videoBox) {
+      videoBox.style.display = "block";
+    }
+
+
+    /* پخش ویدیو */
+
+    if (video) {
+
+      try {
 
         video.currentTime = 0;
 
-        try{
+        await video.play();
 
-          await video.play();
+      } catch (error) {
 
-        }catch(error){
+        console.log("Video play error:", error);
 
-          console.log(
-            "Video error:",
-            error
-          );
+        /*
+          اگر ویدیو پخش نشد،
+          باز هم وارد سایت شو
+        */
 
-        }
+        setTimeout(() => {
+          enterApp();
+        }, 300);
 
       }
 
-    }
-  );
-
-}
-
-
-if(video){
-
-  video.addEventListener(
-    "click",
-    ()=>{
-
-      if(!introStarted) return;
+    } else {
 
       enterApp();
 
     }
-  );
 
-
-  video.addEventListener(
-    "ended",
-    enterApp
-  );
+  });
 
 }
 
 
-/* =====================================================
-   ACCOUNT TYPE
-===================================================== */
+/* کلیک روی ویدیو = ورود */
 
-let accountType =
-  localStorage.getItem(
-    "lostSoundAccountType"
-  ) || "listener";
+if (video) {
+
+  video.addEventListener("click", function () {
+
+    if (!introStarted) return;
+
+    enterApp();
+
+  });
+
+
+  /* پایان ویدیو */
+
+  video.addEventListener("ended", function () {
+
+    enterApp();
+
+  });
+
+
+  /* خطای ویدیو */
+
+  video.addEventListener("error", function () {
+
+    console.log("intro.mp4 پیدا نشد یا قابل پخش نیست.");
+
+    /*
+      اگر فایل ویدیو مشکل داشت
+      سایت قفل نمی‌شود
+    */
+
+    setTimeout(() => {
+
+      if (!introFinished) {
+        enterApp();
+      }
+
+    }, 500);
+
+  });
+
+}
+
+
+/* ==================================================
+   SIDEBAR / MOBILE MENU
+================================================== */
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.querySelector(".sidebar");
+
+if (menuBtn && sidebar) {
+
+  menuBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    sidebar.classList.toggle("open");
+
+  });
+
+
+  document.addEventListener("click", function (e) {
+
+    if (!sidebar.classList.contains("open")) return;
+
+    if (
+      !sidebar.contains(e.target) &&
+      !menuBtn.contains(e.target)
+    ) {
+
+      sidebar.classList.remove("open");
+
+    }
+
+  });
+
+}
+
+
+/* ==================================================
+   ACCOUNT TYPE
+================================================== */
+
+const accountButtons =
+  document.querySelectorAll(".role-item");
+
+const artistUploadOptions =
+  document.getElementById("artistUploadOptions");
+
+const producerUploadOptions =
+  document.getElementById("producerUploadOptions");
+
+const accountTypeLabel =
+  document.getElementById("accountTypeLabel");
 
 
 /*
-   Listener:
-   default = Artist
-
-   Artist:
-   default = Artist
-
-   Producer:
-   default = Producer
+  Listener
+  Artist
+  Producer
 */
 
+let accountType =
+  localStorage.getItem("lostSoundAccountType") || "listener";
 
-/* =====================================================
-   RANKING DATA
-===================================================== */
 
-const artists = [
+function updateAccountUI() {
 
-  {
-    rank:1,
-    name:"AmirTalles",
-    username:"@amirtalles",
-    plays:"12.5M",
-    avatar:"AT",
-    verified:true
-  }
 
-];
+  /* انتخاب Artist / Producer */
 
+  accountButtons.forEach(button => {
 
-const producers = [
-
-  {
-    rank:1,
-    name:"AmirTalles",
-    username:"@amirtalles",
-    plays:"0",
-    avatar:"AT",
-    verified:true
-  }
-
-];
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const artistsTab =
-  document.getElementById(
-    "artistsTab"
-  );
-
-const producersTab =
-  document.getElementById(
-    "producersTab"
-  );
-
-const rankingList =
-  document.getElementById(
-    "rankingList"
-  );
-
-const rankingTitle =
-  document.getElementById(
-    "rankingTitle"
-  );
-
-const rankingEyebrow =
-  document.getElementById(
-    "rankingEyebrow"
-  );
-
-const rankingDescription =
-  document.getElementById(
-    "rankingDescription"
-  );
-
-const rankingFilter =
-  document.getElementById(
-    "rankingFilter"
-  );
-
-
-let currentRanking =
-  "artists";
-
-
-/* =====================================================
-   RENDER RANKING
-===================================================== */
-
-function renderRanking(type){
-
-  currentRanking = type;
-
-  const data =
-    type === "artists"
-      ? artists
-      : producers;
-
-
-  if(artistsTab){
-
-    artistsTab.classList.toggle(
-      "active",
-      type === "artists"
-    );
-
-  }
-
-
-  if(producersTab){
-
-    producersTab.classList.toggle(
-      "active",
-      type === "producers"
-    );
-
-  }
-
-
-  if(rankingTitle){
-
-    rankingTitle.textContent =
-      type === "artists"
-        ? "ARTISTS RANKING"
-        : "PRODUCERS RANKING";
-
-  }
-
-
-  if(rankingEyebrow){
-
-    rankingEyebrow.textContent =
-      type === "artists"
-        ? "TOP ARTISTS"
-        : "TOP PRODUCERS";
-
-  }
-
-
-  if(rankingDescription){
-
-    rankingDescription.textContent =
-      type === "artists"
-        ? "Top artists based on total plays"
-        : "Top producers based on total plays";
-
-  }
-
-
-  if(!rankingList) return;
-
-  rankingList.innerHTML = "";
-
-
-  data.forEach(item=>{
-
-    const card =
-      document.createElement("article");
-
-    card.className =
-      "rank-card";
-
-
-    card.innerHTML = `
-
-      <div class="rank-number">
-        ${item.rank}
-      </div>
-
-      <div class="rank-avatar">
-        ${item.avatar}
-      </div>
-
-      <div class="rank-name">
-
-        <strong>
-
-          ${item.name}
-
-          ${
-            item.verified
-              ? `<span class="verified">✓</span>`
-              : ""
-          }
-
-        </strong>
-
-        <small>
-          ${item.username}
-        </small>
-
-      </div>
-
-      <div class="rank-plays">
-
-        <strong>
-          ${item.plays}
-        </strong>
-
-        <small>
-          PLAYS
-        </small>
-
-      </div>
-
-      <button
-        class="rank-more"
-        type="button"
-      >
-        ⋮
-      </button>
-
-    `;
-
-
-    card
-      .querySelector(".rank-more")
-      .addEventListener(
-        "click",
-        ()=>{
-          openProfile(
-            item.name
-          );
-        }
-      );
-
-
-    rankingList.appendChild(card);
-
-  });
-
-}
-
-
-/* =====================================================
-   INITIAL PAGE
-===================================================== */
-
-if(accountType === "producer"){
-
-  renderRanking("producers");
-
-}else{
-
-  renderRanking("artists");
-
-}
-
-
-/* =====================================================
-   RANKING TABS
-===================================================== */
-
-if(artistsTab){
-
-  artistsTab.addEventListener(
-    "click",
-    ()=>{
-      renderRanking("artists");
-    }
-  );
-
-}
-
-
-if(producersTab){
-
-  producersTab.addEventListener(
-    "click",
-    ()=>{
-      renderRanking("producers");
-    }
-  );
-
-}
-
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
-const pages = {
-
-  home:
-    document.getElementById(
-      "homePage"
-    ),
-
-  explore:
-    document.getElementById(
-      "explorePage"
-    ),
-
-  library:
-    document.getElementById(
-      "libraryPage"
-    ),
-
-  profile:
-    document.getElementById(
-      "profilePage"
-    )
-
-};
-
-
-function showPage(page){
-
-  Object.keys(pages)
-    .forEach(key=>{
-
-      if(pages[key]){
-
-        pages[key].classList.toggle(
-          "hidden",
-          key !== page
-        );
-
-      }
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".bottom-item"
-    )
-    .forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.page === page
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".side-link"
-    )
-    .forEach(link=>{
-
-      link.classList.toggle(
-        "active",
-        link.dataset.page === page
-      );
-
-    });
-
-}
-
-
-document
-  .querySelectorAll(
-    "[data-page]"
-  )
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      (e)=>{
-
-        e.preventDefault();
-
-        showPage(
-          button.dataset.page
-        );
-
-      }
+    button.classList.toggle(
+      "selected",
+      button.dataset.account === accountType
     );
 
   });
 
 
-/* =====================================================
-   SIDEBAR MOBILE
-===================================================== */
+  /* نوشته Your Sound */
 
-const menuBtn =
-  document.getElementById(
-    "menuBtn"
-  );
+  if (accountTypeLabel) {
 
-const sidebar =
-  document.querySelector(
-    ".sidebar"
-  );
+    if (accountType === "artist") {
 
-
-if(menuBtn && sidebar){
-
-  menuBtn.addEventListener(
-    "click",
-    (e)=>{
-
-      e.stopPropagation();
-
-      sidebar.classList.toggle(
-        "open"
-      );
+      accountTypeLabel.textContent = "Artist";
 
     }
-  );
 
+    else if (accountType === "producer") {
 
-  document.addEventListener(
-    "click",
-    (e)=>{
-
-      if(
-        !sidebar.classList.contains(
-          "open"
-        )
-      ) return;
-
-
-      if(
-        !sidebar.contains(e.target) &&
-        !menuBtn.contains(e.target)
-      ){
-
-        sidebar.classList.remove(
-          "open"
-        );
-
-      }
+      accountTypeLabel.textContent = "Producer";
 
     }
-  );
 
-}
+    else {
 
+      accountTypeLabel.textContent = "Listener";
 
-/* =====================================================
-   UPLOAD
-===================================================== */
+    }
 
-const plusBtn =
-  document.getElementById(
-    "plusBtn"
-  );
-
-const bottomPlus =
-  document.getElementById(
-    "bottomPlus"
-  );
-
-const uploadOverlay =
-  document.getElementById(
-    "uploadOverlay"
-  );
-
-const uploadClose =
-  document.getElementById(
-    "uploadClose"
-  );
-
-const artistUploadOptions =
-  document.getElementById(
-    "artistUploadOptions"
-  );
-
-const producerUploadOptions =
-  document.getElementById(
-    "producerUploadOptions"
-  );
+  }
 
 
-function updateUploadMenu(){
+  /* آپلودهای Artist */
 
-  if(!artistUploadOptions) return;
+  if (artistUploadOptions) {
 
-  artistUploadOptions.classList.toggle(
-    "hidden",
-    accountType !== "artist"
-  );
+    artistUploadOptions.classList.toggle(
+      "hidden",
+      accountType !== "artist"
+    );
+
+  }
 
 
-  if(producerUploadOptions){
+  /* آپلودهای Producer */
+
+  if (producerUploadOptions) {
 
     producerUploadOptions.classList.toggle(
       "hidden",
@@ -639,213 +298,347 @@ function updateUploadMenu(){
 }
 
 
-function openUpload(){
+/* انتخاب حساب */
 
-  if(accountType === "listener"){
+accountButtons.forEach(button => {
 
-    alert(
-      "Choose Artist or Producer first."
+  button.addEventListener("click", function () {
+
+    accountType =
+      this.dataset.account;
+
+    localStorage.setItem(
+      "lostSoundAccountType",
+      accountType
     );
+
+    updateAccountUI();
+
+  });
+
+});
+
+
+updateAccountUI();
+
+
+/* ==================================================
+   PLUS / UPLOAD OVERLAY
+================================================== */
+
+const plusBtn =
+  document.getElementById("plusBtn");
+
+const uploadOverlay =
+  document.getElementById("uploadOverlay");
+
+const uploadClose =
+  document.getElementById("uploadClose");
+
+
+/* باز کردن Upload */
+
+if (plusBtn) {
+
+  plusBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+
+    /* Listener اجازه آپلود ندارد */
+
+    if (accountType === "listener") {
+
+      alert(
+        "Please choose Artist or Producer first."
+      );
+
+      return;
+
+    }
+
+
+    if (uploadOverlay) {
+
+      uploadOverlay.classList.add("show");
+
+      uploadOverlay.classList.remove("hidden");
+
+    }
+
+  });
+
+}
+
+
+/* بستن Upload */
+
+if (uploadClose) {
+
+  uploadClose.addEventListener("click", function () {
+
+    if (uploadOverlay) {
+
+      uploadOverlay.classList.remove("show");
+
+      uploadOverlay.classList.add("hidden");
+
+    }
+
+  });
+
+}
+
+
+/* کلیک بیرون مودال */
+
+if (uploadOverlay) {
+
+  uploadOverlay.addEventListener("click", function (e) {
+
+    if (e.target === uploadOverlay) {
+
+      uploadOverlay.classList.remove("show");
+
+      uploadOverlay.classList.add("hidden");
+
+    }
+
+  });
+
+}
+
+
+/* ==================================================
+   UPLOAD OPTIONS
+================================================== */
+
+const uploadButtons =
+  document.querySelectorAll("[data-upload]");
+
+
+uploadButtons.forEach(button => {
+
+  button.addEventListener("click", function () {
+
+    const type =
+      this.dataset.upload;
+
+    console.log(
+      "Selected upload:",
+      type
+    );
+
+
+    /*
+      فعلاً فقط انتخاب نوع آپلود.
+      فرم واقعی آپلود را بعداً اضافه می‌کنیم.
+    */
+
+    if (type === "track") {
+
+      alert("Upload Track");
+
+    }
+
+    else if (type === "album") {
+
+      alert("Upload Album");
+
+    }
+
+    else if (type === "pack") {
+
+      alert("Upload Pack");
+
+    }
+
+    else if (type === "beat") {
+
+      alert("Upload Beat");
+
+    }
+
+  });
+
+});
+
+
+/* ==================================================
+   YOUR SOUND / LIBRARY
+================================================== */
+
+const yourSoundBtn =
+  document.getElementById("yourSoundBtn");
+
+const yourSoundSection =
+  document.getElementById("yourSoundSection");
+
+
+if (yourSoundBtn && yourSoundSection) {
+
+  yourSoundBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    yourSoundSection.classList.toggle("hidden");
+
+    if (!yourSoundSection.classList.contains("hidden")) {
+
+      yourSoundSection.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  });
+
+}
+
+
+/* ==================================================
+   SEARCH
+================================================== */
+
+const artistSearch =
+  document.getElementById("artistSearch");
+
+const largeSearch =
+  document.getElementById("largeSearch");
+
+const largeSearchBtn =
+  document.getElementById("largeSearchBtn");
+
+const artistSearchResult =
+  document.getElementById("artistSearchResult");
+
+
+/* فعلاً دیتای آزمایشی */
+
+const demoArtists = [
+
+  {
+    name: "AmirTalles",
+    username: "@amirtalles",
+    type: "Artist",
+    avatar: "AT",
+    rank: 1
+  },
+
+  {
+    name: "Dark Producer",
+    username: "@darkproducer",
+    type: "Producer",
+    avatar: "DP",
+    rank: 2
+  }
+
+];
+
+
+function performSearch(value) {
+
+  if (!artistSearchResult) return;
+
+  const query =
+    value.trim().toLowerCase();
+
+
+  if (!query) {
+
+    artistSearchResult.classList.add("hidden");
+
+    artistSearchResult.innerHTML = "";
 
     return;
 
   }
 
 
-  updateUploadMenu();
+  const results =
+    demoArtists.filter(artist =>
 
-  uploadOverlay.classList.remove(
-    "hidden"
-  );
+      artist.name
+        .toLowerCase()
+        .includes(query)
 
-}
+      ||
 
+      artist.username
+        .toLowerCase()
+        .includes(query)
 
-function closeUpload(){
-
-  if(uploadOverlay){
-
-    uploadOverlay.classList.add(
-      "hidden"
     );
 
-  }
 
-}
-
-
-if(plusBtn){
-
-  plusBtn.addEventListener(
-    "click",
-    openUpload
-  );
-
-}
+  artistSearchResult.innerHTML = "";
 
 
-if(bottomPlus){
+  results.forEach(artist => {
 
-  bottomPlus.addEventListener(
-    "click",
-    openUpload
-  );
+    const item =
+      document.createElement("div");
 
-}
-
-
-if(uploadClose){
-
-  uploadClose.addEventListener(
-    "click",
-    closeUpload
-  );
-
-}
+    item.className =
+      "search-result";
 
 
-if(uploadOverlay){
+    item.innerHTML = `
 
-  uploadOverlay.addEventListener(
-    "click",
-    (e)=>{
+      <div class="search-result-avatar">
+        ${artist.avatar}
+      </div>
 
-      if(
-        e.target ===
-        uploadOverlay
-      ){
+      <div class="search-result-info">
 
-        closeUpload();
+        <strong>
+          ${artist.name}
+        </strong>
 
-      }
+        <small>
+          ${artist.username} • ${artist.type}
+        </small>
 
-    }
-  );
+      </div>
 
-}
-
-
-/* =====================================================
-   UPLOAD OPTIONS
-===================================================== */
-
-document
-  .querySelectorAll(
-    ".upload-option"
-  )
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      ()=>{
-
-        const type =
-          button.dataset.upload;
+    `;
 
 
-        if(type === "track"){
+    item.addEventListener("click", function () {
 
-          alert(
-            "Upload Track selected."
-          );
+      console.log(
+        "Open profile:",
+        artist.name
+      );
 
-        }
+    });
 
-        else if(type === "album"){
 
-          alert(
-            "Upload Album selected."
-          );
-
-        }
-
-        else if(type === "pack"){
-
-          alert(
-            "Upload Pack selected."
-          );
-
-        }
-
-        else if(type === "beat"){
-
-          alert(
-            "Upload Beat selected."
-          );
-
-        }
-
-        closeUpload();
-
-      }
-    );
+    artistSearchResult.appendChild(item);
 
   });
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
-const artistSearch =
-  document.getElementById(
-    "artistSearch"
+  artistSearchResult.classList.toggle(
+    "hidden",
+    results.length === 0
   );
-
-
-function searchArtist(value){
-
-  const query =
-    value
-      .trim()
-      .toLowerCase();
-
-
-  if(!query) return;
-
-
-  const result =
-    artists.find(
-      artist=>
-        artist.username
-          .toLowerCase()
-          .includes(query) ||
-        artist.name
-          .toLowerCase()
-          .includes(query)
-    );
-
-
-  if(result){
-
-    openProfile(
-      result.name
-    );
-
-  }else{
-
-    alert(
-      "Artist not found."
-    );
-
-  }
 
 }
 
 
-if(artistSearch){
+/* سرچ بالای صفحه */
+
+if (artistSearch) {
 
   artistSearch.addEventListener(
-    "keydown",
-    (e)=>{
+    "input",
+    function () {
 
-      if(e.key === "Enter"){
-
-        searchArtist(
-          artistSearch.value
-        );
-
-      }
+      performSearch(
+        this.value
+      );
 
     }
   );
@@ -853,27 +646,17 @@ if(artistSearch){
 }
 
 
-/* =====================================================
-   SEARCH BUTTON
-===================================================== */
+/* سرچ بزرگ */
 
-const searchBtn =
-  document.getElementById(
-    "searchBtn"
-  );
+if (largeSearch) {
 
+  largeSearch.addEventListener(
+    "input",
+    function () {
 
-if(searchBtn){
-
-  searchBtn.addEventListener(
-    "click",
-    ()=>{
-
-      if(artistSearch){
-
-        artistSearch.focus();
-
-      }
+      performSearch(
+        this.value
+      );
 
     }
   );
@@ -881,122 +664,19 @@ if(searchBtn){
 }
 
 
-/* =====================================================
-   PROFILE
-===================================================== */
+/* دکمه سرچ */
 
-const profileTopBtn =
-  document.getElementById(
-    "profileTopBtn"
-  );
+if (largeSearchBtn) {
 
-
-function openProfile(){
-
-  showPage("profile");
-
-}
-
-
-if(profileTopBtn){
-
-  profileTopBtn.addEventListener(
+  largeSearchBtn.addEventListener(
     "click",
-    openProfile
-  );
+    function () {
 
-}
-
-
-/* =====================================================
-   LIBRARY
-===================================================== */
-
-const likedList =
-  document.getElementById(
-    "likedList"
-  );
-
-
-document
-  .querySelectorAll(
-    ".library-card"
-  )
-  .forEach(card=>{
-
-    card.addEventListener(
-      "click",
-      ()=>{
-
-        const category =
-          card.dataset.category;
-
-
-        if(likedList){
-
-          likedList.textContent =
-            `${category} — Nothing saved yet.`;
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =====================================================
-   EXPLORE SEARCH
-===================================================== */
-
-const exploreSearch =
-  document.getElementById(
-    "exploreSearch"
-  );
-
-const exploreSearchBtn =
-  document.getElementById(
-    "exploreSearchBtn"
-  );
-
-
-function runExploreSearch(){
-
-  const value =
-    exploreSearch
-      ? exploreSearch.value.trim()
-      : "";
-
-
-  if(!value) return;
-
-
-  searchArtist(value);
-
-}
-
-
-if(exploreSearchBtn){
-
-  exploreSearchBtn.addEventListener(
-    "click",
-    runExploreSearch
-  );
-
-}
-
-
-if(exploreSearch){
-
-  exploreSearch.addEventListener(
-    "keydown",
-    (e)=>{
-
-      if(e.key === "Enter"){
-
-        runExploreSearch();
-
-      }
+      performSearch(
+        largeSearch
+          ? largeSearch.value
+          : ""
+      );
 
     }
   );
@@ -1004,168 +684,130 @@ if(exploreSearch){
 }
 
 
-/* =====================================================
+/* ==================================================
    PLAYER
-===================================================== */
+================================================== */
 
 const player =
-  document.getElementById(
-    "player"
-  );
+  document.getElementById("player");
 
-const trackName =
-  document.getElementById(
-    "trackName"
-  );
+const record =
+  document.getElementById("record");
 
 const mainPlay =
-  document.getElementById(
-    "mainPlay"
-  );
+  document.getElementById("mainPlay");
 
-const playerClose =
-  document.getElementById(
-    "playerClose"
-  );
+const trackName =
+  document.getElementById("trackName");
+
+let playing = false;
 
 
-let playerPlaying = false;
+/* وضعیت Player */
+
+function setPlaying(state) {
+
+  playing = state;
 
 
-function openPlayer(name){
-
-  if(trackName){
-
-    trackName.textContent =
-      name;
-
-  }
-
-
-  if(player){
-
-    player.classList.remove(
-      "hidden"
-    );
-
-  }
-
-
-  playerPlaying = true;
-
-  if(mainPlay){
+  if (mainPlay) {
 
     mainPlay.textContent =
-      "Ⅱ";
+      playing
+        ? "Ⅱ"
+        : "▶";
 
   }
 
-}
 
+  if (record) {
 
-function closePlayer(){
-
-  if(player){
-
-    player.classList.add(
-      "hidden"
-    );
+    record.style.animationPlayState =
+      playing
+        ? "running"
+        : "paused";
 
   }
 
-  playerPlaying = false;
 
-}
+  /*
+    Player فقط وقتی موزیک Play شده
+    نمایش داده شود
+  */
 
+  if (player) {
 
-if(mainPlay){
+    if (playing) {
 
-  mainPlay.addEventListener(
-    "click",
-    ()=>{
-
-      playerPlaying =
-        !playerPlaying;
-
-
-      mainPlay.textContent =
-        playerPlaying
-          ? "Ⅱ"
-          : "▶";
+      player.classList.remove("hidden");
 
     }
-  );
+
+  }
 
 }
 
 
-if(playerClose){
+/* اول سایت Player مخفی باشد */
 
-  playerClose.addEventListener(
-    "click",
-    closePlayer
-  );
+if (player) {
+
+  player.classList.add("hidden");
 
 }
 
 
-/* =====================================================
-   DEMO TRACK PLAY
-===================================================== */
+if (mainPlay) {
 
-document
-  .querySelectorAll(
-    ".play"
-  )
-  .forEach(button=>{
+  mainPlay.addEventListener("click", function () {
 
-    button.addEventListener(
-      "click",
-      ()=>{
-
-        openPlayer(
-          button.dataset.name ||
-          "Lost Sound Track"
-        );
-
-      }
-    );
+    setPlaying(!playing);
 
   });
 
-
-/* =====================================================
-   PROFILE ROLE
-===================================================== */
-
-const profileRole =
-  document.getElementById(
-    "profileRole"
-  );
-
-if(profileRole){
-
-  if(accountType === "producer"){
-
-    profileRole.textContent =
-      "Producer";
-
-  }
-
-  else{
-
-    profileRole.textContent =
-      "Artist";
-
-  }
-
 }
 
 
-/* =====================================================
-   FINAL STATE
-===================================================== */
+/* ==================================================
+   PLAY BUTTONS
+================================================== */
 
-updateUploadMenu();
+document.querySelectorAll(".play").forEach(button => {
 
-showPage("home");
+  button.addEventListener("click", function () {
+
+    const name =
+      this.dataset.name || "Unknown Track";
+
+
+    if (trackName) {
+
+      trackName.textContent =
+        name;
+
+    }
+
+
+    /* Player باز شود */
+
+    if (player) {
+
+      player.classList.remove("hidden");
+
+    }
+
+
+    setPlaying(true);
+
+  });
+
+});
+
+
+/* ==================================================
+   FINAL
+================================================== */
+
+console.log(
+  "Lost Sound loaded successfully."
+);
