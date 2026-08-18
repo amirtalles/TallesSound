@@ -38,7 +38,6 @@
         <a href="#" class="side-link" data-page="explore">Explore</a>
         <a href="#" class="side-link" data-page="library">Library</a>
         <a href="#" class="side-link" data-page="profile">Profile</a>
-        <a href="#" class="side-link" data-page="studio">Studio</a>
       </nav>
     </aside>
 
@@ -62,7 +61,7 @@
       </header>
 
       <!-- ===================================================
-           HOME (RANKING)
+           HOME (RANKING) – مطابق عکس دوم
       =================================================== -->
       <section id="homePage" class="page-section">
         <div class="ranking-tabs">
@@ -147,7 +146,7 @@
       </section>
 
       <!-- ===================================================
-           PROFILE (یکپارچه با کلاس‌های CSS اصلی)
+           PROFILE
       =================================================== -->
       <section id="profilePage" class="page-section hidden">
         <div class="profile-page">
@@ -162,8 +161,6 @@
             <div><strong>0</strong><small>Likes</small></div>
           </div>
           <button class="edit-profile">Edit Profile</button>
-
-          <!-- پک‌ها با استایل library-card -->
           <div style="margin-top:40px; text-align:right;">
             <h2 style="font-size:16px; letter-spacing:2px; color:#d71920;">MY PACKS</h2>
             <div class="library-grid" style="margin-top:15px;">
@@ -190,63 +187,29 @@
         </div>
       </section>
 
-      <!-- ===================================================
-           STUDIO (صفحه آپلود)
-      =================================================== -->
-      <section id="studioPage" class="page-section hidden">
-        <div class="page-title">
-          <span>STUDIO</span>
-          <h1>Upload New Sample</h1>
-          <p>Share your sounds with the world.</p>
-        </div>
-        <div style="max-width:600px; background:#101010; border:1px solid #222; border-radius:20px; padding:25px;">
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Cover Image</label>
-          <input type="file" accept="image/*" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Audio File</label>
-          <input type="file" accept="audio/*" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Sample Name</label>
-          <input placeholder="Dark Trap 808 Loop" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Category</label>
-          <select style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;">
-            <option>Drums</option><option>Melodies</option><option>Vocals</option><option>FX</option><option>Presets</option>
-          </select>
-
-          <div style="display:flex; gap:15px;">
-            <div style="flex:1;">
-              <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">BPM</label>
-              <input placeholder="140" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-            </div>
-            <div style="flex:1;">
-              <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Key</label>
-              <input placeholder="F#m" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-            </div>
-          </div>
-
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Artist</label>
-          <input placeholder="AmirTalles" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
-
-          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Description</label>
-          <textarea placeholder="Describe your sound..." style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px; height:100px;"></textarea>
-
-          <button style="width:100%; margin-top:25px; padding:15px; border:0; border-radius:30px; background:#d71920; color:white; font-weight:bold; letter-spacing:2px;">PUBLISH</button>
-        </div>
-      </section>
-
     </main>
 
     <!-- ===================================================
-         BOTTOM NAV (منوی پایین)
+         BOTTOM NAV (منوی پایین – مطابق عکس دوم)
     =================================================== -->
     <nav class="bottom-nav">
-      <button class="bottom-item active" data-page="home"><span>⌂</span><small>Home</small></button>
-      <button class="bottom-item" data-page="explore"><span>⌕</span><small>Explore</small></button>
+      <button class="bottom-item active" data-page="home">
+        <span>⌂</span>
+        <small>HOME</small>
+      </button>
+      <button class="bottom-item" data-page="explore">
+        <span>⌕</span>
+        <small>EXPLORE</small>
+      </button>
       <button class="bottom-plus" id="plusBtnMobile">+</button>
-      <button class="bottom-item" data-page="library"><span>♡</span><small>Library</small></button>
-      <button class="bottom-item" data-page="profile"><span>👤</span><small>Profile</small></button>
-      <button class="bottom-item" data-page="studio"><span>🎚</span><small>Studio</small></button>
+      <button class="bottom-item" data-page="library">
+        <span>♡</span>
+        <small>LIBRARY</small>
+      </button>
+      <button class="bottom-item" data-page="profile">
+        <span>👤</span>
+        <small>PROFILE</small>
+      </button>
     </nav>
 
     <!-- ===================================================
@@ -289,7 +252,7 @@
   </div>
 
   <!-- =====================================================
-       JAVASCRIPT (همه‌چیز در یک فایل)
+       JAVASCRIPT
   ===================================================== -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -340,33 +303,27 @@
       }
 
       // ===================================================
-      // NAVIGATION (مقاوم در برابر خطا)
+      // NAVIGATION
       // ===================================================
       const links = document.querySelectorAll(".side-link, .bottom-item");
       const pageMap = {
         home: document.getElementById("homePage"),
         explore: document.getElementById("explorePage"),
         library: document.getElementById("libraryPage"),
-        profile: document.getElementById("profilePage"),
-        studio: document.getElementById("studioPage")
+        profile: document.getElementById("profilePage")
       };
 
       function showPage(name) {
-        // مخفی کردن همه صفحات
         Object.values(pageMap).forEach(function(el) {
           if (el) el.classList.add("hidden");
         });
-        // نمایش صفحه مورد نظر
         const target = pageMap[name];
         if (target) {
           target.classList.remove("hidden");
         } else {
-          // اگر صفحه پیدا نشد، برو به خانه
-          console.warn("صفحه پیدا نشد:", name);
           if (pageMap.home) pageMap.home.classList.remove("hidden");
           name = "home";
         }
-        // به‌روزرسانی کلاس active
         document.querySelectorAll(".side-link, .bottom-item").forEach(function(link) {
           link.classList.toggle("active", link.dataset.page === name);
         });
@@ -380,13 +337,12 @@
         });
       });
 
-      // دکمه پروفایل در توپبار
       document.getElementById("profileTopBtn").addEventListener("click", function() {
         showPage("profile");
       });
 
       // ===================================================
-      // RANKING (نمونه)
+      // RANKING – مطابق عکس دوم
       // ===================================================
       const artistsTab = document.getElementById("artistsTab");
       const producersTab = document.getElementById("producersTab");
@@ -397,8 +353,17 @@
           <div class="rank-card">
             <div class="rank-number">1</div>
             <div class="rank-avatar">AT</div>
-            <div class="rank-name"><strong>AmirTalles</strong><small>@amirtalles</small></div>
-            <div class="rank-plays"><strong>0</strong><small>plays</small></div>
+            <div class="rank-name">
+              <strong>
+                AmirTalles
+                <span class="verified" style="display:inline-flex; width:19px; height:19px; border-radius:50%; background:#d71920; color:#fff; align-items:center; justify-content:center; font-size:12px; margin-left:7px;">✓</span>
+              </strong>
+              <small>@amirtalles <span style="color:#d71920; border:1px solid #601417; padding:2px 10px; border-radius:30px; font-size:10px; margin-left:8px;">ARTIST</span></small>
+            </div>
+            <div class="rank-plays">
+              <strong>12.5M</strong>
+              <small>PLAYS</small>
+            </div>
             <button class="rank-more">⋯</button>
           </div>
         `;
@@ -429,7 +394,7 @@
       renderArtists();
 
       // ===================================================
-      // MENU MOBILE (سایدبار)
+      // MENU MOBILE
       // ===================================================
       const menuBtn = document.getElementById("menuBtn");
       const sidebar = document.querySelector(".sidebar");
@@ -473,7 +438,7 @@
       });
 
       // ===================================================
-      // SEARCH (فوکوس)
+      // SEARCH
       // ===================================================
       document.getElementById("searchBtn").addEventListener("click", function() {
         document.getElementById("artistSearch").focus();
@@ -499,7 +464,6 @@
         mainPlay.textContent = playing ? "Ⅱ" : "▶";
       });
 
-      // دکمه‌های Play در کارت‌ها
       document.addEventListener("click", function(e) {
         const btn = e.target.closest(".play");
         if (btn) startPlayer(btn.dataset.name);
