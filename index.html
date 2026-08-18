@@ -1,1746 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
-
-<title>Lost Sound</title>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
-/* =========================
-   INTRO FIX
-========================= */
-
-.intro{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  background:#000;
-  z-index:99999;
-  overflow:hidden;
-  opacity:1;
-  visibility:visible;
-}
-
-.start-screen{
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:#000;
-  z-index:3;
-}
-
-.lets-go{
-  background:#0b0b0b;
-  color:#fff;
-  border:1px solid #fff;
-  border-radius:999px;
-  padding:13px 28px;
-  font-size:13px;
-  letter-spacing:2px;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.intro-video-box{
-  position:absolute;
-  inset:0;
-  display:none;
-  background:#000;
-  z-index:2;
-}
-
-.intro-video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.app.hidden{
-  display:none!important;
-}
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>Lost Sound</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-
-<!-- =====================================================
-     INTRO
-===================================================== -->
-
-<section id="intro" class="intro">
-
-  <div id="startScreen" class="start-screen">
-
-    <button
-      id="letsGo"
-      class="lets-go"
-      type="button"
-    >
-      LET'S GO
-    </button>
-
-  </div>
-
-
-  <div
-    id="introVideoBox"
-    class="intro-video-box"
-  >
-
-    <video
-      id="introVideo"
-      class="intro-video"
-      playsinline
-      preload="auto"
-    >
-
-      <source
-        src="intro.mp4"
-        type="video/mp4"
-      >
-
-    </video>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     APP
-===================================================== -->
-
-<div
-  id="app"
-  class="app hidden"
->
-
-
-  <!-- ===================================================
-       SIDEBAR
-  =================================================== -->
-
-  <aside class="sidebar">
-
-    <div class="brand">
-      LOST<span>SOUND</span>
+  <!-- =====================================================
+       INTRO
+  ===================================================== -->
+  <section id="intro" class="intro">
+    <div id="startScreen" class="start-screen">
+      <button id="letsGo" class="lets-go">LET'S GO</button>
     </div>
+    <div id="introVideoBox" class="intro-video-box">
+      <video id="introVideo" class="intro-video" playsinline preload="auto">
+        <source src="intro.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
 
+  <!-- =====================================================
+       APP
+  ===================================================== -->
+  <div id="app" class="app hidden">
 
-    <nav>
+    <!-- ===================================================
+         SIDEBAR
+    =================================================== -->
+    <aside class="sidebar">
+      <div class="brand">LOST<span>SOUND</span></div>
+      <nav>
+        <a href="#" class="side-link active" data-page="home">Home</a>
+        <a href="#" class="side-link" data-page="explore">Explore</a>
+        <a href="#" class="side-link" data-page="library">Library</a>
+        <a href="#" class="side-link" data-page="profile">Profile</a>
+        <a href="#" class="side-link" data-page="studio">Studio</a>
+      </nav>
+    </aside>
 
-      <a
-        href="#"
-        class="side-link active"
-        data-page="home"
-      >
-        Home
-      </a>
+    <!-- ===================================================
+         MAIN
+    =================================================== -->
+    <main class="main">
 
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <button id="menuBtn" class="menu-btn">☰</button>
+        <div class="mobile-logo">LOST<span>SOUND</span></div>
+        <div class="top-actions">
+          <div class="search-box">
+            <button id="searchBtn">⌕</button>
+            <input id="artistSearch" type="search" placeholder="Search artist ID..." />
+          </div>
+          <button id="plusBtn" class="plus-btn">+</button>
+          <button id="profileTopBtn" class="profile-top">AT</button>
+        </div>
+      </header>
 
-      <a
-        href="#"
-        class="side-link"
-        data-page="explore"
-      >
-        Explore
-      </a>
+      <!-- ===================================================
+           HOME (RANKING)
+      =================================================== -->
+      <section id="homePage" class="page-section">
+        <div class="ranking-tabs">
+          <button id="artistsTab" class="ranking-tab active">ARTISTS</button>
+          <button id="producersTab" class="ranking-tab">PRODUCERS</button>
+        </div>
+        <div class="ranking-header">
+          <div>
+            <div id="rankingEyebrow" class="ranking-eyebrow">TOP ARTISTS</div>
+            <h1 id="rankingTitle">ARTISTS RANKING</h1>
+            <p id="rankingDescription">Top artists based on total plays</p>
+          </div>
+          <select id="rankingFilter" class="ranking-filter">
+            <option value="all">ALL TIME</option>
+            <option value="month">THIS MONTH</option>
+            <option value="week">THIS WEEK</option>
+          </select>
+        </div>
+        <div id="rankingList" class="ranking-list"></div>
+      </section>
 
+      <!-- ===================================================
+           EXPLORE
+      =================================================== -->
+      <section id="explorePage" class="page-section hidden">
+        <div class="page-title">
+          <span>EXPLORE</span>
+          <h1>Discover Sound</h1>
+          <p>Find artists, producers, tracks and sounds.</p>
+        </div>
+        <div class="explore-search">
+          <input id="exploreSearch" type="search" placeholder="Search artist, producer or track..." />
+          <button id="exploreSearchBtn">⌕</button>
+        </div>
+        <div class="explore-grid">
+          <article class="explore-card"><strong>Artists</strong><small>Discover artists</small></article>
+          <article class="explore-card"><strong>Producers</strong><small>Find producers</small></article>
+          <article class="explore-card"><strong>Tracks</strong><small>Listen to music</small></article>
+          <article class="explore-card"><strong>Beats</strong><small>Explore beats</small></article>
+        </div>
+      </section>
 
-      <a
-        href="#"
-        class="side-link"
-        data-page="library"
-      >
-        Library
-      </a>
+      <!-- ===================================================
+           LIBRARY
+      =================================================== -->
+      <section id="libraryPage" class="page-section hidden">
+        <div class="page-title">
+          <span>YOUR LIBRARY</span>
+          <h1>Library</h1>
+          <p>Everything you save will appear here.</p>
+        </div>
+        <div class="library-grid">
+          <article class="library-card" data-category="Drums">
+            <div class="library-icon">DR</div>
+            <strong>Drums</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Melodies">
+            <div class="library-icon">ML</div>
+            <strong>Melodies</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Vocals">
+            <div class="library-icon">VX</div>
+            <strong>Vocals</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="FX">
+            <div class="library-icon">FX</div>
+            <strong>FX</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="One Shots">
+            <div class="library-icon">OS</div>
+            <strong>One Shots</strong><small>0 saved</small>
+          </article>
+          <article class="library-card" data-category="Presets">
+            <div class="library-icon">PR</div>
+            <strong>Presets</strong><small>0 saved</small>
+          </article>
+        </div>
+        <div class="saved-section">
+          <h2>LIKED</h2>
+          <div id="likedList" class="empty-library">Nothing saved yet.</div>
+        </div>
+      </section>
 
+      <!-- ===================================================
+           PROFILE (یکپارچه با کلاس‌های CSS اصلی)
+      =================================================== -->
+      <section id="profilePage" class="page-section hidden">
+        <div class="profile-page">
+          <div class="profile-avatar">AT</div>
+          <h1>AmirTalles</h1>
+          <p>@amirtalles</p>
+          <div class="profile-role">Producer / Sound Designer</div>
+          <p style="color:#888; margin-top:15px;">Creating dark sounds and cinematic atmospheres.</p>
+          <div class="profile-stats">
+            <div><strong>0</strong><small>Tracks</small></div>
+            <div><strong>0</strong><small>Followers</small></div>
+            <div><strong>0</strong><small>Likes</small></div>
+          </div>
+          <button class="edit-profile">Edit Profile</button>
 
-      <a
-        href="#"
-        class="side-link"
-        data-page="profile"
-      >
-        Profile
-      </a>
+          <!-- پک‌ها با استایل library-card -->
+          <div style="margin-top:40px; text-align:right;">
+            <h2 style="font-size:16px; letter-spacing:2px; color:#d71920;">MY PACKS</h2>
+            <div class="library-grid" style="margin-top:15px;">
+              <div class="library-card">
+                <div class="library-icon">PK</div>
+                <strong>Dark Trap Collection</strong>
+                <small>Drums • 140 BPM</small>
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                  <button class="play" data-name="Dark Trap Collection" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
+                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+                </div>
+              </div>
+              <div class="library-card">
+                <div class="library-icon">PK</div>
+                <strong>Cinematic World</strong>
+                <small>FX • Atmosphere</small>
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                  <button class="play" data-name="Cinematic World" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
+                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- ===================================================
+           STUDIO (صفحه آپلود)
+      =================================================== -->
+      <section id="studioPage" class="page-section hidden">
+        <div class="page-title">
+          <span>STUDIO</span>
+          <h1>Upload New Sample</h1>
+          <p>Share your sounds with the world.</p>
+        </div>
+        <div style="max-width:600px; background:#101010; border:1px solid #222; border-radius:20px; padding:25px;">
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Cover Image</label>
+          <input type="file" accept="image/*" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Audio File</label>
+          <input type="file" accept="audio/*" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Sample Name</label>
+          <input placeholder="Dark Trap 808 Loop" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Category</label>
+          <select style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;">
+            <option>Drums</option><option>Melodies</option><option>Vocals</option><option>FX</option><option>Presets</option>
+          </select>
+
+          <div style="display:flex; gap:15px;">
+            <div style="flex:1;">
+              <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">BPM</label>
+              <input placeholder="140" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+            </div>
+            <div style="flex:1;">
+              <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Key</label>
+              <input placeholder="F#m" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+            </div>
+          </div>
+
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Artist</label>
+          <input placeholder="AmirTalles" style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px;" />
+
+          <label style="display:block; color:#aaa; font-size:13px; margin:16px 0 7px;">Description</label>
+          <textarea placeholder="Describe your sound..." style="width:100%; background:#080808; border:1px solid #333; color:#fff; padding:13px; border-radius:10px; height:100px;"></textarea>
+
+          <button style="width:100%; margin-top:25px; padding:15px; border:0; border-radius:30px; background:#d71920; color:white; font-weight:bold; letter-spacing:2px;">PUBLISH</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===================================================
+         BOTTOM NAV (منوی پایین)
+    =================================================== -->
+    <nav class="bottom-nav">
+      <button class="bottom-item active" data-page="home"><span>⌂</span><small>Home</small></button>
+      <button class="bottom-item" data-page="explore"><span>⌕</span><small>Explore</small></button>
+      <button class="bottom-plus" id="plusBtnMobile">+</button>
+      <button class="bottom-item" data-page="library"><span>♡</span><small>Library</small></button>
+      <button class="bottom-item" data-page="profile"><span>👤</span><small>Profile</small></button>
+      <button class="bottom-item" data-page="studio"><span>🎚</span><small>Studio</small></button>
     </nav>
 
-  </aside>
-
-
-
-  <!-- ===================================================
-       MAIN
-  =================================================== -->
-
-  <main class="main">
-
-
-    <!-- =================================================
-         TOP BAR
-    ================================================= -->
-
-    <header class="topbar">
-
-
-      <button
-        id="menuBtn"
-        class="menu-btn"
-        type="button"
-      >
-        ☰
-      </button>
-
-
-      <div class="mobile-logo">
-        LOST<span>SOUND</span>
+    <!-- ===================================================
+         PLAYER
+    =================================================== -->
+    <footer id="player" class="player hidden">
+      <div class="player-art">LS</div>
+      <div class="player-info">
+        <strong id="trackName">—</strong>
+        <small>Lost Sound • AmirTalles</small>
       </div>
-
-
-      <div class="top-actions">
-
-
-        <!-- SEARCH -->
-
-        <div class="search-box">
-
-          <button
-            id="searchBtn"
-            type="button"
-            aria-label="Search"
-          >
-            ⌕
-          </button>
-
-
-          <input
-            id="artistSearch"
-            type="search"
-            placeholder="Search artist ID..."
-            autocomplete="off"
-            inputmode="text"
-          >
-
-        </div>
-
-
-
-        <!-- PLUS -->
-
-        <button
-          id="plusBtn"
-          class="plus-btn"
-          type="button"
-          aria-label="Upload"
-        >
-          +
-        </button>
-
-
-
-        <!-- PROFILE -->
-
-        <button
-          id="profileTopBtn"
-          class="profile-top"
-          type="button"
-        >
-          AT
-        </button>
-
-
-      </div>
-
-    </header>
-
-
-
-    <!-- =================================================
-         HOME / RANKING
-    ================================================= -->
-
-    <section
-      id="homePage"
-      class="page-section"
-    >
-
-
-      <div class="ranking-tabs">
-
-        <button
-          id="artistsTab"
-          class="ranking-tab active"
-          type="button"
-        >
-          ARTISTS
-        </button>
-
-
-        <button
-          id="producersTab"
-          class="ranking-tab"
-          type="button"
-        >
-          PRODUCERS
-        </button>
-
-      </div>
-
-
-
-      <div class="ranking-header">
-
-        <div>
-
-          <div
-            id="rankingEyebrow"
-            class="ranking-eyebrow"
-          >
-            TOP ARTISTS
-          </div>
-
-
-          <h1 id="rankingTitle">
-            ARTISTS RANKING
-          </h1>
-
-
-          <p id="rankingDescription">
-            Top artists based on total plays
-          </p>
-
-        </div>
-
-
-        <select
-          id="rankingFilter"
-          class="ranking-filter"
-        >
-
-          <option value="all">
-            ALL TIME
-          </option>
-
-          <option value="month">
-            THIS MONTH
-          </option>
-
-          <option value="week">
-            THIS WEEK
-          </option>
-
-        </select>
-
-      </div>
-
-
-
-      <div
-        id="rankingList"
-        class="ranking-list"
-      ></div>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         EXPLORE
-    ================================================= -->
-
-    <section
-      id="explorePage"
-      class="page-section hidden"
-    >
-
-      <div class="page-title">
-
-        <span>
-          EXPLORE
-        </span>
-
-        <h1>
-          Discover Sound
-        </h1>
-
-        <p>
-          Find artists, producers, tracks and sounds.
-        </p>
-
-      </div>
-
-
-      <div class="explore-search">
-
-        <input
-          id="exploreSearch"
-          type="search"
-          placeholder="Search artist, producer or track..."
-        >
-
-        <button
-          id="exploreSearchBtn"
-          type="button"
-        >
-          ⌕
-        </button>
-
-      </div>
-
-
-      <div class="explore-grid">
-
-        <article class="explore-card">
-          <strong>Artists</strong>
-          <small>Discover artists</small>
-        </article>
-
-
-        <article class="explore-card">
-          <strong>Producers</strong>
-          <small>Find producers</small>
-        </article>
-
-
-        <article class="explore-card">
-          <strong>Tracks</strong>
-          <small>Listen to music</small>
-        </article>
-
-
-        <article class="explore-card">
-          <strong>Beats</strong>
-          <small>Explore beats</small>
-        </article>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         LIBRARY
-    ================================================= -->
-
-    <section
-      id="libraryPage"
-      class="page-section hidden"
-    >
-
-      <div class="page-title">
-
-        <span>
-          YOUR LIBRARY
-        </span>
-
-        <h1>
-          Library
-        </h1>
-
-        <p>
-          Everything you save will appear here.
-        </p>
-
-      </div>
-
-
-      <div class="library-grid">
-
-
-        <article
-          class="library-card"
-          data-category="Drums"
-        >
-
-          <div class="library-icon">
-            DR
-          </div>
-
-          <strong>
-            Drums
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-
-        <article
-          class="library-card"
-          data-category="Melodies"
-        >
-
-          <div class="library-icon">
-            ML
-          </div>
-
-          <strong>
-            Melodies
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-
-        <article
-          class="library-card"
-          data-category="Vocals"
-        >
-
-          <div class="library-icon">
-            VX
-          </div>
-
-          <strong>
-            Vocals
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-
-        <article
-          class="library-card"
-          data-category="FX"
-        >
-
-          <div class="library-icon">
-            FX
-          </div>
-
-          <strong>
-            FX
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-
-        <article
-          class="library-card"
-          data-category="One Shots"
-        >
-
-          <div class="library-icon">
-            OS
-          </div>
-
-          <strong>
-            One Shots
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-
-        <article
-          class="library-card"
-          data-category="Presets"
-        >
-
-          <div class="library-icon">
-            PR
-          </div>
-
-          <strong>
-            Presets
-          </strong>
-
-          <small>
-            0 saved
-          </small>
-
-        </article>
-
-      </div>
-
-
-
-      <div class="saved-section">
-
-        <h2>
-          LIKED
-        </h2>
-
-
-        <div
-          id="likedList"
-          class="empty-library"
-        >
-          Nothing saved yet.
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         PROFILE
-    ================================================= -->
-
-    <section
-      id="profilePage"
-      class="page-section hidden"
-    >
-
-      <div class="profile-page">
-
-        <div class="profile-avatar">
-          AT
-        </div>
-
-
-        <h1>
-          AmirTalles
-        </h1>
-
-
-        <p>
-          @amirtalles
-        </p>
-
-
-        <div class="profile-stats">
-
-          <div>
-            <strong>
-              0
-            </strong>
-
-            <small>
-              Tracks
-            </small>
-          </div>
-
-
-          <div>
-            <strong>
-              0
-            </strong>
-
-            <small>
-              Followers
-            </small>
-          </div>
-
-
-          <div>
-            <strong>
-              0
-            </strong>
-
-            <small>
-              Likes
-            </small>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-
-  <!-- ===================================================
-       UPLOAD MODAL
-  =================================================== -->
-
-  <div
-    id="uploadOverlay"
-    class="upload-overlay hidden"
-  >
-
-    <div class="upload-modal">
-
-
-      <div class="upload-head">
-
-        <div class="upload-title">
-          LOST SOUND
-        </div>
-
-
-        <button
-          id="uploadClose"
-          class="upload-close"
-          type="button"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-
-      <!-- ARTIST -->
-
-      <div
-        id="artistUploadOptions"
-        class="account-options hidden"
-      >
-
-        <button
-          class="upload-option"
-          data-upload="track"
-          type="button"
-        >
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Track
-            </strong>
-
-            <small>
-              Upload your complete track
-            </small>
-
-          </span>
-
-        </button>
-
-
-        <button
-          class="upload-option"
-          data-upload="album"
-          type="button"
-        >
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Album
-            </strong>
-
-            <small>
-              Create an album release
-            </small>
-
-          </span>
-
-        </button>
-
-      </div>
-
-
-
-      <!-- PRODUCER -->
-
-      <div
-        id="producerUploadOptions"
-        class="account-options hidden"
-      >
-
-        <button
-          class="upload-option"
-          data-upload="pack"
-          type="button"
-        >
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Pack
-            </strong>
-
-            <small>
-              Upload sounds, loops and samples
-            </small>
-
-          </span>
-
-        </button>
-
-
-        <button
-          class="upload-option"
-          data-upload="beat"
-          type="button"
-        >
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Beat
-            </strong>
-
-            <small>
-              Upload your complete beat
-            </small>
-
-          </span>
-
-        </button>
-
-      </div>
-
-
-
-      <!-- LISTENER -->
-
-      <div
-        id="listenerUploadOptions"
-        class="account-options"
-      >
-
-        <p>
-          Choose Artist or Producer from your profile first.
-        </p>
-
-      </div>
-
-
-    </div>
+      <button id="prev">|◀</button>
+      <button id="mainPlay" class="main-play">▶</button>
+      <button id="next">▶|</button>
+      <div class="player-wave"></div>
+      <span id="time">00:00</span>
+    </footer>
 
   </div>
 
-
-
-  <!-- ===================================================
-       PLAYER
-  =================================================== -->
-
-  <footer
-    id="player"
-    class="player hidden"
-  >
-
-    <div class="track-art"></div>
-
-
-    <div class="track-info">
-
-      <strong id="trackName">
-        —
-      </strong>
-
-      <small>
-        Lost Sound • AmirTalles
-      </small>
-
+  <!-- =====================================================
+       UPLOAD MODAL
+  ===================================================== -->
+  <div id="uploadOverlay" class="upload-overlay hidden">
+    <div class="upload-modal">
+      <div class="upload-head">
+        <div class="upload-title">LOST SOUND</div>
+        <button id="uploadClose">×</button>
+      </div>
+      <div id="artistUploadOptions" class="upload-options hidden">
+        <button class="upload-option" data-upload="track"><strong>Upload Track</strong><small>Upload your complete track</small></button>
+        <button class="upload-option" data-upload="album"><strong>Upload Album</strong><small>Create an album release</small></button>
+      </div>
+      <div id="producerUploadOptions" class="upload-options hidden">
+        <button class="upload-option" data-upload="pack"><strong>Upload Pack</strong><small>Upload sounds, loops and samples</small></button>
+        <button class="upload-option" data-upload="beat"><strong>Upload Beat</strong><small>Upload your complete beat</small></button>
+      </div>
+      <div id="listenerUploadOptions" class="upload-options"><p>Choose Artist or Producer from your profile first.</p></div>
     </div>
+  </div>
 
+  <!-- =====================================================
+       JAVASCRIPT (همه‌چیز در یک فایل)
+  ===================================================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
 
-    <button
-      id="prev"
-      type="button"
-    >
-      |◀
-    </button>
+      // ===================================================
+      // INTRO
+      // ===================================================
+      const intro = document.getElementById("intro");
+      const startScreen = document.getElementById("startScreen");
+      const letsGo = document.getElementById("letsGo");
+      const videoBox = document.getElementById("introVideoBox");
+      const video = document.getElementById("introVideo");
+      const app = document.getElementById("app");
+      let entered = false;
 
-
-    <button
-      id="mainPlay"
-      class="main-play"
-      type="button"
-    >
-      ▶
-    </button>
-
-
-    <button
-      id="next"
-      type="button"
-    >
-      ▶|
-    </button>
-
-
-    <div class="wave"></div>
-
-
-    <span id="time">
-      00:00
-    </span>
-
-  </footer>
-
-</div>
-
-
-
-<!-- =====================================================
-     INTRO + BASIC APP SCRIPT
-===================================================== -->
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function(){
-
-  const intro =
-    document.getElementById("intro");
-
-  const startScreen =
-    document.getElementById("startScreen");
-
-  const letsGo =
-    document.getElementById("letsGo");
-
-  const videoBox =
-    document.getElementById("introVideoBox");
-
-  const video =
-    document.getElementById("introVideo");
-
-  const app =
-    document.getElementById("app");
-
-
-  let entered = false;
-
-
-  function enterApp(){
-
-    if(entered) return;
-
-    entered = true;
-
-
-    if(video){
-
-      video.pause();
-
-      video.currentTime = 0;
-
-    }
-
-
-    if(intro){
-
-      intro.style.transition =
-        "opacity .5s ease";
-
-      intro.style.opacity = "0";
-
-    }
-
-
-    setTimeout(function(){
-
-      if(intro){
-
-        intro.style.display = "none";
-
+      function enterApp() {
+        if (entered) return;
+        entered = true;
+        if (video) { video.pause(); video.currentTime = 0; }
+        if (intro) { intro.style.transition = "opacity .5s ease"; intro.style.opacity = "0"; }
+        setTimeout(function() {
+          if (intro) intro.style.display = "none";
+          if (app) { app.classList.remove("hidden"); app.style.display = "block"; }
+        }, 500);
       }
 
-
-      if(app){
-
-        app.classList.remove("hidden");
-
-        app.style.display = "block";
-
-      }
-
-    },500);
-
-  }
-
-
-
-  /* =========================
-     LET'S GO
-  ========================= */
-
-  if(letsGo){
-
-    letsGo.addEventListener(
-      "click",
-      async function(e){
-
-        e.preventDefault();
-
-        e.stopPropagation();
-
-
-        if(startScreen){
-
-          startScreen.style.display =
-            "none";
-
-        }
-
-
-        if(videoBox){
-
-          videoBox.style.display =
-            "block";
-
-        }
-
-
-        if(!video){
-
-          enterApp();
-
-          return;
-
-        }
-
-
-        try{
-
-          video.currentTime = 0;
-
-          await video.play();
-
-        }
-
-        catch(error){
-
-          console.log(
-            "Video could not play:",
-            error
-          );
-
-          /*
-             اگر ویدئو به هر دلیل پخش نشد،
-             سایت باز شود.
-          */
-
-          enterApp();
-
-        }
-
-      }
-    );
-
-  }
-
-
-
-  /* =========================
-     VIDEO END
-  ========================= */
-
-  if(video){
-
-    video.addEventListener(
-      "ended",
-      function(){
-
-        enterApp();
-
-      }
-    );
-
-
-    /* لمس ویدئو = Skip */
-
-    video.addEventListener(
-      "click",
-      function(){
-
-        enterApp();
-
-      }
-    );
-
-
-    /* خطای ویدئو */
-
-    video.addEventListener(
-      "error",
-      function(){
-
-        enterApp();
-
-      }
-    );
-
-  }
-
-
-
-  /* =========================
-     NAVIGATION
-  ========================= */
-
-  const links =
-    document.querySelectorAll(
-      ".side-link"
-    );
-
-
-  const pages = {
-
-    home:
-      document.getElementById("homePage"),
-
-    explore:
-      document.getElementById("explorePage"),
-
-    library:
-      document.getElementById("libraryPage"),
-
-    profile:
-      document.getElementById("profilePage")
-
-  };
-
-
-  function showPage(name){
-
-    Object.values(pages).forEach(
-      function(page){
-
-        if(page){
-
-          page.classList.add(
-            "hidden"
-          );
-
-        }
-
-      }
-    );
-
-
-    if(pages[name]){
-
-      pages[name].classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    links.forEach(
-      function(link){
-
-        link.classList.toggle(
-          "active",
-          link.dataset.page === name
-        );
-
-      }
-    );
-
-  }
-
-
-  links.forEach(
-    function(link){
-
-      link.addEventListener(
-        "click",
-        function(e){
-
+      if (letsGo) {
+        letsGo.addEventListener("click", async function(e) {
           e.preventDefault();
+          e.stopPropagation();
+          if (startScreen) startScreen.style.display = "none";
+          if (videoBox) videoBox.style.display = "block";
+          if (!video) { enterApp(); return; }
+          try {
+            video.currentTime = 0;
+            await video.play();
+          } catch (error) {
+            console.log("Video could not play:", error);
+            enterApp();
+          }
+        });
+      }
 
-          showPage(
-            link.dataset.page
-          );
+      if (video) {
+        video.addEventListener("ended", enterApp);
+        video.addEventListener("click", enterApp);
+        video.addEventListener("error", enterApp);
+      }
 
+      // ===================================================
+      // NAVIGATION (مقاوم در برابر خطا)
+      // ===================================================
+      const links = document.querySelectorAll(".side-link, .bottom-item");
+      const pageMap = {
+        home: document.getElementById("homePage"),
+        explore: document.getElementById("explorePage"),
+        library: document.getElementById("libraryPage"),
+        profile: document.getElementById("profilePage"),
+        studio: document.getElementById("studioPage")
+      };
+
+      function showPage(name) {
+        // مخفی کردن همه صفحات
+        Object.values(pageMap).forEach(function(el) {
+          if (el) el.classList.add("hidden");
+        });
+        // نمایش صفحه مورد نظر
+        const target = pageMap[name];
+        if (target) {
+          target.classList.remove("hidden");
+        } else {
+          // اگر صفحه پیدا نشد، برو به خانه
+          console.warn("صفحه پیدا نشد:", name);
+          if (pageMap.home) pageMap.home.classList.remove("hidden");
+          name = "home";
         }
-      );
+        // به‌روزرسانی کلاس active
+        document.querySelectorAll(".side-link, .bottom-item").forEach(function(link) {
+          link.classList.toggle("active", link.dataset.page === name);
+        });
+      }
 
-    }
-  );
+      links.forEach(function(link) {
+        link.addEventListener("click", function(e) {
+          e.preventDefault();
+          const page = link.dataset.page;
+          if (page) showPage(page);
+        });
+      });
 
-
-
-  /* =========================
-     PROFILE TOP
-  ========================= */
-
-  const profileTopBtn =
-    document.getElementById(
-      "profileTopBtn"
-    );
-
-
-  if(profileTopBtn){
-
-    profileTopBtn.addEventListener(
-      "click",
-      function(){
-
+      // دکمه پروفایل در توپبار
+      document.getElementById("profileTopBtn").addEventListener("click", function() {
         showPage("profile");
+      });
 
+      // ===================================================
+      // RANKING (نمونه)
+      // ===================================================
+      const artistsTab = document.getElementById("artistsTab");
+      const producersTab = document.getElementById("producersTab");
+      const rankingList = document.getElementById("rankingList");
+
+      function renderArtists() {
+        rankingList.innerHTML = `
+          <div class="rank-card">
+            <div class="rank-number">1</div>
+            <div class="rank-avatar">AT</div>
+            <div class="rank-name"><strong>AmirTalles</strong><small>@amirtalles</small></div>
+            <div class="rank-plays"><strong>0</strong><small>plays</small></div>
+            <button class="rank-more">⋯</button>
+          </div>
+        `;
       }
-    );
 
-  }
+      function renderProducers() {
+        rankingList.innerHTML = `<div class="ranking-empty"><strong>No producers yet</strong><small>Producers who register will appear here.</small></div>`;
+      }
 
-
-
-  /* =========================
-     RANKING
-  ========================= */
-
-  const artistsTab =
-    document.getElementById(
-      "artistsTab"
-    );
-
-  const producersTab =
-    document.getElementById(
-      "producersTab"
-    );
-
-  const rankingTitle =
-    document.getElementById(
-      "rankingTitle"
-    );
-
-  const rankingEyebrow =
-    document.getElementById(
-      "rankingEyebrow"
-    );
-
-  const rankingDescription =
-    document.getElementById(
-      "rankingDescription"
-    );
-
-  const rankingList =
-    document.getElementById(
-      "rankingList"
-    );
-
-
-  function renderArtists(){
-
-    if(!rankingList) return;
-
-
-    rankingList.innerHTML = `
-
-      <div class="ranking-item">
-
-        <div class="ranking-number">
-          1
-        </div>
-
-        <div class="ranking-avatar">
-          AT
-        </div>
-
-        <div class="ranking-info">
-
-          <strong>
-            AmirTalles
-          </strong>
-
-          <small>
-            @amirtalles
-          </small>
-
-        </div>
-
-        <div class="ranking-score">
-          0
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  function renderProducers(){
-
-    if(!rankingList) return;
-
-
-    rankingList.innerHTML = `
-
-      <div class="ranking-empty">
-
-        <strong>
-          No producers yet
-        </strong>
-
-        <small>
-          Producers who register will appear here.
-        </small>
-
-      </div>
-
-    `;
-
-  }
-
-
-  if(artistsTab){
-
-    artistsTab.addEventListener(
-      "click",
-      function(){
-
-        artistsTab.classList.add(
-          "active"
-        );
-
-        if(producersTab){
-
-          producersTab.classList.remove(
-            "active"
-          );
-
-        }
-
-
-        if(rankingEyebrow){
-
-          rankingEyebrow.textContent =
-            "TOP ARTISTS";
-
-        }
-
-
-        if(rankingTitle){
-
-          rankingTitle.textContent =
-            "ARTISTS RANKING";
-
-        }
-
-
-        if(rankingDescription){
-
-          rankingDescription.textContent =
-            "Top artists based on total plays";
-
-        }
-
-
+      artistsTab.addEventListener("click", function() {
+        artistsTab.classList.add("active");
+        producersTab.classList.remove("active");
+        document.getElementById("rankingEyebrow").textContent = "TOP ARTISTS";
+        document.getElementById("rankingTitle").textContent = "ARTISTS RANKING";
+        document.getElementById("rankingDescription").textContent = "Top artists based on total plays";
         renderArtists();
+      });
 
-      }
-    );
-
-  }
-
-
-  if(producersTab){
-
-    producersTab.addEventListener(
-      "click",
-      function(){
-
-        producersTab.classList.add(
-          "active"
-        );
-
-        if(artistsTab){
-
-          artistsTab.classList.remove(
-            "active"
-          );
-
-        }
-
-
-        if(rankingEyebrow){
-
-          rankingEyebrow.textContent =
-            "TOP PRODUCERS";
-
-        }
-
-
-        if(rankingTitle){
-
-          rankingTitle.textContent =
-            "PRODUCERS RANKING";
-
-        }
-
-
-        if(rankingDescription){
-
-          rankingDescription.textContent =
-            "Top producers based on popularity";
-
-        }
-
-
+      producersTab.addEventListener("click", function() {
+        producersTab.classList.add("active");
+        artistsTab.classList.remove("active");
+        document.getElementById("rankingEyebrow").textContent = "TOP PRODUCERS";
+        document.getElementById("rankingTitle").textContent = "PRODUCERS RANKING";
+        document.getElementById("rankingDescription").textContent = "Top producers based on popularity";
         renderProducers();
+      });
 
-      }
-    );
+      renderArtists();
 
-  }
-
-
-  renderArtists();
-
-
-
-  /* =========================
-     MENU MOBILE
-  ========================= */
-
-  const menuBtn =
-    document.getElementById(
-      "menuBtn"
-    );
-
-  const sidebar =
-    document.querySelector(
-      ".sidebar"
-    );
-
-
-  if(menuBtn && sidebar){
-
-    menuBtn.addEventListener(
-      "click",
-      function(e){
-
+      // ===================================================
+      // MENU MOBILE (سایدبار)
+      // ===================================================
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.querySelector(".sidebar");
+      menuBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-
-        sidebar.classList.toggle(
-          "open"
-        );
-
-      }
-    );
-
-
-    document.addEventListener(
-      "click",
-      function(e){
-
-        if(
-          sidebar.classList.contains(
-            "open"
-          ) &&
-          !sidebar.contains(e.target) &&
-          !menuBtn.contains(e.target)
-        ){
-
-          sidebar.classList.remove(
-            "open"
-          );
-
+        sidebar.classList.toggle("open");
+      });
+      document.addEventListener("click", function(e) {
+        if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+          sidebar.classList.remove("open");
         }
+      });
 
+      // ===================================================
+      // UPLOAD MODAL
+      // ===================================================
+      let accountType = localStorage.getItem("lostSoundAccountType") || "artist";
+      const artistUpload = document.getElementById("artistUploadOptions");
+      const producerUpload = document.getElementById("producerUploadOptions");
+      const listenerUpload = document.getElementById("listenerUploadOptions");
+
+      function updateUploadOptions() {
+        artistUpload.classList.toggle("hidden", accountType !== "artist");
+        producerUpload.classList.toggle("hidden", accountType !== "producer");
+        listenerUpload.classList.toggle("hidden", accountType !== "listener");
       }
-    );
+      updateUploadOptions();
 
-  }
-
-
-
-  /* =========================
-     ACCOUNT TYPE
-  ========================= */
-
-  let accountType =
-    localStorage.getItem(
-      "lostSoundAccountType"
-    ) || "artist";
-
-
-  const artistUploadOptions =
-    document.getElementById(
-      "artistUploadOptions"
-    );
-
-  const producerUploadOptions =
-    document.getElementById(
-      "producerUploadOptions"
-    );
-
-  const listenerUploadOptions =
-    document.getElementById(
-      "listenerUploadOptions"
-    );
-
-
-  function updateUploadOptions(){
-
-    if(artistUploadOptions){
-
-      artistUploadOptions.classList.toggle(
-        "hidden",
-        accountType !== "artist"
-      );
-
-    }
-
-
-    if(producerUploadOptions){
-
-      producerUploadOptions.classList.toggle(
-        "hidden",
-        accountType !== "producer"
-      );
-
-    }
-
-
-    if(listenerUploadOptions){
-
-      listenerUploadOptions.classList.toggle(
-        "hidden",
-        accountType !== "listener"
-      );
-
-    }
-
-  }
-
-
-  updateUploadOptions();
-
-
-
-  /* =========================
-     PLUS
-  ========================= */
-
-  const plusBtn =
-    document.getElementById(
-      "plusBtn"
-    );
-
-  const uploadOverlay =
-    document.getElementById(
-      "uploadOverlay"
-    );
-
-  const uploadClose =
-    document.getElementById(
-      "uploadClose"
-    );
-
-
-  if(plusBtn){
-
-    plusBtn.addEventListener(
-      "click",
-      function(e){
-
-        e.preventDefault();
-
-        e.stopPropagation();
-
-
+      function openUpload() {
         updateUploadOptions();
-
-
-        if(uploadOverlay){
-
-          uploadOverlay.classList.remove(
-            "hidden"
-          );
-
-        }
-
+        document.getElementById("uploadOverlay").classList.remove("hidden");
       }
-    );
 
-  }
+      document.getElementById("plusBtn").addEventListener("click", openUpload);
+      document.getElementById("plusBtnMobile").addEventListener("click", openUpload);
+      document.getElementById("uploadClose").addEventListener("click", function() {
+        document.getElementById("uploadOverlay").classList.add("hidden");
+      });
+      document.getElementById("uploadOverlay").addEventListener("click", function(e) {
+        if (e.target === this) this.classList.add("hidden");
+      });
 
+      // ===================================================
+      // SEARCH (فوکوس)
+      // ===================================================
+      document.getElementById("searchBtn").addEventListener("click", function() {
+        document.getElementById("artistSearch").focus();
+      });
 
-  if(uploadClose){
+      // ===================================================
+      // PLAYER
+      // ===================================================
+      const player = document.getElementById("player");
+      const mainPlay = document.getElementById("mainPlay");
+      const trackName = document.getElementById("trackName");
+      let playing = false;
 
-    uploadClose.addEventListener(
-      "click",
-      function(){
-
-        if(uploadOverlay){
-
-          uploadOverlay.classList.add(
-            "hidden"
-          );
-
-        }
-
+      function startPlayer(name) {
+        trackName.textContent = name || "Lost Sound Track";
+        player.classList.remove("hidden");
+        playing = true;
+        mainPlay.textContent = "Ⅱ";
       }
-    );
 
-  }
+      mainPlay.addEventListener("click", function() {
+        playing = !playing;
+        mainPlay.textContent = playing ? "Ⅱ" : "▶";
+      });
 
+      // دکمه‌های Play در کارت‌ها
+      document.addEventListener("click", function(e) {
+        const btn = e.target.closest(".play");
+        if (btn) startPlayer(btn.dataset.name);
+      });
 
-  if(uploadOverlay){
-
-    uploadOverlay.addEventListener(
-      "click",
-      function(e){
-
-        if(e.target === uploadOverlay){
-
-          uploadOverlay.classList.add(
-            "hidden"
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-
-  /* =========================
-     SEARCH
-  ========================= */
-
-  const searchBtn =
-    document.getElementById(
-      "searchBtn"
-    );
-
-  const artistSearch =
-    document.getElementById(
-      "artistSearch"
-    );
-
-
-  if(searchBtn && artistSearch){
-
-    searchBtn.addEventListener(
-      "click",
-      function(){
-
-        artistSearch.focus();
-
-      }
-    );
-
-  }
-
-
-
-  /* =========================
-     PLAYER
-  ========================= */
-
-  const player =
-    document.getElementById(
-      "player"
-    );
-
-  const mainPlay =
-    document.getElementById(
-      "mainPlay"
-    );
-
-  const trackName =
-    document.getElementById(
-      "trackName"
-    );
-
-
-  let playing = false;
-
-
-  function startPlayer(name){
-
-    if(trackName){
-
-      trackName.textContent =
-        name;
-
-    }
-
-
-    if(player){
-
-      player.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    playing = true;
-
-
-    if(mainPlay){
-
-      mainPlay.textContent =
-        "Ⅱ";
-
-    }
-
-  }
-
-
-  if(mainPlay){
-
-    mainPlay.addEventListener(
-      "click",
-      function(){
-
-        playing =
-          !playing;
-
-
-        mainPlay.textContent =
-          playing ? "Ⅱ" : "▶";
-
-      }
-    );
-
-  }
-
-
-  /*
-    برای تست Player
-  */
-
-  document.addEventListener(
-    "click",
-    function(e){
-
-      const button =
-        e.target.closest(".play");
-
-
-      if(!button) return;
-
-
-      startPlayer(
-        button.dataset.name ||
-        "Lost Sound Track"
-      );
-
-    }
-  );
-
-
-});
-</script>
+    });
+  </script>
 
 </body>
 </html>
