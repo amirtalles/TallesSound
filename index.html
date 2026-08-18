@@ -19,16 +19,9 @@
   </div>
 
   <div id="introVideoBox" class="intro-video-box">
-
-    <video
-      id="introVideo"
-      class="intro-video"
-      playsinline
-      preload="auto"
-    >
+    <video id="introVideo" class="intro-video" playsinline preload="auto">
       <source src="intro.mp4" type="video/mp4">
     </video>
-
   </div>
 
 </section>
@@ -68,8 +61,6 @@
         ♙ <span>Artists</span>
       </a>
 
-      <!-- تغییر My Library به Your Sound -->
-
       <a href="#" id="yourSoundBtn">
         ♬ <span>Your Sound</span>
       </a>
@@ -95,42 +86,29 @@
 
     <header class="topbar">
 
-      <button id="menuBtn" class="menu-btn">
-        ☰
-      </button>
+      <button id="menuBtn" class="menu-btn">☰</button>
 
       <div class="mobile-brand">
         <span>LOST</span><b>SOUND</b>
       </div>
 
-
-      <!-- SEARCH -->
-
       <div class="top-search">
-
         <span>⌕</span>
-
         <input
           id="artistSearch"
           type="search"
           placeholder="Search artist or track..."
           autocomplete="off"
         >
-
       </div>
-
-
-      <!-- PLUS -->
 
       <button
         id="plusBtn"
         class="plus-btn"
         type="button"
-        aria-label="Upload"
       >
         +
       </button>
-
 
       <div class="top-icons">
         ♧　🛒　◉
@@ -139,36 +117,22 @@
     </header>
 
 
-    <!-- ================= SEARCH RESULTS ================= -->
+    <!-- SEARCH RESULTS -->
 
-    <div
-      id="searchResults"
-      class="search-results hidden"
-    ></div>
+    <div id="searchResults" class="search-results hidden"></div>
 
 
-    <!-- ================= UPLOAD MENU ================= -->
+    <!-- UPLOAD MENU -->
 
-    <div
-      id="uploadMenu"
-      class="upload-menu hidden"
-    >
+    <div id="uploadMenu" class="upload-menu hidden">
 
       <div class="upload-menu-title">
         CREATE / UPLOAD
       </div>
 
-      <!-- Artist -->
+      <div id="artistUploadOptions" class="account-options">
 
-      <div
-        id="artistUploadOptions"
-        class="account-options"
-      >
-
-        <button
-          type="button"
-          data-upload="track"
-        >
+        <button type="button" data-upload="track">
           🎵
           <span>
             <strong>Upload Track</strong>
@@ -176,10 +140,7 @@
           </span>
         </button>
 
-        <button
-          type="button"
-          data-upload="album"
-        >
+        <button type="button" data-upload="album">
           💿
           <span>
             <strong>Upload Album</strong>
@@ -189,18 +150,9 @@
 
       </div>
 
+      <div id="producerUploadOptions" class="account-options hidden">
 
-      <!-- Producer -->
-
-      <div
-        id="producerUploadOptions"
-        class="account-options hidden"
-      >
-
-        <button
-          type="button"
-          data-upload="pack"
-        >
+        <button type="button" data-upload="pack">
           📦
           <span>
             <strong>Upload Pack</strong>
@@ -249,7 +201,6 @@
         </div>
 
       </div>
-
 
       <div class="record-wrap">
 
@@ -320,165 +271,70 @@
     <section>
 
       <div class="section-title">
-
         <h2>RECENT RELEASES</h2>
-
-        <a href="#">
-          View all
-        </a>
-
+        <a href="#">View all</a>
       </div>
-
 
       <div class="cards">
 
         <article class="card">
-
           <div class="art art1">
             DARK TRAP
             <small>DRUM KIT</small>
           </div>
-
-          <strong>
-            Dark Trap Drum Kit
-          </strong>
-
-          <small>
-            Drums
-          </small>
-
-          <button
-            class="play"
-            data-name="Dark Trap - 808 Loop"
-          >
-            ▶
-          </button>
-
+          <strong>Dark Trap Drum Kit</strong>
+          <small>Drums</small>
+          <button class="play" data-name="Dark Trap - 808 Loop">▶</button>
         </article>
 
-
         <article class="card">
-
           <div class="art art2">
             EUPHORIA
             <small>MELODY LOOPS</small>
           </div>
-
-          <strong>
-            Euphoria Melody Loops
-          </strong>
-
-          <small>
-            Melodies
-          </small>
-
-          <button
-            class="play"
-            data-name="Euphoria Melody Loop"
-          >
-            ▶
-          </button>
-
+          <strong>Euphoria Melody Loops</strong>
+          <small>Melodies</small>
+          <button class="play" data-name="Euphoria Melody Loop">▶</button>
         </article>
 
-
         <article class="card">
-
           <div class="art art3">
             VOX CHANTS
             <small>VOCAL PACK</small>
           </div>
-
-          <strong>
-            Vox Chants Vocal Pack
-          </strong>
-
-          <small>
-            Vocals
-          </small>
-
-          <button
-            class="play"
-            data-name="Vox Chants"
-          >
-            ▶
-          </button>
-
+          <strong>Vox Chants Vocal Pack</strong>
+          <small>Vocals</small>
+          <button class="play" data-name="Vox Chants">▶</button>
         </article>
 
-
         <article class="card">
-
           <div class="art art4">
             IMPACT
             <small>FX COLLECTION</small>
           </div>
-
-          <strong>
-            Impact FX Collection
-          </strong>
-
-          <small>
-            FX
-          </small>
-
-          <button
-            class="play"
-            data-name="Impact FX"
-          >
-            ▶
-          </button>
-
+          <strong>Impact FX Collection</strong>
+          <small>FX</small>
+          <button class="play" data-name="Impact FX">▶</button>
         </article>
 
-
         <article class="card">
-
           <div class="art art5">
             CINEMATIC
             <small>ATMOSPHERES</small>
           </div>
-
-          <strong>
-            Cinematic Atmospheres
-          </strong>
-
-          <small>
-            FX
-          </small>
-
-          <button
-            class="play"
-            data-name="Cinematic Atmospheres"
-          >
-            ▶
-          </button>
-
+          <strong>Cinematic Atmospheres</strong>
+          <small>FX</small>
+          <button class="play" data-name="Cinematic Atmospheres">▶</button>
         </article>
 
-
         <article class="card">
-
           <div class="art art6">
             SERUM
             <small>DARK PRESETS</small>
           </div>
-
-          <strong>
-            Serum Dark Presets
-          </strong>
-
-          <small>
-            Presets
-          </small>
-
-          <button
-            class="play"
-            data-name="Serum Dark Preset"
-          >
-            ▶
-          </button>
-
+          <strong>Serum Dark Presets</strong>
+          <small>Presets</small>
+          <button class="play" data-name="Serum Dark Preset">▶</button>
         </article>
 
       </div>
@@ -488,17 +344,14 @@
 
     <!-- ================= YOUR SOUND ================= -->
 
-    <section
-      id="yourSoundSection"
-      class="your-sound-section hidden"
-    >
+    <section id="yourSoundSection" class="your-sound-section hidden">
 
       <div class="section-title">
 
         <h2>YOUR SOUND</h2>
 
         <span id="accountTypeLabel">
-          Artist
+          Listener
         </span>
 
       </div>
@@ -509,18 +362,13 @@
           ♬
         </div>
 
-        <h3>
-          Your Sound
-        </h3>
+        <h3>Your Sound</h3>
 
         <p>
-          Your uploaded tracks, albums and sounds will appear here.
+          Your saved and uploaded sounds will appear here.
         </p>
 
-        <button
-          id="yourSoundUploadBtn"
-          type="button"
-        >
+        <button id="yourSoundUploadBtn" type="button">
           + Upload
         </button>
 
@@ -531,6 +379,40 @@
   </main>
 
 
+  <!-- ================= BOTTOM ACCOUNT SWITCHER ================= -->
+
+  <div id="accountSwitcher" class="account-switcher">
+
+    <button
+      class="account-option"
+      data-account="artist"
+      type="button"
+    >
+      <span class="account-icon">🎤</span>
+
+      <span class="account-text">
+        <strong>Artist</strong>
+        <small>Music & Tracks</small>
+      </span>
+    </button>
+
+
+    <button
+      class="account-option"
+      data-account="producer"
+      type="button"
+    >
+      <span class="account-icon">🎹</span>
+
+      <span class="account-text">
+        <strong>Producer</strong>
+        <small>Packs & Sounds</small>
+      </span>
+    </button>
+
+  </div>
+
+
   <!-- ================= PLAYER ================= -->
 
   <footer class="player">
@@ -539,9 +421,7 @@
 
     <div class="track-info">
 
-      <strong id="trackName">
-        —
-      </strong>
+      <strong id="trackName">—</strong>
 
       <small>
         Lost Sound • AmirTalles
@@ -549,26 +429,15 @@
 
     </div>
 
-    <button id="prev">
-      |◀
-    </button>
+    <button id="prev">|◀</button>
 
-    <button
-      id="mainPlay"
-      class="main-play"
-    >
-      ▶
-    </button>
+    <button id="mainPlay" class="main-play">▶</button>
 
-    <button id="next">
-      ▶|
-    </button>
+    <button id="next">▶|</button>
 
     <div class="wave"></div>
 
-    <span id="time">
-      00:00
-    </span>
+    <span id="time">00:00</span>
 
     <div class="volume">
       🔊 ━━━━━
@@ -581,17 +450,11 @@
 
 <!-- ================= UPLOAD MODAL ================= -->
 
-<div
-  id="uploadModal"
-  class="modal hidden"
->
+<div id="uploadModal" class="modal hidden">
 
   <div class="modal-box">
 
-    <button
-      id="closeUploadModal"
-      class="modal-close"
-    >
+    <button id="closeUploadModal" class="modal-close">
       ×
     </button>
 
@@ -599,24 +462,15 @@
       LOST SOUND
     </div>
 
-    <h2 id="uploadModalTitle">
-      Upload
-    </h2>
+    <h2 id="uploadModalTitle">Upload</h2>
 
     <p id="uploadModalText">
       Choose what you want to upload.
     </p>
 
-    <div
-      id="uploadForm"
-      class="upload-form"
-    >
+    <div class="upload-form">
 
-      <!-- Track / Album / Pack form will be connected in next step -->
-
-      <label>
-        Name
-      </label>
+      <label>Name</label>
 
       <input
         id="uploadName"
@@ -624,9 +478,7 @@
         placeholder="Enter name"
       >
 
-      <label>
-        Cover
-      </label>
+      <label>Cover</label>
 
       <input
         id="uploadCover"
@@ -634,10 +486,7 @@
         accept="image/*"
       >
 
-      <button
-        id="confirmUpload"
-        type="button"
-      >
+      <button id="confirmUpload" type="button">
         CONTINUE
       </button>
 
