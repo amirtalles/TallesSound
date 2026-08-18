@@ -15,9 +15,7 @@
 <section id="intro" class="intro">
 
   <div id="startScreen" class="start-screen">
-    <button id="letsGo" class="lets-go">
-      LET'S GO
-    </button>
+    <button id="letsGo" class="lets-go">LET'S GO</button>
   </div>
 
   <div id="introVideoBox" class="intro-video-box">
@@ -36,12 +34,11 @@
 </section>
 
 
-<!-- ================= MAIN APP ================= -->
+<!-- ================= APP ================= -->
 
 <div id="app" class="app hidden">
 
-
-  <!-- ================= SIDEBAR ================= -->
+  <!-- SIDEBAR -->
 
   <aside class="sidebar">
 
@@ -51,36 +48,20 @@
 
     <nav>
 
-      <a class="active" href="index.html">
-        ⌂ <span>Home</span>
+      <a href="#" class="side-nav active" data-page="home">
+        Home
       </a>
 
-      <a href="profile.html">
-        👤 <span>Profile</span>
+      <a href="#" class="side-nav" data-page="explore">
+        Explore
       </a>
 
-      <a href="#">
-        ⌕ <span>Browse</span>
+      <a href="#" class="side-nav" data-page="library">
+        Library
       </a>
 
-      <a href="#">
-        ▱ <span>Collections</span>
-      </a>
-
-      <a href="#">
-        ♙ <span>Artists</span>
-      </a>
-
-      <a href="#" id="yourSoundBtn">
-        ♬ <span>Your Sound</span>
-      </a>
-
-      <a href="#">
-        ♡ <span>Favorites</span>
-      </a>
-
-      <a href="#">
-        ⇩ <span>Downloads</span>
+      <a href="#" class="side-nav" data-page="profile">
+        Profile
       </a>
 
     </nav>
@@ -88,631 +69,465 @@
   </aside>
 
 
-  <!-- ================= MAIN CONTENT ================= -->
+  <!-- MAIN -->
 
   <main class="content">
 
-
-    <!-- ================= TOP BAR ================= -->
+    <!-- TOP BAR -->
 
     <header class="topbar">
 
-      <button
-        id="menuBtn"
-        class="menu-btn"
-        type="button"
-      >
-        ☰
-      </button>
-
+      <button id="menuBtn" class="menu-btn">☰</button>
 
       <div class="mobile-brand">
         <span>LOST</span><b>SOUND</b>
       </div>
 
+      <div class="top-search">
 
-      <!-- SEARCH -->
-
-      <div
-        class="top-search"
-        id="topSearch"
-      >
-
-        <button
-          id="searchBtn"
-          type="button"
-          aria-label="Search"
-        >
-          ⌕
-        </button>
+        <button id="searchBtn" type="button">⌕</button>
 
         <input
           id="artistSearch"
           type="search"
           placeholder="Search artist ID..."
           autocomplete="off"
-          inputmode="text"
         >
 
-        <div
-          id="artistSearchResult"
-          class="artist-search-result"
-        ></div>
-
       </div>
-
-
-      <!-- PLUS -->
 
       <button
         id="plusBtn"
         class="top-plus-btn"
         type="button"
-        aria-label="Upload"
       >
         +
       </button>
 
-
-      <div class="top-icons">
-        ♧　🛒　◉
-      </div>
-
     </header>
 
 
-    <!-- ================= HERO ================= -->
+    <!-- ================= HOME ================= -->
 
-    <section class="hero">
+    <section id="page-home" class="page active-page">
 
-      <div class="hero-copy">
+      <section class="hero">
 
-        <div class="eyebrow">
-          SOUND IS YOUR ART
+        <div class="hero-copy">
+
+          <div class="eyebrow">
+            SOUND IS YOUR ART
+          </div>
+
+          <h1>
+            LOST<br>
+            <span>SOUND</span>
+          </h1>
+
+          <p>
+            A place for artists, producers and listeners.
+            <br>
+            Create. Release. Listen.
+          </p>
+
+          <div class="search-large">
+
+            <input
+              id="largeSearch"
+              type="search"
+              placeholder="Search artist ID..."
+            >
+
+            <button id="largeSearchBtn">
+              ⌕
+            </button>
+
+          </div>
+
         </div>
 
-        <h1>
-          LOST<br>
-          <span>SOUND</span>
-        </h1>
+        <div class="record-wrap">
+
+          <img
+            id="record"
+            src="disk.jpg"
+            alt="Lost Sound"
+          >
+
+        </div>
+
+      </section>
+
+
+      <!-- RANKING -->
+
+      <section class="ranking-section">
+
+        <div class="ranking-tabs">
+
+          <button
+            class="ranking-tab active"
+            data-ranking="artists"
+          >
+            ARTISTS
+          </button>
+
+          <button
+            class="ranking-tab"
+            data-ranking="producers"
+          >
+            PRODUCERS
+          </button>
+
+        </div>
+
+
+        <div class="section-title">
+
+          <div>
+            <h2 id="rankingTitle">
+              ARTISTS RANKING
+            </h2>
+
+            <p id="rankingSubtitle">
+              Top artists based on total plays
+            </p>
+          </div>
+
+          <button class="time-filter">
+            ALL TIME⌄
+          </button>
+
+        </div>
+
+
+        <div id="rankingList" class="ranking-list"></div>
+
+      </section>
+
+    </section>
+
+
+    <!-- ================= EXPLORE ================= -->
+
+    <section id="page-explore" class="page">
+
+      <div class="page-heading">
+
+        <span>DISCOVER</span>
+
+        <h1>EXPLORE</h1>
 
         <p>
-          A place for artists, producers and listeners.
-          <br>
-          Create. Release. Listen.
+          Discover artists, producers and sounds.
         </p>
 
-        <div class="search-large">
+      </div>
 
-          <input
-            id="largeSearch"
-            type="search"
-            placeholder="Search artist ID..."
-          >
 
-          <button
-            id="largeSearchBtn"
-            type="button"
-          >
-            ⌕
-          </button>
+      <div class="explore-search">
+
+        <input
+          id="exploreSearch"
+          type="search"
+          placeholder="Search artists, tracks, albums..."
+        >
+
+        <button>⌕</button>
+
+      </div>
+
+
+      <h2 class="mini-title">CONTENT</h2>
+
+      <div class="explore-grid">
+
+        <button class="explore-card">
+          <strong>Artists</strong>
+          <small>Discover artists</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Producers</strong>
+          <small>Discover producers</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Tracks</strong>
+          <small>Latest music</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Albums</strong>
+          <small>Album releases</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Beats</strong>
+          <small>Producer beats</small>
+        </button>
+
+        <button class="explore-card">
+          <strong>Packs</strong>
+          <small>Sounds & samples</small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= LIBRARY ================= -->
+
+    <section id="page-library" class="page">
+
+      <div class="page-heading">
+
+        <span>YOUR MUSIC</span>
+
+        <h1>LIBRARY</h1>
+
+        <p>
+          Everything you save and like in one place.
+        </p>
+
+      </div>
+
+
+      <div class="library-tabs">
+
+        <button class="library-tab active" data-library="liked">
+          Liked
+        </button>
+
+        <button class="library-tab" data-library="tracks">
+          Tracks
+        </button>
+
+        <button class="library-tab" data-library="albums">
+          Albums
+        </button>
+
+        <button class="library-tab" data-library="packs">
+          Packs
+        </button>
+
+        <button class="library-tab" data-library="beats">
+          Beats
+        </button>
+
+      </div>
+
+
+      <div id="libraryContent" class="library-content">
+
+        <div class="library-empty">
+
+          <div class="empty-icon">♡</div>
+
+          <strong>
+            Nothing saved yet
+          </strong>
+
+          <small>
+            Like or save something and it will appear here.
+          </small>
 
         </div>
 
       </div>
 
-
-      <div class="record-wrap">
-
-        <img
-          id="record"
-          src="disk.jpg"
-          alt="Lost Sound record"
-        >
-
-      </div>
-
     </section>
 
 
-    <!-- ================= CATEGORIES ================= -->
+    <!-- ================= PROFILE ================= -->
 
-    <section>
+    <section id="page-profile" class="page">
 
-      <div class="section-title">
+      <div class="profile-card">
 
-        <h2>
-          BROWSE CATEGORIES
-        </h2>
+        <div class="profile-avatar">
+          AT
+        </div>
 
-      </div>
+        <h1>AmirTalles</h1>
 
-
-      <div class="categories">
-
-        <article>
-          <span>🥁</span>
-          <strong>Drums</strong>
-          <small>2,340 sounds</small>
-        </article>
-
-        <article>
-          <span>🎹</span>
-          <strong>Melodies</strong>
-          <small>1,892 sounds</small>
-        </article>
-
-        <article>
-          <span>🎙</span>
-          <strong>Vocals</strong>
-          <small>1,103 sounds</small>
-        </article>
-
-        <article>
-          <span>〽</span>
-          <strong>FX</strong>
-          <small>987 sounds</small>
-        </article>
-
-        <article>
-          <span>◉</span>
-          <strong>One Shots</strong>
-          <small>2,155 sounds</small>
-        </article>
-
-        <article>
-          <span>◌</span>
-          <strong>Presets</strong>
-          <small>652 sounds</small>
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= RECENT RELEASES ================= -->
-
-    <section>
-
-      <div class="section-title">
-
-        <h2>
-          RECENT RELEASES
-        </h2>
-
-        <a href="#">
-          View all
-        </a>
-
-      </div>
-
-
-      <div class="cards">
-
-
-        <article class="card">
-
-          <div class="art art1">
-            DARK TRAP
-            <small>DRUM KIT</small>
-          </div>
-
-          <strong>
-            Dark Trap Drum Kit
-          </strong>
-
-          <small>
-            Drums
-          </small>
-
-          <button
-            class="play"
-            data-name="Dark Trap - 808 Loop"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-        <article class="card">
-
-          <div class="art art2">
-            EUPHORIA
-            <small>MELODY LOOPS</small>
-          </div>
-
-          <strong>
-            Euphoria Melody Loops
-          </strong>
-
-          <small>
-            Melodies
-          </small>
-
-          <button
-            class="play"
-            data-name="Euphoria Melody Loop"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-        <article class="card">
-
-          <div class="art art3">
-            VOX CHANTS
-            <small>VOCAL PACK</small>
-          </div>
-
-          <strong>
-            Vox Chants Vocal Pack
-          </strong>
-
-          <small>
-            Vocals
-          </small>
-
-          <button
-            class="play"
-            data-name="Vox Chants"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-        <article class="card">
-
-          <div class="art art4">
-            IMPACT
-            <small>FX COLLECTION</small>
-          </div>
-
-          <strong>
-            Impact FX Collection
-          </strong>
-
-          <small>
-            FX
-          </small>
-
-          <button
-            class="play"
-            data-name="Impact FX"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-        <article class="card">
-
-          <div class="art art5">
-            CINEMATIC
-            <small>ATMOSPHERES</small>
-          </div>
-
-          <strong>
-            Cinematic Atmospheres
-          </strong>
-
-          <small>
-            FX
-          </small>
-
-          <button
-            class="play"
-            data-name="Cinematic Atmospheres"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-        <article class="card">
-
-          <div class="art art6">
-            SERUM
-            <small>DARK PRESETS</small>
-          </div>
-
-          <strong>
-            Serum Dark Presets
-          </strong>
-
-          <small>
-            Presets
-          </small>
-
-          <button
-            class="play"
-            data-name="Serum Dark Preset"
-            type="button"
-          >
-            ▶
-          </button>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= YOUR SOUND ================= -->
-
-    <section
-      id="yourSoundSection"
-      class="your-sound hidden"
-    >
-
-      <div class="your-sound-head">
-
-        <h2>
-          YOUR SOUND
-        </h2>
-
-        <span id="accountTypeLabel">
-          Listener
+        <span class="profile-id">
+          @amirtalles
         </span>
 
+        <p>
+          Artist / Producer
+        </p>
+
+        <div class="profile-stats">
+
+          <div>
+            <strong id="profilePlays">0</strong>
+            <small>Plays</small>
+          </div>
+
+          <div>
+            <strong id="profileLikes">0</strong>
+            <small>Likes</small>
+          </div>
+
+          <div>
+            <strong>1</strong>
+            <small>Rank</small>
+          </div>
+
+        </div>
+
+        <button class="edit-profile">
+          EDIT PROFILE
+        </button>
+
       </div>
 
 
-      <div class="your-sound-empty">
+      <div class="profile-section">
 
-        <strong>
-          Your Sound
-        </strong>
+        <h2>YOUR ACCOUNT</h2>
 
-        <small>
-          Your saved and uploaded sounds will appear here.
-        </small>
+        <div class="account-type-box">
+
+          <span>Account Type</span>
+
+          <strong id="profileAccountType">
+            Listener
+          </strong>
+
+        </div>
 
       </div>
 
     </section>
-
 
   </main>
 
 
-  <!-- ==================================================
-       ACCOUNT TYPE
-  ================================================== -->
+  <!-- ================= UPLOAD MODAL ================= -->
 
-  <div
-    id="roleBar"
-    class="role-bar"
-  >
-
-    <button
-      class="role-item"
-      data-account="artist"
-      type="button"
-    >
-
-      <span class="role-item-icon">
-        🎤
-      </span>
-
-      <span class="role-item-text">
-
-        <strong>
-          Artist
-        </strong>
-
-        <small>
-          Music & Tracks
-        </small>
-
-      </span>
-
-    </button>
-
-
-    <button
-      class="role-item"
-      data-account="producer"
-      type="button"
-    >
-
-      <span class="role-item-icon">
-        🎹
-      </span>
-
-      <span class="role-item-text">
-
-        <strong>
-          Producer
-        </strong>
-
-        <small>
-          Packs & Beats
-        </small>
-
-      </span>
-
-    </button>
-
-  </div>
-
-
-  <!-- ==================================================
-       UPLOAD MENU
-  ================================================== -->
-
-  <div
-    id="uploadOverlay"
-    class="upload-overlay"
-  >
+  <div id="uploadOverlay" class="upload-overlay hidden">
 
     <div class="upload-modal">
 
-
       <div class="upload-head">
 
-        <div class="upload-title">
-          LOST SOUND
-        </div>
+        <strong>CREATE / UPLOAD</strong>
 
-        <button
-          id="uploadClose"
-          class="upload-close"
-          type="button"
-        >
+        <button id="uploadClose">
           ×
         </button>
 
       </div>
 
 
+      <!-- ARTIST -->
+
       <div id="artistUploadOptions">
-
-
-        <!-- ARTIST : TRACK -->
 
         <button
           class="upload-option"
           data-upload="track"
-          type="button"
         >
-
-          <span class="upload-option-icon">
-            🎵
-          </span>
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Track
-            </strong>
-
-            <small>
-              Upload your complete track
-            </small>
-
-          </span>
-
+          <strong>Upload Track</strong>
+          <small>Release a complete track</small>
         </button>
-
-
-        <!-- ARTIST : ALBUM -->
 
         <button
           class="upload-option"
           data-upload="album"
-          type="button"
         >
-
-          <span class="upload-option-icon">
-            💿
-          </span>
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Album
-            </strong>
-
-            <small>
-              Create an album release
-            </small>
-
-          </span>
-
+          <strong>Upload Album</strong>
+          <small>Create an album release</small>
         </button>
 
       </div>
 
 
-      <!-- ==================================================
-           PRODUCER OPTIONS
-      ================================================== -->
+      <!-- PRODUCER -->
 
       <div
         id="producerUploadOptions"
-        class="account-options hidden"
+        class="hidden"
       >
-
-        <!-- PRODUCER : PACK -->
 
         <button
           class="upload-option"
           data-upload="pack"
-          type="button"
         >
-
-          <span class="upload-option-icon">
-            📦
-          </span>
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Pack
-            </strong>
-
-            <small>
-              Upload sounds, loops and samples
-            </small>
-
-          </span>
-
+          <strong>Upload Pack</strong>
+          <small>Upload sounds, loops and samples</small>
         </button>
-
-
-        <!-- PRODUCER : BEAT -->
 
         <button
           class="upload-option"
           data-upload="beat"
-          type="button"
         >
-
-          <span class="upload-option-icon">
-            🥁
-          </span>
-
-          <span class="upload-option-info">
-
-            <strong>
-              Upload Beat
-            </strong>
-
-            <small>
-              Upload your complete beat
-            </small>
-
-          </span>
-
+          <strong>Upload Beat</strong>
+          <small>Upload your complete beat</small>
         </button>
 
       </div>
-
 
     </div>
 
   </div>
 
 
-  <!-- ==================================================
-       PLAYER
-       ابتدا مخفی است
-  ================================================== -->
+  <!-- ================= BOTTOM NAV ================= -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="bottom-item active"
+      data-page="home"
+    >
+      <span>⌂</span>
+      <small>HOME</small>
+    </button>
+
+
+    <button
+      class="bottom-item"
+      data-page="explore"
+    >
+      <span>⌕</span>
+      <small>EXPLORE</small>
+    </button>
+
+
+    <button
+      id="bottomPlus"
+      class="bottom-plus"
+    >
+      +
+    </button>
+
+
+    <button
+      class="bottom-item"
+      data-page="library"
+    >
+      <span>♫</span>
+      <small>LIBRARY</small>
+    </button>
+
+
+    <button
+      class="bottom-item"
+      data-page="profile"
+    >
+      <span>♙</span>
+      <small>PROFILE</small>
+    </button>
+
+  </nav>
+
+
+  <!-- ================= PLAYER ================= -->
 
   <footer
     id="player"
@@ -721,12 +536,9 @@
 
     <div class="track-art"></div>
 
-
     <div class="track-info">
 
-      <strong id="trackName">
-        —
-      </strong>
+      <strong id="trackName">—</strong>
 
       <small>
         Lost Sound • AmirTalles
@@ -734,46 +546,11 @@
 
     </div>
 
-
-    <button
-      id="prev"
-      type="button"
-    >
-      |◀
-    </button>
-
-
-    <button
-      id="mainPlay"
-      class="main-play"
-      type="button"
-    >
+    <button id="mainPlay">
       ▶
     </button>
 
-
-    <button
-      id="next"
-      type="button"
-    >
-      ▶|
-    </button>
-
-
-    <div class="wave"></div>
-
-
-    <span id="time">
-      00:00
-    </span>
-
-
-    <div class="volume">
-      🔊 ━━━━━
-    </div>
-
   </footer>
-
 
 </div>
 
