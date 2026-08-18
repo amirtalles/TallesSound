@@ -1,758 +1,120 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lost Sound — Upload</title>
+  <title>Lost Sound</title>
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
-}
-
-body{
-    background:#050505;
-    color:white;
-    font-family:Arial, sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-/* Background */
-
-body::before{
-    content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    background:radial-gradient(
-        circle,
-        rgba(130,70,255,.18),
-        transparent 65%
-    );
-    top:-180px;
-    left:50%;
-    transform:translateX(-50%);
-    pointer-events:none;
-}
-
-.container{
-    width:100%;
-    max-width:600px;
-    margin:auto;
-    padding:28px 18px 50px;
-}
-
-/* Header */
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:35px;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:800;
-    letter-spacing:1px;
-}
-
-.logo span{
-    color:#9b6cff;
-}
-
-.close{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.12);
-    background:#111;
-    color:white;
-    font-size:22px;
-}
-
-/* Title */
-
-.title{
-    text-align:center;
-    margin-bottom:28px;
-}
-
-.title h1{
-    font-size:32px;
-    margin-bottom:9px;
-}
-
-.title p{
-    color:#777;
-    font-size:14px;
-}
-
-/* Artist Cards */
-
-.artist-area{
-    display:flex;
-    gap:15px;
-    overflow-x:auto;
-    padding:15px 4px 30px;
-    scroll-snap-type:x mandatory;
-}
-
-.artist-area::-webkit-scrollbar{
-    display:none;
-}
-
-.artist{
-    flex:0 0 145px;
-    height:195px;
-    border-radius:24px;
-    position:relative;
-    overflow:hidden;
-    scroll-snap-align:center;
-    background:#111;
-    border:1px solid rgba(255,255,255,.08);
-    transition:.35s;
-    transform:scale(.92);
-}
-
-.artist.active{
-    transform:scale(1);
-    border-color:#9b6cff;
-    box-shadow:
-        0 0 35px rgba(130,80,255,.22);
-}
-
-.artist img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.artist::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        transparent 35%,
-        rgba(0,0,0,.85)
-    );
-}
-
-.artist-info{
-    position:absolute;
-    bottom:14px;
-    right:14px;
-    z-index:2;
-}
-
-.artist-name{
-    font-size:17px;
-    font-weight:bold;
-}
-
-.artist-role{
-    color:#aaa;
-    font-size:11px;
-    margin-top:4px;
-}
-
-/* Selected */
-
-.selected{
-    text-align:center;
-    margin-bottom:20px;
-    color:#aaa;
-    font-size:13px;
-}
-
-.selected strong{
-    color:white;
-}
-
-/* Upload Card */
-
-.upload-card{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.06),
-            rgba(255,255,255,.015)
-        );
-
-    border:1px solid rgba(255,255,255,.1);
-
-    border-radius:30px;
-    padding:24px;
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.4);
-
-    backdrop-filter:blur(20px);
-}
-
-.drop-zone{
-    border:1px dashed rgba(155,108,255,.55);
-    border-radius:23px;
-    min-height:210px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.drop-zone:hover{
-    background:rgba(155,108,255,.06);
-}
-
-.upload-icon{
-    width:65px;
-    height:65px;
-    border-radius:20px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:rgba(155,108,255,.12);
-    color:#a77cff;
-
-    font-size:28px;
-    margin-bottom:15px;
-}
-
-.drop-zone h3{
-    font-size:17px;
-    margin-bottom:8px;
-}
-
-.drop-zone p{
-    color:#666;
-    font-size:12px;
-}
-
-/* File Preview */
-
-.file-preview{
-    display:none;
-    margin-top:18px;
-}
-
-.file-box{
-    display:flex;
-    align-items:center;
-    gap:13px;
-
-    padding:14px;
-
-    border-radius:18px;
-    background:#111;
-}
-
-.file-icon{
-    width:45px;
-    height:45px;
-    border-radius:14px;
-
-    background:#1b142d;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#a77cff;
-}
-
-.file-info{
-    flex:1;
-    overflow:hidden;
-}
-
-.file-name{
-    font-size:13px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.file-size{
-    color:#666;
-    font-size:11px;
-    margin-top:4px;
-}
-
-/* Inputs */
-
-.inputs{
-    margin-top:20px;
-    display:none;
-}
-
-.input{
-    width:100%;
-    height:52px;
-
-    background:#0d0d0d;
-    border:1px solid #1d1d1d;
-
-    color:white;
-
-    border-radius:16px;
-    padding:0 16px;
-
-    outline:none;
-    margin-bottom:12px;
-}
-
-.input:focus{
-    border-color:#8e62e8;
-}
-
-/* Upload Button */
-
-.upload-btn{
-    width:100%;
-    height:58px;
-
-    border:0;
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #9d6cff,
-            #653bd1
-        );
-
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-
-    margin-top:8px;
-
-    box-shadow:
-        0 10px 35px rgba(125,75,255,.25);
-
-    transition:.2s;
-}
-
-.upload-btn:active{
-    transform:scale(.97);
-}
-
-/* Wave */
-
-.wave{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    height:45px;
-    margin:20px 0;
-}
-
-.bar{
-    width:3px;
-    height:15px;
-    background:#9b6cff;
-    border-radius:5px;
-    animation:wave 1s infinite ease-in-out;
-}
-
-.bar:nth-child(2){animation-delay:.1s}
-.bar:nth-child(3){animation-delay:.2s}
-.bar:nth-child(4){animation-delay:.3s}
-.bar:nth-child(5){animation-delay:.4s}
-.bar:nth-child(6){animation-delay:.5s}
-.bar:nth-child(7){animation-delay:.4s}
-.bar:nth-child(8){animation-delay:.3s}
-.bar:nth-child(9){animation-delay:.2s}
-.bar:nth-child(10){animation-delay:.1s}
-
-@keyframes wave{
-    0%,100%{
-        height:10px;
-        opacity:.4;
-    }
-    50%{
-        height:38px;
-        opacity:1;
-    }
-}
-
-/* Success */
-
-.success{
-    display:none;
-    text-align:center;
-    padding:25px 0 5px;
-}
-
-.success-icon{
-    width:70px;
-    height:70px;
-    margin:auto;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(80,220,140,.1);
-    border:1px solid rgba(80,220,140,.3);
-
-    color:#5be394;
-    font-size:30px;
-}
-
-.success h2{
-    margin-top:15px;
-    font-size:20px;
-}
-
-.success p{
-    color:#666;
-    font-size:12px;
-    margin-top:7px;
-}
-
-/* Bottom */
-
-.footer{
-    text-align:center;
-    color:#444;
-    font-size:11px;
-    margin-top:25px;
-}
-</style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+  <!-- Animated Background -->
+  <div class="background"></div>
 
-    <div class="header">
-        <div class="logo">
-            LOST <span>SOUND</span>
-        </div>
+  <main class="app">
 
-        <button class="close" onclick="history.back()">×</button>
-    </div>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        LOST <span>SOUND</span>
+      </div>
+
+      <button class="more">•••</button>
+    </header>
 
 
-    <div class="title">
-        <h1>Upload Sound</h1>
-        <p>آرتیستی که می‌خواهی آهنگ را برای او منتشر کنی انتخاب کن</p>
-    </div>
+    <!-- Hero -->
+    <section class="hero">
+
+      <div class="eyebrow">
+        DISCOVER THE SOUND
+      </div>
+
+      <h1>
+        Choose an<br>
+        <strong>Artist</strong>
+      </h1>
+
+      <p>
+        آرتیست موردنظر خودت را انتخاب کن
+      </p>
+
+    </section>
 
 
     <!-- Artists -->
-
-    <div class="artist-area" id="artists">
-
-        <div class="artist active"
-             data-name="AmirTalles"
-             onclick="selectArtist(this)">
-
-            <img src="artist1.jpg">
-
-            <div class="artist-info">
-                <div class="artist-name">
-                    AmirTalles
-                </div>
-
-                <div class="artist-role">
-                    Artist
-                </div>
-            </div>
-
-        </div>
+    <section class="artists" id="artists"></section>
 
 
-        <div class="artist"
-             data-name="Artist Two"
-             onclick="selectArtist(this)">
-
-            <img src="artist2.jpg">
-
-            <div class="artist-info">
-                <div class="artist-name">
-                    Artist Two
-                </div>
-
-                <div class="artist-role">
-                    Artist
-                </div>
-            </div>
-
-        </div>
+  </main>
 
 
-        <div class="artist"
-             data-name="Artist Three"
-             onclick="selectArtist(this)">
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
 
-            <img src="artist3.jpg">
+    <button class="active">
+      <span>⌂</span>
+      <small>خانه</small>
+    </button>
 
-            <div class="artist-info">
-                <div class="artist-name">
-                    Artist Three
-                </div>
+    <button>
+      <span>◉</span>
+      <small>آرتیست‌ها</small>
+    </button>
 
-                <div class="artist-role">
-                    Artist
-                </div>
-            </div>
+    <button>
+      <span>＋</span>
+      <small>آپلود</small>
+    </button>
 
-        </div>
+    <button>
+      <span>♫</span>
+      <small>مای ساند</small>
+    </button>
 
+    <button>
+      <span>◯</span>
+      <small>پروفایل</small>
+    </button>
+
+  </nav>
+
+
+  <!-- Artist Profile -->
+  <div class="profile" id="profile">
+
+    <button class="close" id="close">
+      ×
+    </button>
+
+    <div
+      class="profile-cover"
+      id="profileCover">
     </div>
 
-
-    <div class="selected">
-        Selected Artist:
-        <strong id="selectedArtist">
-            AmirTalles
-        </strong>
+    <div class="eyebrow">
+      ARTIST
     </div>
 
+    <h2 id="profileName">
+      Artist
+    </h2>
 
-    <!-- Upload -->
+    <p id="profileBio">
+      Music creator on Lost Sound.
+    </p>
 
-    <div class="upload-card">
+    <button class="upload-button">
+      UPLOAD TRACK
+    </button>
 
-        <label class="drop-zone" for="audioFile">
+  </div>
 
-            <div class="upload-icon">
-                ↑
-            </div>
 
-            <h3>
-                انتخاب آهنگ
-            </h3>
-
-            <p>
-                MP3 / WAV / FLAC
-            </p>
-
-            <input
-                type="file"
-                id="audioFile"
-                accept="audio/*"
-                hidden
-            >
-
-        </label>
-
-
-        <div class="file-preview" id="filePreview">
-
-            <div class="file-box">
-
-                <div class="file-icon">
-                    ♪
-                </div>
-
-                <div class="file-info">
-
-                    <div
-                        class="file-name"
-                        id="fileName">
-                    </div>
-
-                    <div
-                        class="file-size"
-                        id="fileSize">
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="inputs" id="inputs">
-
-            <input
-                class="input"
-                id="songName"
-                placeholder="نام آهنگ"
-            >
-
-            <input
-                class="input"
-                id="genre"
-                placeholder="ژانر آهنگ"
-            >
-
-            <button
-                class="upload-btn"
-                onclick="uploadSong()">
-
-                UPLOAD TRACK
-
-            </button>
-
-        </div>
-
-
-        <div class="success" id="success">
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-            <h2>
-                Track Uploaded
-            </h2>
-
-            <p>
-                آهنگ با موفقیت برای Lost Sound آماده شد
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer">
-        LOST SOUND • MUSIC PLATFORM
-    </div>
-
-</div>
-
-
-<script>
-
-let currentArtist = "AmirTalles";
-
-
-function selectArtist(element){
-
-    document
-        .querySelectorAll(".artist")
-        .forEach(card => {
-
-            card.classList.remove("active");
-
-        });
-
-    element.classList.add("active");
-
-    currentArtist =
-        element.dataset.name;
-
-    document
-        .getElementById("selectedArtist")
-        .textContent =
-        currentArtist;
-}
-
-
-/* Audio */
-
-const audioFile =
-    document.getElementById("audioFile");
-
-audioFile.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            this.files[0];
-
-        if(!file) return;
-
-        document
-            .getElementById("filePreview")
-            .style.display =
-            "block";
-
-        document
-            .getElementById("inputs")
-            .style.display =
-            "block";
-
-        document
-            .getElementById("fileName")
-            .textContent =
-            file.name;
-
-        const size =
-            (file.size / 1024 / 1024)
-            .toFixed(2);
-
-        document
-            .getElementById("fileSize")
-            .textContent =
-            size + " MB";
-
-        document
-            .querySelector(".drop-zone h3")
-            .textContent =
-            "آهنگ انتخاب شد";
-
-    }
-);
-
-
-/* Upload */
-
-function uploadSong(){
-
-    const song =
-        document
-            .getElementById("songName")
-            .value
-            .trim();
-
-    if(!song){
-
-        alert("نام آهنگ را وارد کن");
-
-        return;
-    }
-
-    const button =
-        document.querySelector(".upload-btn");
-
-    button.disabled = true;
-
-    button.innerHTML =
-        "UPLOADING...";
-
-
-    /* Fake upload animation */
-
-    setTimeout(() => {
-
-        document
-            .getElementById("inputs")
-            .style.display =
-            "none";
-
-        document
-            .getElementById("success")
-            .style.display =
-            "block";
-
-    },1800);
-
-}
-
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>
