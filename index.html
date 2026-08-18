@@ -8,9 +8,69 @@
 <title>Lost Sound</title>
 
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* =========================
+   INTRO FIX
+========================= */
+
+.intro{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:#000;
+  z-index:99999;
+  overflow:hidden;
+  opacity:1;
+  visibility:visible;
+}
+
+.start-screen{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:#000;
+  z-index:3;
+}
+
+.lets-go{
+  background:#0b0b0b;
+  color:#fff;
+  border:1px solid #fff;
+  border-radius:999px;
+  padding:13px 28px;
+  font-size:13px;
+  letter-spacing:2px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.intro-video-box{
+  position:absolute;
+  inset:0;
+  display:none;
+  background:#000;
+  z-index:2;
+}
+
+.intro-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.app.hidden{
+  display:none!important;
+}
+</style>
+
 </head>
 
 <body>
+
 
 <!-- =====================================================
      INTRO
@@ -20,13 +80,21 @@
 
   <div id="startScreen" class="start-screen">
 
-    <button id="letsGo" class="lets-go">
+    <button
+      id="letsGo"
+      class="lets-go"
+      type="button"
+    >
       LET'S GO
     </button>
 
   </div>
 
-  <div id="introVideoBox" class="intro-video-box">
+
+  <div
+    id="introVideoBox"
+    class="intro-video-box"
+  >
 
     <video
       id="introVideo"
@@ -35,7 +103,10 @@
       preload="auto"
     >
 
-      <source src="intro.mp4" type="video/mp4">
+      <source
+        src="intro.mp4"
+        type="video/mp4"
+      >
 
     </video>
 
@@ -44,11 +115,15 @@
 </section>
 
 
+
 <!-- =====================================================
      APP
 ===================================================== -->
 
-<div id="app" class="app hidden">
+<div
+  id="app"
+  class="app hidden"
+>
 
 
   <!-- ===================================================
@@ -61,27 +136,48 @@
       LOST<span>SOUND</span>
     </div>
 
+
     <nav>
 
-      <a href="#" class="side-link active" data-page="home">
+      <a
+        href="#"
+        class="side-link active"
+        data-page="home"
+      >
         Home
       </a>
 
-      <a href="#" class="side-link" data-page="explore">
+
+      <a
+        href="#"
+        class="side-link"
+        data-page="explore"
+      >
         Explore
       </a>
 
-      <a href="#" class="side-link" data-page="library">
+
+      <a
+        href="#"
+        class="side-link"
+        data-page="library"
+      >
         Library
       </a>
 
-      <a href="#" class="side-link" data-page="profile">
+
+      <a
+        href="#"
+        class="side-link"
+        data-page="profile"
+      >
         Profile
       </a>
 
     </nav>
 
   </aside>
+
 
 
   <!-- ===================================================
@@ -96,6 +192,7 @@
     ================================================= -->
 
     <header class="topbar">
+
 
       <button
         id="menuBtn"
@@ -113,6 +210,9 @@
 
       <div class="top-actions">
 
+
+        <!-- SEARCH -->
+
         <div class="search-box">
 
           <button
@@ -122,6 +222,7 @@
           >
             ⌕
           </button>
+
 
           <input
             id="artistSearch"
@@ -134,14 +235,21 @@
         </div>
 
 
+
+        <!-- PLUS -->
+
         <button
           id="plusBtn"
           class="plus-btn"
           type="button"
+          aria-label="Upload"
         >
           +
         </button>
 
+
+
+        <!-- PROFILE -->
 
         <button
           id="profileTopBtn"
@@ -151,13 +259,15 @@
           AT
         </button>
 
+
       </div>
 
     </header>
 
 
+
     <!-- =================================================
-         HOME
+         HOME / RANKING
     ================================================= -->
 
     <section
@@ -165,8 +275,6 @@
       class="page-section"
     >
 
-
-      <!-- ARTIST / PRODUCER TABS -->
 
       <div class="ranking-tabs">
 
@@ -177,6 +285,7 @@
         >
           ARTISTS
         </button>
+
 
         <button
           id="producersTab"
@@ -189,7 +298,6 @@
       </div>
 
 
-      <!-- RANKING HEADER -->
 
       <div class="ranking-header">
 
@@ -202,9 +310,11 @@
             TOP ARTISTS
           </div>
 
+
           <h1 id="rankingTitle">
             ARTISTS RANKING
           </h1>
+
 
           <p id="rankingDescription">
             Top artists based on total plays
@@ -235,7 +345,6 @@
       </div>
 
 
-      <!-- RANKING LIST -->
 
       <div
         id="rankingList"
@@ -244,6 +353,7 @@
 
 
     </section>
+
 
 
     <!-- =================================================
@@ -257,7 +367,9 @@
 
       <div class="page-title">
 
-        <span>EXPLORE</span>
+        <span>
+          EXPLORE
+        </span>
 
         <h1>
           Discover Sound
@@ -278,7 +390,10 @@
           placeholder="Search artist, producer or track..."
         >
 
-        <button id="exploreSearchBtn">
+        <button
+          id="exploreSearchBtn"
+          type="button"
+        >
           ⌕
         </button>
 
@@ -292,15 +407,18 @@
           <small>Discover artists</small>
         </article>
 
+
         <article class="explore-card">
           <strong>Producers</strong>
           <small>Find producers</small>
         </article>
 
+
         <article class="explore-card">
           <strong>Tracks</strong>
           <small>Listen to music</small>
         </article>
+
 
         <article class="explore-card">
           <strong>Beats</strong>
@@ -310,6 +428,7 @@
       </div>
 
     </section>
+
 
 
     <!-- =================================================
@@ -323,7 +442,9 @@
 
       <div class="page-title">
 
-        <span>YOUR LIBRARY</span>
+        <span>
+          YOUR LIBRARY
+        </span>
 
         <h1>
           Library
@@ -458,8 +579,8 @@
 
         </article>
 
-
       </div>
+
 
 
       <div class="saved-section">
@@ -467,6 +588,7 @@
         <h2>
           LIKED
         </h2>
+
 
         <div
           id="likedList"
@@ -478,6 +600,7 @@
       </div>
 
     </section>
+
 
 
     <!-- =================================================
@@ -495,10 +618,1129 @@
           AT
         </div>
 
+
         <h1>
           AmirTalles
         </h1>
 
+
         <p>
           @amirtalles
-        </p
+        </p>
+
+
+        <div class="profile-stats">
+
+          <div>
+            <strong>
+              0
+            </strong>
+
+            <small>
+              Tracks
+            </small>
+          </div>
+
+
+          <div>
+            <strong>
+              0
+            </strong>
+
+            <small>
+              Followers
+            </small>
+          </div>
+
+
+          <div>
+            <strong>
+              0
+            </strong>
+
+            <small>
+              Likes
+            </small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- ===================================================
+       UPLOAD MODAL
+  =================================================== -->
+
+  <div
+    id="uploadOverlay"
+    class="upload-overlay hidden"
+  >
+
+    <div class="upload-modal">
+
+
+      <div class="upload-head">
+
+        <div class="upload-title">
+          LOST SOUND
+        </div>
+
+
+        <button
+          id="uploadClose"
+          class="upload-close"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- ARTIST -->
+
+      <div
+        id="artistUploadOptions"
+        class="account-options hidden"
+      >
+
+        <button
+          class="upload-option"
+          data-upload="track"
+          type="button"
+        >
+
+          <span class="upload-option-info">
+
+            <strong>
+              Upload Track
+            </strong>
+
+            <small>
+              Upload your complete track
+            </small>
+
+          </span>
+
+        </button>
+
+
+        <button
+          class="upload-option"
+          data-upload="album"
+          type="button"
+        >
+
+          <span class="upload-option-info">
+
+            <strong>
+              Upload Album
+            </strong>
+
+            <small>
+              Create an album release
+            </small>
+
+          </span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- PRODUCER -->
+
+      <div
+        id="producerUploadOptions"
+        class="account-options hidden"
+      >
+
+        <button
+          class="upload-option"
+          data-upload="pack"
+          type="button"
+        >
+
+          <span class="upload-option-info">
+
+            <strong>
+              Upload Pack
+            </strong>
+
+            <small>
+              Upload sounds, loops and samples
+            </small>
+
+          </span>
+
+        </button>
+
+
+        <button
+          class="upload-option"
+          data-upload="beat"
+          type="button"
+        >
+
+          <span class="upload-option-info">
+
+            <strong>
+              Upload Beat
+            </strong>
+
+            <small>
+              Upload your complete beat
+            </small>
+
+          </span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- LISTENER -->
+
+      <div
+        id="listenerUploadOptions"
+        class="account-options"
+      >
+
+        <p>
+          Choose Artist or Producer from your profile first.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       PLAYER
+  =================================================== -->
+
+  <footer
+    id="player"
+    class="player hidden"
+  >
+
+    <div class="track-art"></div>
+
+
+    <div class="track-info">
+
+      <strong id="trackName">
+        —
+      </strong>
+
+      <small>
+        Lost Sound • AmirTalles
+      </small>
+
+    </div>
+
+
+    <button
+      id="prev"
+      type="button"
+    >
+      |◀
+    </button>
+
+
+    <button
+      id="mainPlay"
+      class="main-play"
+      type="button"
+    >
+      ▶
+    </button>
+
+
+    <button
+      id="next"
+      type="button"
+    >
+      ▶|
+    </button>
+
+
+    <div class="wave"></div>
+
+
+    <span id="time">
+      00:00
+    </span>
+
+  </footer>
+
+</div>
+
+
+
+<!-- =====================================================
+     INTRO + BASIC APP SCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const intro =
+    document.getElementById("intro");
+
+  const startScreen =
+    document.getElementById("startScreen");
+
+  const letsGo =
+    document.getElementById("letsGo");
+
+  const videoBox =
+    document.getElementById("introVideoBox");
+
+  const video =
+    document.getElementById("introVideo");
+
+  const app =
+    document.getElementById("app");
+
+
+  let entered = false;
+
+
+  function enterApp(){
+
+    if(entered) return;
+
+    entered = true;
+
+
+    if(video){
+
+      video.pause();
+
+      video.currentTime = 0;
+
+    }
+
+
+    if(intro){
+
+      intro.style.transition =
+        "opacity .5s ease";
+
+      intro.style.opacity = "0";
+
+    }
+
+
+    setTimeout(function(){
+
+      if(intro){
+
+        intro.style.display = "none";
+
+      }
+
+
+      if(app){
+
+        app.classList.remove("hidden");
+
+        app.style.display = "block";
+
+      }
+
+    },500);
+
+  }
+
+
+
+  /* =========================
+     LET'S GO
+  ========================= */
+
+  if(letsGo){
+
+    letsGo.addEventListener(
+      "click",
+      async function(e){
+
+        e.preventDefault();
+
+        e.stopPropagation();
+
+
+        if(startScreen){
+
+          startScreen.style.display =
+            "none";
+
+        }
+
+
+        if(videoBox){
+
+          videoBox.style.display =
+            "block";
+
+        }
+
+
+        if(!video){
+
+          enterApp();
+
+          return;
+
+        }
+
+
+        try{
+
+          video.currentTime = 0;
+
+          await video.play();
+
+        }
+
+        catch(error){
+
+          console.log(
+            "Video could not play:",
+            error
+          );
+
+          /*
+             اگر ویدئو به هر دلیل پخش نشد،
+             سایت باز شود.
+          */
+
+          enterApp();
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     VIDEO END
+  ========================= */
+
+  if(video){
+
+    video.addEventListener(
+      "ended",
+      function(){
+
+        enterApp();
+
+      }
+    );
+
+
+    /* لمس ویدئو = Skip */
+
+    video.addEventListener(
+      "click",
+      function(){
+
+        enterApp();
+
+      }
+    );
+
+
+    /* خطای ویدئو */
+
+    video.addEventListener(
+      "error",
+      function(){
+
+        enterApp();
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     NAVIGATION
+  ========================= */
+
+  const links =
+    document.querySelectorAll(
+      ".side-link"
+    );
+
+
+  const pages = {
+
+    home:
+      document.getElementById("homePage"),
+
+    explore:
+      document.getElementById("explorePage"),
+
+    library:
+      document.getElementById("libraryPage"),
+
+    profile:
+      document.getElementById("profilePage")
+
+  };
+
+
+  function showPage(name){
+
+    Object.values(pages).forEach(
+      function(page){
+
+        if(page){
+
+          page.classList.add(
+            "hidden"
+          );
+
+        }
+
+      }
+    );
+
+
+    if(pages[name]){
+
+      pages[name].classList.remove(
+        "hidden"
+      );
+
+    }
+
+
+    links.forEach(
+      function(link){
+
+        link.classList.toggle(
+          "active",
+          link.dataset.page === name
+        );
+
+      }
+    );
+
+  }
+
+
+  links.forEach(
+    function(link){
+
+      link.addEventListener(
+        "click",
+        function(e){
+
+          e.preventDefault();
+
+          showPage(
+            link.dataset.page
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+
+  /* =========================
+     PROFILE TOP
+  ========================= */
+
+  const profileTopBtn =
+    document.getElementById(
+      "profileTopBtn"
+    );
+
+
+  if(profileTopBtn){
+
+    profileTopBtn.addEventListener(
+      "click",
+      function(){
+
+        showPage("profile");
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     RANKING
+  ========================= */
+
+  const artistsTab =
+    document.getElementById(
+      "artistsTab"
+    );
+
+  const producersTab =
+    document.getElementById(
+      "producersTab"
+    );
+
+  const rankingTitle =
+    document.getElementById(
+      "rankingTitle"
+    );
+
+  const rankingEyebrow =
+    document.getElementById(
+      "rankingEyebrow"
+    );
+
+  const rankingDescription =
+    document.getElementById(
+      "rankingDescription"
+    );
+
+  const rankingList =
+    document.getElementById(
+      "rankingList"
+    );
+
+
+  function renderArtists(){
+
+    if(!rankingList) return;
+
+
+    rankingList.innerHTML = `
+
+      <div class="ranking-item">
+
+        <div class="ranking-number">
+          1
+        </div>
+
+        <div class="ranking-avatar">
+          AT
+        </div>
+
+        <div class="ranking-info">
+
+          <strong>
+            AmirTalles
+          </strong>
+
+          <small>
+            @amirtalles
+          </small>
+
+        </div>
+
+        <div class="ranking-score">
+          0
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  function renderProducers(){
+
+    if(!rankingList) return;
+
+
+    rankingList.innerHTML = `
+
+      <div class="ranking-empty">
+
+        <strong>
+          No producers yet
+        </strong>
+
+        <small>
+          Producers who register will appear here.
+        </small>
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(artistsTab){
+
+    artistsTab.addEventListener(
+      "click",
+      function(){
+
+        artistsTab.classList.add(
+          "active"
+        );
+
+        if(producersTab){
+
+          producersTab.classList.remove(
+            "active"
+          );
+
+        }
+
+
+        if(rankingEyebrow){
+
+          rankingEyebrow.textContent =
+            "TOP ARTISTS";
+
+        }
+
+
+        if(rankingTitle){
+
+          rankingTitle.textContent =
+            "ARTISTS RANKING";
+
+        }
+
+
+        if(rankingDescription){
+
+          rankingDescription.textContent =
+            "Top artists based on total plays";
+
+        }
+
+
+        renderArtists();
+
+      }
+    );
+
+  }
+
+
+  if(producersTab){
+
+    producersTab.addEventListener(
+      "click",
+      function(){
+
+        producersTab.classList.add(
+          "active"
+        );
+
+        if(artistsTab){
+
+          artistsTab.classList.remove(
+            "active"
+          );
+
+        }
+
+
+        if(rankingEyebrow){
+
+          rankingEyebrow.textContent =
+            "TOP PRODUCERS";
+
+        }
+
+
+        if(rankingTitle){
+
+          rankingTitle.textContent =
+            "PRODUCERS RANKING";
+
+        }
+
+
+        if(rankingDescription){
+
+          rankingDescription.textContent =
+            "Top producers based on popularity";
+
+        }
+
+
+        renderProducers();
+
+      }
+    );
+
+  }
+
+
+  renderArtists();
+
+
+
+  /* =========================
+     MENU MOBILE
+  ========================= */
+
+  const menuBtn =
+    document.getElementById(
+      "menuBtn"
+    );
+
+  const sidebar =
+    document.querySelector(
+      ".sidebar"
+    );
+
+
+  if(menuBtn && sidebar){
+
+    menuBtn.addEventListener(
+      "click",
+      function(e){
+
+        e.stopPropagation();
+
+        sidebar.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      function(e){
+
+        if(
+          sidebar.classList.contains(
+            "open"
+          ) &&
+          !sidebar.contains(e.target) &&
+          !menuBtn.contains(e.target)
+        ){
+
+          sidebar.classList.remove(
+            "open"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     ACCOUNT TYPE
+  ========================= */
+
+  let accountType =
+    localStorage.getItem(
+      "lostSoundAccountType"
+    ) || "artist";
+
+
+  const artistUploadOptions =
+    document.getElementById(
+      "artistUploadOptions"
+    );
+
+  const producerUploadOptions =
+    document.getElementById(
+      "producerUploadOptions"
+    );
+
+  const listenerUploadOptions =
+    document.getElementById(
+      "listenerUploadOptions"
+    );
+
+
+  function updateUploadOptions(){
+
+    if(artistUploadOptions){
+
+      artistUploadOptions.classList.toggle(
+        "hidden",
+        accountType !== "artist"
+      );
+
+    }
+
+
+    if(producerUploadOptions){
+
+      producerUploadOptions.classList.toggle(
+        "hidden",
+        accountType !== "producer"
+      );
+
+    }
+
+
+    if(listenerUploadOptions){
+
+      listenerUploadOptions.classList.toggle(
+        "hidden",
+        accountType !== "listener"
+      );
+
+    }
+
+  }
+
+
+  updateUploadOptions();
+
+
+
+  /* =========================
+     PLUS
+  ========================= */
+
+  const plusBtn =
+    document.getElementById(
+      "plusBtn"
+    );
+
+  const uploadOverlay =
+    document.getElementById(
+      "uploadOverlay"
+    );
+
+  const uploadClose =
+    document.getElementById(
+      "uploadClose"
+    );
+
+
+  if(plusBtn){
+
+    plusBtn.addEventListener(
+      "click",
+      function(e){
+
+        e.preventDefault();
+
+        e.stopPropagation();
+
+
+        updateUploadOptions();
+
+
+        if(uploadOverlay){
+
+          uploadOverlay.classList.remove(
+            "hidden"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if(uploadClose){
+
+    uploadClose.addEventListener(
+      "click",
+      function(){
+
+        if(uploadOverlay){
+
+          uploadOverlay.classList.add(
+            "hidden"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if(uploadOverlay){
+
+    uploadOverlay.addEventListener(
+      "click",
+      function(e){
+
+        if(e.target === uploadOverlay){
+
+          uploadOverlay.classList.add(
+            "hidden"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     SEARCH
+  ========================= */
+
+  const searchBtn =
+    document.getElementById(
+      "searchBtn"
+    );
+
+  const artistSearch =
+    document.getElementById(
+      "artistSearch"
+    );
+
+
+  if(searchBtn && artistSearch){
+
+    searchBtn.addEventListener(
+      "click",
+      function(){
+
+        artistSearch.focus();
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================
+     PLAYER
+  ========================= */
+
+  const player =
+    document.getElementById(
+      "player"
+    );
+
+  const mainPlay =
+    document.getElementById(
+      "mainPlay"
+    );
+
+  const trackName =
+    document.getElementById(
+      "trackName"
+    );
+
+
+  let playing = false;
+
+
+  function startPlayer(name){
+
+    if(trackName){
+
+      trackName.textContent =
+        name;
+
+    }
+
+
+    if(player){
+
+      player.classList.remove(
+        "hidden"
+      );
+
+    }
+
+
+    playing = true;
+
+
+    if(mainPlay){
+
+      mainPlay.textContent =
+        "Ⅱ";
+
+    }
+
+  }
+
+
+  if(mainPlay){
+
+    mainPlay.addEventListener(
+      "click",
+      function(){
+
+        playing =
+          !playing;
+
+
+        mainPlay.textContent =
+          playing ? "Ⅱ" : "▶";
+
+      }
+    );
+
+  }
+
+
+  /*
+    برای تست Player
+  */
+
+  document.addEventListener(
+    "click",
+    function(e){
+
+      const button =
+        e.target.closest(".play");
+
+
+      if(!button) return;
+
+
+      startPlayer(
+        button.dataset.name ||
+        "Lost Sound Track"
+      );
+
+    }
+  );
+
+
+});
+</script>
+
+</body>
+</html>
