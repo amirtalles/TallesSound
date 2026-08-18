@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#050505">
-  <title>Lost Sound</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>Lost Sound</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= INTRO ================= -->
+<!-- ==================================================
+     INTRO
+     این قسمت را تغییر نده
+================================================== -->
 
 <section id="intro" class="intro">
 
   <div id="startScreen" class="start-screen">
-    <button id="letsGo" class="lets-go">LET'S GO</button>
+    <button id="letsGo" class="lets-go">
+      LET'S GO
+    </button>
   </div>
 
   <div id="introVideoBox" class="intro-video-box">
@@ -34,523 +39,592 @@
 </section>
 
 
-<!-- ================= APP ================= -->
+<!-- ==================================================
+     MAIN APP
+================================================== -->
 
 <div id="app" class="app hidden">
 
-  <!-- SIDEBAR -->
 
-  <aside class="sidebar">
+<!-- ================= SIDEBAR ================= -->
 
-    <div class="brand">
-      <span>LOST</span><b>SOUND</b>
-    </div>
+<aside class="sidebar">
 
-    <nav>
+  <div class="brand">
+    <span>LOST</span><b>SOUND</b>
+  </div>
 
-      <a href="#" class="side-nav active" data-page="home">
-        Home
-      </a>
+  <nav>
 
-      <a href="#" class="side-nav" data-page="explore">
-        Explore
-      </a>
+    <a href="#" class="nav-item active" data-page="home">
+      <span>⌂</span>
+      <span>Home</span>
+    </a>
 
-      <a href="#" class="side-nav" data-page="library">
-        Library
-      </a>
+    <a href="#" class="nav-item" data-page="explore">
+      <span>⌕</span>
+      <span>Explore</span>
+    </a>
 
-      <a href="#" class="side-nav" data-page="profile">
-        Profile
-      </a>
+    <a href="#" class="nav-item" data-page="artists">
+      <span>Artists</span>
+    </a>
 
-    </nav>
+    <a href="#" class="nav-item" data-page="producers">
+      <span>Producers</span>
+    </a>
 
-  </aside>
+    <a href="#" class="nav-item" data-page="library">
+      <span>♡</span>
+      <span>Library</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="profile">
+      <span>Profile</span>
+    </a>
+
+  </nav>
+
+</aside>
 
 
-  <!-- MAIN -->
+<!-- ================= CONTENT ================= -->
 
-  <main class="content">
+<main class="content">
 
-    <!-- TOP BAR -->
 
-    <header class="topbar">
+<!-- ================= TOP BAR ================= -->
 
-      <button id="menuBtn" class="menu-btn">☰</button>
+<header class="topbar">
 
-      <div class="mobile-brand">
-        <span>LOST</span><b>SOUND</b>
-      </div>
+  <button
+    id="menuBtn"
+    class="menu-btn"
+    type="button">
+    ☰
+  </button>
 
-      <div class="top-search">
+  <div class="mobile-brand">
+    <span>LOST</span><b>SOUND</b>
+  </div>
 
-        <button id="searchBtn" type="button">⌕</button>
+  <div class="top-actions">
 
-        <input
-          id="artistSearch"
-          type="search"
-          placeholder="Search artist ID..."
-          autocomplete="off"
-        >
-
-      </div>
+    <div id="topSearch" class="top-search">
 
       <button
-        id="plusBtn"
-        class="top-plus-btn"
-        type="button"
-      >
-        +
+        id="searchBtn"
+        type="button">
+        ⌕
       </button>
 
-    </header>
+      <input
+        id="artistSearch"
+        type="search"
+        placeholder="Search artist ID..."
+        autocomplete="off"
+        inputmode="text">
 
+    </div>
 
-    <!-- ================= HOME ================= -->
+    <button
+      id="plusBtn"
+      class="top-plus-btn"
+      type="button">
+      +
+    </button>
 
-    <section id="page-home" class="page active-page">
+  </div>
 
-      <section class="hero">
+</header>
 
-        <div class="hero-copy">
 
-          <div class="eyebrow">
-            SOUND IS YOUR ART
-          </div>
+<!-- ==================================================
+     HOME
+================================================== -->
 
-          <h1>
-            LOST<br>
-            <span>SOUND</span>
-          </h1>
+<section id="page-home" class="page-section active-page">
 
-          <p>
-            A place for artists, producers and listeners.
-            <br>
-            Create. Release. Listen.
-          </p>
+  <div class="home-hero">
 
-          <div class="search-large">
+    <div class="eyebrow">
+      SOUND IS YOUR ART
+    </div>
 
-            <input
-              id="largeSearch"
-              type="search"
-              placeholder="Search artist ID..."
-            >
+    <h1>
+      LOST<br>
+      <span>SOUND</span>
+    </h1>
 
-            <button id="largeSearchBtn">
-              ⌕
-            </button>
+    <p>
+      A place for artists, producers and listeners.
+      <br>
+      Create. Release. Listen.
+    </p>
 
-          </div>
+    <div class="large-search">
 
-        </div>
+      <input
+        id="largeSearch"
+        type="search"
+        placeholder="Search artist ID...">
 
-        <div class="record-wrap">
+      <button id="largeSearchBtn" type="button">
+        ⌕
+      </button>
 
-          <img
-            id="record"
-            src="disk.jpg"
-            alt="Lost Sound"
-          >
+    </div>
 
-        </div>
+    <div class="record-wrap">
 
-      </section>
-
-
-      <!-- RANKING -->
-
-      <section class="ranking-section">
-
-        <div class="ranking-tabs">
-
-          <button
-            class="ranking-tab active"
-            data-ranking="artists"
-          >
-            ARTISTS
-          </button>
-
-          <button
-            class="ranking-tab"
-            data-ranking="producers"
-          >
-            PRODUCERS
-          </button>
-
-        </div>
-
-
-        <div class="section-title">
-
-          <div>
-            <h2 id="rankingTitle">
-              ARTISTS RANKING
-            </h2>
-
-            <p id="rankingSubtitle">
-              Top artists based on total plays
-            </p>
-          </div>
-
-          <button class="time-filter">
-            ALL TIME⌄
-          </button>
-
-        </div>
-
-
-        <div id="rankingList" class="ranking-list"></div>
-
-      </section>
-
-    </section>
-
-
-    <!-- ================= EXPLORE ================= -->
-
-    <section id="page-explore" class="page">
-
-      <div class="page-heading">
-
-        <span>DISCOVER</span>
-
-        <h1>EXPLORE</h1>
-
-        <p>
-          Discover artists, producers and sounds.
-        </p>
-
-      </div>
-
-
-      <div class="explore-search">
-
-        <input
-          id="exploreSearch"
-          type="search"
-          placeholder="Search artists, tracks, albums..."
-        >
-
-        <button>⌕</button>
-
-      </div>
-
-
-      <h2 class="mini-title">CONTENT</h2>
-
-      <div class="explore-grid">
-
-        <button class="explore-card">
-          <strong>Artists</strong>
-          <small>Discover artists</small>
-        </button>
-
-        <button class="explore-card">
-          <strong>Producers</strong>
-          <small>Discover producers</small>
-        </button>
-
-        <button class="explore-card">
-          <strong>Tracks</strong>
-          <small>Latest music</small>
-        </button>
-
-        <button class="explore-card">
-          <strong>Albums</strong>
-          <small>Album releases</small>
-        </button>
-
-        <button class="explore-card">
-          <strong>Beats</strong>
-          <small>Producer beats</small>
-        </button>
-
-        <button class="explore-card">
-          <strong>Packs</strong>
-          <small>Sounds & samples</small>
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= LIBRARY ================= -->
-
-    <section id="page-library" class="page">
-
-      <div class="page-heading">
-
-        <span>YOUR MUSIC</span>
-
-        <h1>LIBRARY</h1>
-
-        <p>
-          Everything you save and like in one place.
-        </p>
-
-      </div>
-
-
-      <div class="library-tabs">
-
-        <button class="library-tab active" data-library="liked">
-          Liked
-        </button>
-
-        <button class="library-tab" data-library="tracks">
-          Tracks
-        </button>
-
-        <button class="library-tab" data-library="albums">
-          Albums
-        </button>
-
-        <button class="library-tab" data-library="packs">
-          Packs
-        </button>
-
-        <button class="library-tab" data-library="beats">
-          Beats
-        </button>
-
-      </div>
-
-
-      <div id="libraryContent" class="library-content">
-
-        <div class="library-empty">
-
-          <div class="empty-icon">♡</div>
-
-          <strong>
-            Nothing saved yet
-          </strong>
-
-          <small>
-            Like or save something and it will appear here.
-          </small>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= PROFILE ================= -->
-
-    <section id="page-profile" class="page">
-
-      <div class="profile-card">
-
-        <div class="profile-avatar">
-          AT
-        </div>
-
-        <h1>AmirTalles</h1>
-
-        <span class="profile-id">
-          @amirtalles
-        </span>
-
-        <p>
-          Artist / Producer
-        </p>
-
-        <div class="profile-stats">
-
-          <div>
-            <strong id="profilePlays">0</strong>
-            <small>Plays</small>
-          </div>
-
-          <div>
-            <strong id="profileLikes">0</strong>
-            <small>Likes</small>
-          </div>
-
-          <div>
-            <strong>1</strong>
-            <small>Rank</small>
-          </div>
-
-        </div>
-
-        <button class="edit-profile">
-          EDIT PROFILE
-        </button>
-
-      </div>
-
-
-      <div class="profile-section">
-
-        <h2>YOUR ACCOUNT</h2>
-
-        <div class="account-type-box">
-
-          <span>Account Type</span>
-
-          <strong id="profileAccountType">
-            Listener
-          </strong>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================= UPLOAD MODAL ================= -->
-
-  <div id="uploadOverlay" class="upload-overlay hidden">
-
-    <div class="upload-modal">
-
-      <div class="upload-head">
-
-        <strong>CREATE / UPLOAD</strong>
-
-        <button id="uploadClose">
-          ×
-        </button>
-
-      </div>
-
-
-      <!-- ARTIST -->
-
-      <div id="artistUploadOptions">
-
-        <button
-          class="upload-option"
-          data-upload="track"
-        >
-          <strong>Upload Track</strong>
-          <small>Release a complete track</small>
-        </button>
-
-        <button
-          class="upload-option"
-          data-upload="album"
-        >
-          <strong>Upload Album</strong>
-          <small>Create an album release</small>
-        </button>
-
-      </div>
-
-
-      <!-- PRODUCER -->
-
-      <div
-        id="producerUploadOptions"
-        class="hidden"
-      >
-
-        <button
-          class="upload-option"
-          data-upload="pack"
-        >
-          <strong>Upload Pack</strong>
-          <small>Upload sounds, loops and samples</small>
-        </button>
-
-        <button
-          class="upload-option"
-          data-upload="beat"
-        >
-          <strong>Upload Beat</strong>
-          <small>Upload your complete beat</small>
-        </button>
-
-      </div>
+      <img
+        id="record"
+        src="disk.jpg"
+        alt="Lost Sound">
 
     </div>
 
   </div>
 
 
-  <!-- ================= BOTTOM NAV ================= -->
+  <!-- HOME RANKING -->
 
-  <nav class="bottom-nav">
+  <div class="section-head">
 
-    <button
-      class="bottom-item active"
-      data-page="home"
-    >
-      <span>⌂</span>
-      <small>HOME</small>
-    </button>
-
+    <div>
+      <span class="section-label">RANKING</span>
+      <h2 id="homeRankingTitle">
+        ARTISTS
+      </h2>
+    </div>
 
     <button
-      class="bottom-item"
-      data-page="explore"
-    >
-      <span>⌕</span>
-      <small>EXPLORE</small>
+      class="view-btn"
+      data-page="artists">
+      View all
     </button>
 
+  </div>
 
-    <button
-      id="bottomPlus"
-      class="bottom-plus"
-    >
-      +
-    </button>
+  <div id="homeRanking" class="ranking-list"></div>
+
+</section>
 
 
-    <button
-      class="bottom-item"
-      data-page="library"
-    >
-      <span>♫</span>
-      <small>LIBRARY</small>
-    </button>
+<!-- ==================================================
+     EXPLORE
+================================================== -->
+
+<section id="page-explore" class="page-section">
+
+  <div class="page-title">
+
+    <span class="section-label">
+      DISCOVER
+    </span>
+
+    <h1>
+      EXPLORE
+    </h1>
+
+    <p>
+      Discover tracks, albums, beats and sounds.
+    </p>
+
+  </div>
 
 
-    <button
-      class="bottom-item"
-      data-page="profile"
-    >
-      <span>♙</span>
-      <small>PROFILE</small>
-    </button>
+  <div class="explore-grid">
 
-  </nav>
+    <div class="explore-card">
+      <strong>New Releases</strong>
+      <small>Latest sounds from Lost Sound</small>
+    </div>
+
+    <div class="explore-card">
+      <strong>Trending</strong>
+      <small>What listeners are playing</small>
+    </div>
+
+    <div class="explore-card">
+      <strong>Popular Tracks</strong>
+      <small>Most played music</small>
+    </div>
+
+    <div class="explore-card">
+      <strong>Popular Beats</strong>
+      <small>Beats from producers</small>
+    </div>
+
+  </div>
+
+</section>
 
 
-  <!-- ================= PLAYER ================= -->
+<!-- ==================================================
+     ARTISTS
+================================================== -->
 
-  <footer
-    id="player"
-    class="player hidden"
-  >
+<section id="page-artists" class="page-section">
 
-    <div class="track-art"></div>
+  <div class="page-title">
 
-    <div class="track-info">
+    <span class="section-label">
+      RANKING
+    </span>
 
-      <strong id="trackName">—</strong>
+    <h1>
+      ARTISTS
+    </h1>
 
-      <small>
-        Lost Sound • AmirTalles
-      </small>
+    <p>
+      Top artists on Lost Sound.
+    </p>
+
+  </div>
+
+  <div id="artistRanking" class="ranking-list"></div>
+
+</section>
+
+
+<!-- ==================================================
+     PRODUCERS
+================================================== -->
+
+<section id="page-producers" class="page-section">
+
+  <div class="page-title">
+
+    <span class="section-label">
+      RANKING
+    </span>
+
+    <h1>
+      PRODUCERS
+    </h1>
+
+    <p>
+      Top producers on Lost Sound.
+    </p>
+
+  </div>
+
+  <div id="producerRanking" class="ranking-list"></div>
+
+</section>
+
+
+<!-- ==================================================
+     LIBRARY
+================================================== -->
+
+<section id="page-library" class="page-section">
+
+  <div class="page-title">
+
+    <span class="section-label">
+      YOUR MUSIC
+    </span>
+
+    <h1>
+      LIBRARY
+    </h1>
+
+    <p>
+      Everything you saved, liked and collected.
+    </p>
+
+  </div>
+
+
+  <div class="library-categories">
+
+    <div class="library-category">
+      <span>Liked Tracks</span>
+      <small id="likedTracksCount">0 items</small>
+    </div>
+
+    <div class="library-category">
+      <span>Albums</span>
+      <small id="albumsCount">0 items</small>
+    </div>
+
+    <div class="library-category">
+      <span>Beats</span>
+      <small id="beatsCount">0 items</small>
+    </div>
+
+    <div class="library-category">
+      <span>Packs</span>
+      <small id="packsCount">0 items</small>
+    </div>
+
+    <div class="library-category">
+      <span>Vocals</span>
+      <small id="vocalsCount">0 items</small>
+    </div>
+
+    <div class="library-category">
+      <span>FX</span>
+      <small id="fxCount">0 items</small>
+    </div>
+
+  </div>
+
+
+  <div class="library-empty">
+
+    <strong>
+      Your Library
+    </strong>
+
+    <small>
+      Saved music and sounds will appear here.
+    </small>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================================
+     PROFILE
+================================================== -->
+
+<section id="page-profile" class="page-section">
+
+  <div class="profile-page">
+
+    <div class="profile-avatar">
+      AT
+    </div>
+
+    <h1>
+      AmirTalles
+    </h1>
+
+    <span class="profile-role">
+      Artist
+    </span>
+
+    <p>
+      Music, tracks and sounds.
+    </p>
+
+    <div class="profile-stats">
+
+      <div>
+        <strong>1</strong>
+        <small>Rank</small>
+      </div>
+
+      <div>
+        <strong>0</strong>
+        <small>Tracks</small>
+      </div>
+
+      <div>
+        <strong>0</strong>
+        <small>Likes</small>
+      </div>
 
     </div>
 
-    <button id="mainPlay">
-      ▶
+    <button class="edit-profile">
+      Edit Profile
     </button>
 
-  </footer>
+  </div>
+
+</section>
+
+
+</main>
+
+
+<!-- ==================================================
+     ROLE BAR
+================================================== -->
+
+<div id="roleBar" class="role-bar">
+
+  <button
+    class="role-item"
+    data-account="artist"
+    type="button">
+
+    <span class="role-item-text">
+      <strong>Artist</strong>
+      <small>Music & Tracks</small>
+    </span>
+
+  </button>
+
+
+  <button
+    class="role-item"
+    data-account="producer"
+    type="button">
+
+    <span class="role-item-text">
+      <strong>Producer</strong>
+      <small>Packs & Beats</small>
+    </span>
+
+  </button>
+
+</div>
+
+
+<!-- ==================================================
+     UPLOAD OVERLAY
+================================================== -->
+
+<div
+  id="uploadOverlay"
+  class="upload-overlay hidden">
+
+  <div class="upload-modal">
+
+    <div class="upload-head">
+
+      <span>
+        CREATE / UPLOAD
+      </span>
+
+      <button
+        id="uploadClose"
+        type="button">
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- ARTIST -->
+
+    <div
+      id="artistUploadOptions"
+      class="upload-options">
+
+      <button
+        class="upload-option"
+        data-upload="track"
+        type="button">
+
+        <strong>
+          Upload Track
+        </strong>
+
+        <small>
+          Release a complete track
+        </small>
+
+      </button>
+
+
+      <button
+        class="upload-option"
+        data-upload="album"
+        type="button">
+
+        <strong>
+          Upload Album
+        </strong>
+
+        <small>
+          Create an album release
+        </small>
+
+      </button>
+
+    </div>
+
+
+    <!-- PRODUCER -->
+
+    <div
+      id="producerUploadOptions"
+      class="upload-options hidden">
+
+      <button
+        class="upload-option"
+        data-upload="pack"
+        type="button">
+
+        <strong>
+          Upload Pack
+        </strong>
+
+        <small>
+          Upload sounds, loops and samples
+        </small>
+
+      </button>
+
+
+      <button
+        class="upload-option"
+        data-upload="beat"
+        type="button">
+
+        <strong>
+          Upload Beat
+        </strong>
+
+        <small>
+          Upload your complete beat
+        </small>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     PLAYER
+================================================== -->
+
+<footer
+  id="player"
+  class="player hidden">
+
+  <div class="track-art"></div>
+
+  <div class="track-info">
+
+    <strong id="trackName">
+      —
+    </strong>
+
+    <small>
+      Lost Sound • AmirTalles
+    </small>
+
+  </div>
+
+  <button id="prev" type="button">
+    |◀
+  </button>
+
+  <button
+    id="mainPlay"
+    class="main-play"
+    type="button">
+    ▶
+  </button>
+
+  <button id="next" type="button">
+    ▶|
+  </button>
+
+</footer>
+
 
 </div>
 
