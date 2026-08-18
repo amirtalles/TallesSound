@@ -1,581 +1,758 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <title>Lost Sound</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* =====================================================
-       کاهش سایز آیکون‌ها و المان‌های رنکینگ
-    ===================================================== */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* منوی پایین */
-    .bottom-item span {
-      font-size: 20px !important;
-    }
-    .bottom-item small {
-      font-size: 9px !important;
-    }
-    .bottom-plus {
-      font-size: 30px !important;
-      width: 52px !important;
-      height: 52px !important;
-    }
-    .search-box button {
-      font-size: 18px !important;
-    }
-    .plus-btn {
-      font-size: 28px !important;
-    }
-    .rank-more {
-      font-size: 18px !important;
-    }
-    .main-play {
-      font-size: 18px !important;
-    }
-    #prev, #next {
-      font-size: 16px !important;
-    }
-    .player-close {
-      font-size: 18px !important;
-    }
-    .menu-btn {
-      font-size: 22px !important;
-    }
-    .profile-top {
-      font-size: 12px !important;
-    }
+<title>Lost Sound — Upload</title>
 
-    /* =====================================================
-       کارت رنکینگ – کوچک‌تر کردن المان‌ها
-    ===================================================== */
-    .rank-card {
-      min-height: 100px !important;
-      padding: 14px 18px !important;
-      gap: 12px !important;
-    }
-    .rank-number {
-      font-size: 28px !important;
-    }
-    .rank-avatar {
-      width: 52px !important;
-      height: 52px !important;
-      font-size: 14px !important;
-    }
-    .rank-name strong {
-      font-size: 16px !important;
-    }
-    .rank-name small {
-      font-size: 11px !important;
-    }
-    .rank-name small span {
-      font-size: 8px !important;
-      padding: 1px 6px !important;
-      margin-left: 4px !important;
-    }
-    .verified {
-      width: 16px !important;
-      height: 16px !important;
-      font-size: 9px !important;
-      margin-left: 4px !important;
-    }
-    .rank-plays strong {
-      font-size: 18px !important;
-    }
-    .rank-plays small {
-      font-size: 10px !important;
-    }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
 
-    /* تنظیمات موبایل */
-    @media(max-width:850px) {
-      .bottom-item span { font-size: 18px !important; }
-      .bottom-plus { font-size: 26px !important; width: 48px !important; height: 48px !important; }
-      .search-box button { font-size: 16px !important; }
-      .plus-btn { font-size: 24px !important; }
-      .menu-btn { font-size: 20px !important; }
-      .rank-number { font-size: 22px !important; }
-      .rank-avatar { width: 44px !important; height: 44px !important; font-size: 12px !important; }
-      .rank-name strong { font-size: 14px !important; }
-      .rank-name small { font-size: 10px !important; }
-      .rank-plays strong { font-size: 15px !important; }
+body{
+    background:#050505;
+    color:white;
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Background */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(
+        circle,
+        rgba(130,70,255,.18),
+        transparent 65%
+    );
+    top:-180px;
+    left:50%;
+    transform:translateX(-50%);
+    pointer-events:none;
+}
+
+.container{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    padding:28px 18px 50px;
+}
+
+/* Header */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#9b6cff;
+}
+
+.close{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.12);
+    background:#111;
+    color:white;
+    font-size:22px;
+}
+
+/* Title */
+
+.title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.title h1{
+    font-size:32px;
+    margin-bottom:9px;
+}
+
+.title p{
+    color:#777;
+    font-size:14px;
+}
+
+/* Artist Cards */
+
+.artist-area{
+    display:flex;
+    gap:15px;
+    overflow-x:auto;
+    padding:15px 4px 30px;
+    scroll-snap-type:x mandatory;
+}
+
+.artist-area::-webkit-scrollbar{
+    display:none;
+}
+
+.artist{
+    flex:0 0 145px;
+    height:195px;
+    border-radius:24px;
+    position:relative;
+    overflow:hidden;
+    scroll-snap-align:center;
+    background:#111;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.35s;
+    transform:scale(.92);
+}
+
+.artist.active{
+    transform:scale(1);
+    border-color:#9b6cff;
+    box-shadow:
+        0 0 35px rgba(130,80,255,.22);
+}
+
+.artist img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.artist::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        transparent 35%,
+        rgba(0,0,0,.85)
+    );
+}
+
+.artist-info{
+    position:absolute;
+    bottom:14px;
+    right:14px;
+    z-index:2;
+}
+
+.artist-name{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.artist-role{
+    color:#aaa;
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* Selected */
+
+.selected{
+    text-align:center;
+    margin-bottom:20px;
+    color:#aaa;
+    font-size:13px;
+}
+
+.selected strong{
+    color:white;
+}
+
+/* Upload Card */
+
+.upload-card{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.015)
+        );
+
+    border:1px solid rgba(255,255,255,.1);
+
+    border-radius:30px;
+    padding:24px;
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.4);
+
+    backdrop-filter:blur(20px);
+}
+
+.drop-zone{
+    border:1px dashed rgba(155,108,255,.55);
+    border-radius:23px;
+    min-height:210px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.drop-zone:hover{
+    background:rgba(155,108,255,.06);
+}
+
+.upload-icon{
+    width:65px;
+    height:65px;
+    border-radius:20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(155,108,255,.12);
+    color:#a77cff;
+
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.drop-zone h3{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.drop-zone p{
+    color:#666;
+    font-size:12px;
+}
+
+/* File Preview */
+
+.file-preview{
+    display:none;
+    margin-top:18px;
+}
+
+.file-box{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:14px;
+
+    border-radius:18px;
+    background:#111;
+}
+
+.file-icon{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+
+    background:#1b142d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#a77cff;
+}
+
+.file-info{
+    flex:1;
+    overflow:hidden;
+}
+
+.file-name{
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.file-size{
+    color:#666;
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* Inputs */
+
+.inputs{
+    margin-top:20px;
+    display:none;
+}
+
+.input{
+    width:100%;
+    height:52px;
+
+    background:#0d0d0d;
+    border:1px solid #1d1d1d;
+
+    color:white;
+
+    border-radius:16px;
+    padding:0 16px;
+
+    outline:none;
+    margin-bottom:12px;
+}
+
+.input:focus{
+    border-color:#8e62e8;
+}
+
+/* Upload Button */
+
+.upload-btn{
+    width:100%;
+    height:58px;
+
+    border:0;
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9d6cff,
+            #653bd1
+        );
+
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+
+    margin-top:8px;
+
+    box-shadow:
+        0 10px 35px rgba(125,75,255,.25);
+
+    transition:.2s;
+}
+
+.upload-btn:active{
+    transform:scale(.97);
+}
+
+/* Wave */
+
+.wave{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    height:45px;
+    margin:20px 0;
+}
+
+.bar{
+    width:3px;
+    height:15px;
+    background:#9b6cff;
+    border-radius:5px;
+    animation:wave 1s infinite ease-in-out;
+}
+
+.bar:nth-child(2){animation-delay:.1s}
+.bar:nth-child(3){animation-delay:.2s}
+.bar:nth-child(4){animation-delay:.3s}
+.bar:nth-child(5){animation-delay:.4s}
+.bar:nth-child(6){animation-delay:.5s}
+.bar:nth-child(7){animation-delay:.4s}
+.bar:nth-child(8){animation-delay:.3s}
+.bar:nth-child(9){animation-delay:.2s}
+.bar:nth-child(10){animation-delay:.1s}
+
+@keyframes wave{
+    0%,100%{
+        height:10px;
+        opacity:.4;
     }
-    @media(max-width:430px) {
-      .bottom-item span { font-size: 16px !important; }
-      .bottom-plus { font-size: 22px !important; width: 42px !important; height: 42px !important; }
-      .rank-number { font-size: 18px !important; }
-      .rank-avatar { width: 38px !important; height: 38px !important; font-size: 10px !important; }
-      .rank-name strong { font-size: 12px !important; }
-      .rank-name small { font-size: 9px !important; }
-      .rank-plays strong { font-size: 13px !important; }
+    50%{
+        height:38px;
+        opacity:1;
     }
-  </style>
+}
+
+/* Success */
+
+.success{
+    display:none;
+    text-align:center;
+    padding:25px 0 5px;
+}
+
+.success-icon{
+    width:70px;
+    height:70px;
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(80,220,140,.1);
+    border:1px solid rgba(80,220,140,.3);
+
+    color:#5be394;
+    font-size:30px;
+}
+
+.success h2{
+    margin-top:15px;
+    font-size:20px;
+}
+
+.success p{
+    color:#666;
+    font-size:12px;
+    margin-top:7px;
+}
+
+/* Bottom */
+
+.footer{
+    text-align:center;
+    color:#444;
+    font-size:11px;
+    margin-top:25px;
+}
+</style>
 </head>
+
 <body>
 
-  <!-- =====================================================
-       INTRO
-  ===================================================== -->
-  <section id="intro" class="intro">
-    <div id="startScreen" class="start-screen">
-      <button id="letsGo" class="lets-go">LET'S GO</button>
+<div class="container">
+
+    <div class="header">
+        <div class="logo">
+            LOST <span>SOUND</span>
+        </div>
+
+        <button class="close" onclick="history.back()">×</button>
     </div>
-    <div id="introVideoBox" class="intro-video-box">
-      <video id="introVideo" class="intro-video" playsinline preload="auto">
-        <source src="intro.mp4" type="video/mp4" />
-      </video>
+
+
+    <div class="title">
+        <h1>Upload Sound</h1>
+        <p>آرتیستی که می‌خواهی آهنگ را برای او منتشر کنی انتخاب کن</p>
     </div>
-  </section>
 
-  <!-- =====================================================
-       APP
-  ===================================================== -->
-  <div id="app" class="app hidden">
 
-    <!-- ===================================================
-         SIDEBAR
-    =================================================== -->
-    <aside class="sidebar">
-      <div class="brand">LOST<span>SOUND</span></div>
-      <nav>
-        <a href="#" class="side-link active" data-page="home">Home</a>
-        <a href="#" class="side-link" data-page="explore">Explore</a>
-        <a href="#" class="side-link" data-page="library">Library</a>
-        <a href="#" class="side-link" data-page="profile">Profile</a>
-      </nav>
-    </aside>
+    <!-- Artists -->
 
-    <!-- ===================================================
-         MAIN
-    =================================================== -->
-    <main class="main">
+    <div class="artist-area" id="artists">
 
-      <!-- TOPBAR -->
-      <header class="topbar">
-        <button id="menuBtn" class="menu-btn">☰</button>
-        <div class="mobile-logo">LOST<span>SOUND</span></div>
-        <div class="top-actions">
-          <div class="search-box">
-            <button id="searchBtn">⌕</button>
-            <input id="artistSearch" type="search" placeholder="Search artist ID..." />
-          </div>
-          <button id="plusBtn" class="plus-btn">+</button>
-          <button id="profileTopBtn" class="profile-top">AT</button>
-        </div>
-      </header>
+        <div class="artist active"
+             data-name="AmirTalles"
+             onclick="selectArtist(this)">
 
-      <!-- ===================================================
-           HOME (RANKING)
-      =================================================== -->
-      <section id="homePage" class="page-section">
-        <div class="ranking-tabs">
-          <button id="artistsTab" class="ranking-tab active">ARTISTS</button>
-          <button id="producersTab" class="ranking-tab">PRODUCERS</button>
-        </div>
-        <div class="ranking-header">
-          <div>
-            <div id="rankingEyebrow" class="ranking-eyebrow">TOP ARTISTS</div>
-            <h1 id="rankingTitle">ARTISTS RANKING</h1>
-            <p id="rankingDescription">Top artists based on total plays</p>
-          </div>
-          <select id="rankingFilter" class="ranking-filter">
-            <option value="all">ALL TIME</option>
-            <option value="month">THIS MONTH</option>
-            <option value="week">THIS WEEK</option>
-          </select>
-        </div>
-        <div id="rankingList" class="ranking-list"></div>
-      </section>
+            <img src="artist1.jpg">
 
-      <!-- ===================================================
-           EXPLORE
-      =================================================== -->
-      <section id="explorePage" class="page-section hidden">
-        <div class="page-title">
-          <span>EXPLORE</span>
-          <h1>Discover Sound</h1>
-          <p>Find artists, producers, tracks and sounds.</p>
-        </div>
-        <div class="explore-search">
-          <input id="exploreSearch" type="search" placeholder="Search artist, producer or track..." />
-          <button id="exploreSearchBtn">⌕</button>
-        </div>
-        <div class="explore-grid">
-          <article class="explore-card"><strong>Artists</strong><small>Discover artists</small></article>
-          <article class="explore-card"><strong>Producers</strong><small>Find producers</small></article>
-          <article class="explore-card"><strong>Tracks</strong><small>Listen to music</small></article>
-          <article class="explore-card"><strong>Beats</strong><small>Explore beats</small></article>
-        </div>
-      </section>
-
-      <!-- ===================================================
-           LIBRARY
-      =================================================== -->
-      <section id="libraryPage" class="page-section hidden">
-        <div class="page-title">
-          <span>YOUR LIBRARY</span>
-          <h1>Library</h1>
-          <p>Everything you save will appear here.</p>
-        </div>
-        <div class="library-grid">
-          <article class="library-card" data-category="Drums">
-            <div class="library-icon">DR</div>
-            <strong>Drums</strong><small>0 saved</small>
-          </article>
-          <article class="library-card" data-category="Melodies">
-            <div class="library-icon">ML</div>
-            <strong>Melodies</strong><small>0 saved</small>
-          </article>
-          <article class="library-card" data-category="Vocals">
-            <div class="library-icon">VX</div>
-            <strong>Vocals</strong><small>0 saved</small>
-          </article>
-          <article class="library-card" data-category="FX">
-            <div class="library-icon">FX</div>
-            <strong>FX</strong><small>0 saved</small>
-          </article>
-          <article class="library-card" data-category="One Shots">
-            <div class="library-icon">OS</div>
-            <strong>One Shots</strong><small>0 saved</small>
-          </article>
-          <article class="library-card" data-category="Presets">
-            <div class="library-icon">PR</div>
-            <strong>Presets</strong><small>0 saved</small>
-          </article>
-        </div>
-        <div class="saved-section">
-          <h2>LIKED</h2>
-          <div id="likedList" class="empty-library">Nothing saved yet.</div>
-        </div>
-      </section>
-
-      <!-- ===================================================
-           PROFILE
-      =================================================== -->
-      <section id="profilePage" class="page-section hidden">
-        <div class="profile-page">
-          <div class="profile-avatar">AT</div>
-          <h1>AmirTalles</h1>
-          <p>@amirtalles</p>
-          <div class="profile-role">Producer / Sound Designer</div>
-          <p style="color:#888; margin-top:15px;">Creating dark sounds and cinematic atmospheres.</p>
-          <div class="profile-stats">
-            <div><strong>0</strong><small>Tracks</small></div>
-            <div><strong>0</strong><small>Followers</small></div>
-            <div><strong>0</strong><small>Likes</small></div>
-          </div>
-          <button class="edit-profile">Edit Profile</button>
-          <div style="margin-top:40px; text-align:right;">
-            <h2 style="font-size:16px; letter-spacing:2px; color:#d71920;">MY PACKS</h2>
-            <div class="library-grid" style="margin-top:15px;">
-              <div class="library-card">
-                <div class="library-icon">PK</div>
-                <strong>Dark Trap Collection</strong>
-                <small>Drums • 140 BPM</small>
-                <div style="margin-top:12px; display:flex; gap:8px;">
-                  <button class="play" data-name="Dark Trap Collection" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
-                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+            <div class="artist-info">
+                <div class="artist-name">
+                    AmirTalles
                 </div>
-              </div>
-              <div class="library-card">
-                <div class="library-icon">PK</div>
-                <strong>Cinematic World</strong>
-                <small>FX • Atmosphere</small>
-                <div style="margin-top:12px; display:flex; gap:8px;">
-                  <button class="play" data-name="Cinematic World" style="background:#d71920; border:0; color:#fff; padding:8px 16px; border-radius:20px;">▶ Play</button>
-                  <button style="background:#222; border:0; color:#fff; padding:8px 16px; border-radius:20px;">✏ Edit</button>
+
+                <div class="artist-role">
+                    Artist
                 </div>
-              </div>
             </div>
-          </div>
+
         </div>
-      </section>
 
-    </main>
 
-    <!-- ===================================================
-         BOTTOM NAV (منوی پایین)
-    =================================================== -->
-    <nav class="bottom-nav">
-      <button class="bottom-item active" data-page="home">
-        <span>⌂</span>
-        <small>HOME</small>
-      </button>
-      <button class="bottom-item" data-page="explore">
-        <span>⌕</span>
-        <small>EXPLORE</small>
-      </button>
-      <button class="bottom-plus" id="plusBtnMobile">+</button>
-      <button class="bottom-item" data-page="library">
-        <span>♡</span>
-        <small>LIBRARY</small>
-      </button>
-      <button class="bottom-item" data-page="profile">
-        <span>👤</span>
-        <small>PROFILE</small>
-      </button>
-    </nav>
+        <div class="artist"
+             data-name="Artist Two"
+             onclick="selectArtist(this)">
 
-    <!-- ===================================================
-         PLAYER
-    =================================================== -->
-    <footer id="player" class="player hidden">
-      <div class="player-art">LS</div>
-      <div class="player-info">
-        <strong id="trackName">—</strong>
-        <small>Lost Sound • AmirTalles</small>
-      </div>
-      <button id="prev">|◀</button>
-      <button id="mainPlay" class="main-play">▶</button>
-      <button id="next">▶|</button>
-      <div class="player-wave"></div>
-      <span id="time">00:00</span>
-    </footer>
+            <img src="artist2.jpg">
 
-  </div>
+            <div class="artist-info">
+                <div class="artist-name">
+                    Artist Two
+                </div>
 
-  <!-- =====================================================
-       UPLOAD MODAL
-  ===================================================== -->
-  <div id="uploadOverlay" class="upload-overlay hidden">
-    <div class="upload-modal">
-      <div class="upload-head">
-        <div class="upload-title">LOST SOUND</div>
-        <button id="uploadClose">×</button>
-      </div>
-      <div id="artistUploadOptions" class="upload-options hidden">
-        <button class="upload-option" data-upload="track"><strong>Upload Track</strong><small>Upload your complete track</small></button>
-        <button class="upload-option" data-upload="album"><strong>Upload Album</strong><small>Create an album release</small></button>
-      </div>
-      <div id="producerUploadOptions" class="upload-options hidden">
-        <button class="upload-option" data-upload="pack"><strong>Upload Pack</strong><small>Upload sounds, loops and samples</small></button>
-        <button class="upload-option" data-upload="beat"><strong>Upload Beat</strong><small>Upload your complete beat</small></button>
-      </div>
-      <div id="listenerUploadOptions" class="upload-options"><p>Choose Artist or Producer from your profile first.</p></div>
+                <div class="artist-role">
+                    Artist
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="artist"
+             data-name="Artist Three"
+             onclick="selectArtist(this)">
+
+            <img src="artist3.jpg">
+
+            <div class="artist-info">
+                <div class="artist-name">
+                    Artist Three
+                </div>
+
+                <div class="artist-role">
+                    Artist
+                </div>
+            </div>
+
+        </div>
+
     </div>
-  </div>
 
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
 
-      // ===================================================
-      // INTRO
-      // ===================================================
-      const intro = document.getElementById("intro");
-      const startScreen = document.getElementById("startScreen");
-      const letsGo = document.getElementById("letsGo");
-      const videoBox = document.getElementById("introVideoBox");
-      const video = document.getElementById("introVideo");
-      const app = document.getElementById("app");
-      let entered = false;
+    <div class="selected">
+        Selected Artist:
+        <strong id="selectedArtist">
+            AmirTalles
+        </strong>
+    </div>
 
-      function enterApp() {
-        if (entered) return;
-        entered = true;
-        if (video) { video.pause(); video.currentTime = 0; }
-        if (intro) { intro.style.transition = "opacity .5s ease"; intro.style.opacity = "0"; }
-        setTimeout(function() {
-          if (intro) intro.style.display = "none";
-          if (app) { app.classList.remove("hidden"); app.style.display = "block"; }
-        }, 500);
-      }
 
-      if (letsGo) {
-        letsGo.addEventListener("click", async function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (startScreen) startScreen.style.display = "none";
-          if (videoBox) videoBox.style.display = "block";
-          if (!video) { enterApp(); return; }
-          try {
-            video.currentTime = 0;
-            await video.play();
-          } catch (error) {
-            console.log("Video could not play:", error);
-            enterApp();
-          }
-        });
-      }
+    <!-- Upload -->
 
-      if (video) {
-        video.addEventListener("ended", enterApp);
-        video.addEventListener("click", enterApp);
-        video.addEventListener("error", enterApp);
-      }
+    <div class="upload-card">
 
-      // ===================================================
-      // NAVIGATION
-      // ===================================================
-      const links = document.querySelectorAll(".side-link, .bottom-item");
-      const pageMap = {
-        home: document.getElementById("homePage"),
-        explore: document.getElementById("explorePage"),
-        library: document.getElementById("libraryPage"),
-        profile: document.getElementById("profilePage")
-      };
+        <label class="drop-zone" for="audioFile">
 
-      function showPage(name) {
-        Object.values(pageMap).forEach(function(el) {
-          if (el) el.classList.add("hidden");
-        });
-        const target = pageMap[name];
-        if (target) {
-          target.classList.remove("hidden");
-        } else {
-          if (pageMap.home) pageMap.home.classList.remove("hidden");
-          name = "home";
-        }
-        document.querySelectorAll(".side-link, .bottom-item").forEach(function(link) {
-          link.classList.toggle("active", link.dataset.page === name);
-        });
-      }
-
-      links.forEach(function(link) {
-        link.addEventListener("click", function(e) {
-          e.preventDefault();
-          const page = link.dataset.page;
-          if (page) showPage(page);
-        });
-      });
-
-      document.getElementById("profileTopBtn").addEventListener("click", function() {
-        showPage("profile");
-      });
-
-      // ===================================================
-      // RANKING – با المان‌های کوچک‌تر
-      // ===================================================
-      const artistsTab = document.getElementById("artistsTab");
-      const producersTab = document.getElementById("producersTab");
-      const rankingList = document.getElementById("rankingList");
-
-      function renderArtists() {
-        rankingList.innerHTML = `
-          <div class="rank-card">
-            <div class="rank-number">1</div>
-            <div class="rank-avatar">AT</div>
-            <div class="rank-name">
-              <strong>
-                AmirTalles
-                <span class="verified" style="display:inline-flex; width:16px; height:16px; border-radius:50%; background:#d71920; color:#fff; align-items:center; justify-content:center; font-size:9px; margin-left:4px;">✓</span>
-              </strong>
-              <small>@amirtalles <span style="color:#d71920; border:1px solid #601417; padding:1px 6px; border-radius:30px; font-size:8px; margin-left:4px;">ARTIST</span></small>
+            <div class="upload-icon">
+                ↑
             </div>
-            <div class="rank-plays">
-              <strong>12.5M</strong>
-              <small>PLAYS</small>
+
+            <h3>
+                انتخاب آهنگ
+            </h3>
+
+            <p>
+                MP3 / WAV / FLAC
+            </p>
+
+            <input
+                type="file"
+                id="audioFile"
+                accept="audio/*"
+                hidden
+            >
+
+        </label>
+
+
+        <div class="file-preview" id="filePreview">
+
+            <div class="file-box">
+
+                <div class="file-icon">
+                    ♪
+                </div>
+
+                <div class="file-info">
+
+                    <div
+                        class="file-name"
+                        id="fileName">
+                    </div>
+
+                    <div
+                        class="file-size"
+                        id="fileSize">
+                    </div>
+
+                </div>
+
             </div>
-            <button class="rank-more">⋯</button>
-          </div>
-        `;
-      }
 
-      function renderProducers() {
-        rankingList.innerHTML = `<div class="ranking-empty"><strong>No producers yet</strong><small>Producers who register will appear here.</small></div>`;
-      }
+        </div>
 
-      artistsTab.addEventListener("click", function() {
-        artistsTab.classList.add("active");
-        producersTab.classList.remove("active");
-        document.getElementById("rankingEyebrow").textContent = "TOP ARTISTS";
-        document.getElementById("rankingTitle").textContent = "ARTISTS RANKING";
-        document.getElementById("rankingDescription").textContent = "Top artists based on total plays";
-        renderArtists();
-      });
 
-      producersTab.addEventListener("click", function() {
-        producersTab.classList.add("active");
-        artistsTab.classList.remove("active");
-        document.getElementById("rankingEyebrow").textContent = "TOP PRODUCERS";
-        document.getElementById("rankingTitle").textContent = "PRODUCERS RANKING";
-        document.getElementById("rankingDescription").textContent = "Top producers based on popularity";
-        renderProducers();
-      });
+        <div class="inputs" id="inputs">
 
-      renderArtists();
+            <input
+                class="input"
+                id="songName"
+                placeholder="نام آهنگ"
+            >
 
-      // ===================================================
-      // MENU MOBILE
-      // ===================================================
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.querySelector(".sidebar");
-      menuBtn.addEventListener("click", function(e) {
-        e.stopPropagation();
-        sidebar.classList.toggle("open");
-      });
-      document.addEventListener("click", function(e) {
-        if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-          sidebar.classList.remove("open");
-        }
-      });
+            <input
+                class="input"
+                id="genre"
+                placeholder="ژانر آهنگ"
+            >
 
-      // ===================================================
-      // UPLOAD MODAL
-      // ===================================================
-      let accountType = localStorage.getItem("lostSoundAccountType") || "artist";
-      const artistUpload = document.getElementById("artistUploadOptions");
-      const producerUpload = document.getElementById("producerUploadOptions");
-      const listenerUpload = document.getElementById("listenerUploadOptions");
+            <button
+                class="upload-btn"
+                onclick="uploadSong()">
 
-      function updateUploadOptions() {
-        artistUpload.classList.toggle("hidden", accountType !== "artist");
-        producerUpload.classList.toggle("hidden", accountType !== "producer");
-        listenerUpload.classList.toggle("hidden", accountType !== "listener");
-      }
-      updateUploadOptions();
+                UPLOAD TRACK
 
-      function openUpload() {
-        updateUploadOptions();
-        document.getElementById("uploadOverlay").classList.remove("hidden");
-      }
+            </button>
 
-      document.getElementById("plusBtn").addEventListener("click", openUpload);
-      document.getElementById("plusBtnMobile").addEventListener("click", openUpload);
-      document.getElementById("uploadClose").addEventListener("click", function() {
-        document.getElementById("uploadOverlay").classList.add("hidden");
-      });
-      document.getElementById("uploadOverlay").addEventListener("click", function(e) {
-        if (e.target === this) this.classList.add("hidden");
-      });
+        </div>
 
-      // ===================================================
-      // SEARCH
-      // ===================================================
-      document.getElementById("searchBtn").addEventListener("click", function() {
-        document.getElementById("artistSearch").focus();
-      });
 
-      // ===================================================
-      // PLAYER
-      // ===================================================
-      const player = document.getElementById("player");
-      const mainPlay = document.getElementById("mainPlay");
-      const trackName = document.getElementById("trackName");
-      let playing = false;
+        <div class="success" id="success">
 
-      function startPlayer(name) {
-        trackName.textContent = name || "Lost Sound Track";
-        player.classList.remove("hidden");
-        playing = true;
-        mainPlay.textContent = "Ⅱ";
-      }
+            <div class="success-icon">
+                ✓
+            </div>
 
-      mainPlay.addEventListener("click", function() {
-        playing = !playing;
-        mainPlay.textContent = playing ? "Ⅱ" : "▶";
-      });
+            <h2>
+                Track Uploaded
+            </h2>
 
-      document.addEventListener("click", function(e) {
-        const btn = e.target.closest(".play");
-        if (btn) startPlayer(btn.dataset.name);
-      });
+            <p>
+                آهنگ با موفقیت برای Lost Sound آماده شد
+            </p>
 
-    });
-  </script>
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        LOST SOUND • MUSIC PLATFORM
+    </div>
+
+</div>
+
+
+<script>
+
+let currentArtist = "AmirTalles";
+
+
+function selectArtist(element){
+
+    document
+        .querySelectorAll(".artist")
+        .forEach(card => {
+
+            card.classList.remove("active");
+
+        });
+
+    element.classList.add("active");
+
+    currentArtist =
+        element.dataset.name;
+
+    document
+        .getElementById("selectedArtist")
+        .textContent =
+        currentArtist;
+}
+
+
+/* Audio */
+
+const audioFile =
+    document.getElementById("audioFile");
+
+audioFile.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(!file) return;
+
+        document
+            .getElementById("filePreview")
+            .style.display =
+            "block";
+
+        document
+            .getElementById("inputs")
+            .style.display =
+            "block";
+
+        document
+            .getElementById("fileName")
+            .textContent =
+            file.name;
+
+        const size =
+            (file.size / 1024 / 1024)
+            .toFixed(2);
+
+        document
+            .getElementById("fileSize")
+            .textContent =
+            size + " MB";
+
+        document
+            .querySelector(".drop-zone h3")
+            .textContent =
+            "آهنگ انتخاب شد";
+
+    }
+);
+
+
+/* Upload */
+
+function uploadSong(){
+
+    const song =
+        document
+            .getElementById("songName")
+            .value
+            .trim();
+
+    if(!song){
+
+        alert("نام آهنگ را وارد کن");
+
+        return;
+    }
+
+    const button =
+        document.querySelector(".upload-btn");
+
+    button.disabled = true;
+
+    button.innerHTML =
+        "UPLOADING...";
+
+
+    /* Fake upload animation */
+
+    setTimeout(() => {
+
+        document
+            .getElementById("inputs")
+            .style.display =
+            "none";
+
+        document
+            .getElementById("success")
+            .style.display =
+            "block";
+
+    },1800);
+
+}
+
+</script>
 
 </body>
 </html>
